@@ -215,6 +215,20 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 .pw-field input:focus{outline:none;border-color:var(--gold)}
 .pw-err{font-size:.76rem;color:var(--red);margin-top:6px;display:none}
 .pw-err.on{display:block}
+/* cancel confirm modal */
+.cancel-overlay{display:none;position:fixed;inset:0;background:rgba(26,26,46,.55);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.cancel-overlay.on{display:flex}
+.cancel-box{background:#fff;border-radius:8px;padding:36px 32px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.18)}
+.cancel-box-icon{font-size:2rem;margin-bottom:12px;text-align:center}
+.cancel-box h3{font-family:'Noto Serif JP',serif;font-size:1.05rem;font-weight:600;text-align:center;margin-bottom:10px;color:var(--ink)}
+.cancel-box-body{font-size:.83rem;color:var(--slate);line-height:1.9;margin-bottom:6px}
+.cancel-box-note{background:#fef2f2;border-left:3px solid #fca5a5;border-radius:0 4px 4px 0;padding:10px 14px;font-size:.78rem;color:#dc2626;margin:14px 0 22px;line-height:1.8}
+.cancel-box-btns{display:flex;gap:10px;flex-direction:column}
+.cancel-box-btns button{width:100%;padding:11px;border-radius:4px;font-size:.84rem;font-family:inherit;cursor:pointer;font-weight:500;transition:all .2s}
+.cancel-confirm-btn{background:#dc2626;border:1px solid #dc2626;color:#fff}
+.cancel-confirm-btn:hover{background:#b91c1c}
+.cancel-back-btn{background:#fff;border:1px solid var(--border);color:var(--ink2)}
+.cancel-back-btn:hover{border-color:var(--gold);color:var(--gold)}
 @media(max-width:600px){.acct-row{flex-direction:column;align-items:flex-start;gap:6px}.acct-label{width:auto}.acct-btn-group{width:100%}.acct-btn{flex:1;text-align:center}}
 
 .apanel{display:none}
@@ -867,6 +881,24 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
   </div>
 </div>
 
+<!-- CANCEL CONFIRM MODAL -->
+<div class="cancel-overlay" id="cancel-modal">
+  <div class="cancel-box">
+    <div class="cancel-box-icon">⚠️</div>
+    <h3>プランを解約しますか？</h3>
+    <p class="cancel-box-body">解約手続きを行うと、次回更新日をもってプロプランが終了します。</p>
+    <div class="cancel-box-note">
+      ・解約後も<strong id="cancel-modal-date">次回更新日</strong>までは引き続きプロプランをご利用いただけます<br>
+      ・更新日以降は無料プラン（月5件）に自動的に切り替わります<br>
+      ・この操作はいつでもキャンセルできます
+    </div>
+    <div class="cancel-box-btns">
+      <button class="cancel-confirm-btn" onclick="confirmCancelPlan()">解約を確定する</button>
+      <button class="cancel-back-btn" onclick="closeCancelModal()">キャンセル（プランを続ける）</button>
+    </div>
+  </div>
+</div>
+
 <!-- UPGRADE MODAL -->
 <div class="upg-overlay" id="upg-modal">
   <div class="upg-box">
@@ -1432,8 +1464,19 @@ function cancelPlan() {
   if (!me) return;
   const u = users[me.email];
   if (!u.isPro) return;
-  if (!confirm('プランを解約してもよいですか？\n解約後は次回更新日まで引き続きご利用いただけます。')) return;
-  u.cancelScheduled = true; save(); renderAcct();
+  const rd = u.renewDate ? new Date(u.renewDate) : calcNextRenewal(u.joinDate);
+  document.getElementById('cancel-modal-date').textContent = formatDate(rd);
+  document.getElementById('cancel-modal').classList.add('on');
+}
+function closeCancelModal() {
+  document.getElementById('cancel-modal').classList.remove('on');
+}
+function confirmCancelPlan() {
+  if (!me) return;
+  const u = users[me.email];
+  u.cancelScheduled = true; save();
+  closeCancelModal();
+  renderAcct();
   toast('解約を受け付けました。次回更新日に自動停止します。');
 }
 function togglePwForm() {
