@@ -566,11 +566,11 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">いつでも解約できますか？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans">はい、いつでも解約いただけます。解約後は次回更新日まで有料プランをご利用いただけます。日割り返金は対応しておりません。<a href="/cdn-cgi/l/email-protection#01687660696073742f353333416e74756d6e6e6a2f6b71">お問い合わせ</a>よりご連絡ください。</div>
+            <div class="faq-ans">はい、いつでも解約いただけます。解約後は次回更新日まで有料プランをご利用いただけます。日割り返金は対応しておりません。<a href="mailto:iwaharu.422@outlook.jp">お問い合わせ</a>よりご連絡ください。</div>
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">領収書・適格請求書は発行されますか？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans">Stripeが発行する決済明細をご利用いただけます。インボイス対応の適格請求書が必要な場合は、<a href="/cdn-cgi/l/email-protection#741d03151c1506015a404646341b0100181b1b1f5a1e04">お問い合わせ</a>ください。</div>
+            <div class="faq-ans">Stripeが発行する決済明細をご利用いただけます。インボイス対応の適格請求書が必要な場合は、<a href="mailto:iwaharu.422@outlook.jp">お問い合わせ</a>ください。</div>
           </div>
         </div>
 
@@ -624,11 +624,11 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
   <footer>
     <div class="logo">Intake<span>AI</span></div>
     <div class="footer-links">
-      <a class="footer-link" href="./privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>
-      <a class="footer-link" href="./terms.html" target="_blank" rel="noopener">利用規約</a>
-      <a class="footer-link" href="./tokusho.html" target="_blank" rel="noopener">特定商取引法に基づく表記</a>
-      <a class="footer-link" href="./refund.html" target="_blank" rel="noopener">返金ポリシー</a>
-      <a class="footer-link" href="./antisocial.html" target="_blank" rel="noopener">反社会的勢力への基本方針</a>
+      <a class="footer-link" href="/privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>
+      <a class="footer-link" href="/terms.html" target="_blank" rel="noopener">利用規約</a>
+      <a class="footer-link" href="/tokusho.html" target="_blank" rel="noopener">特定商取引法に基づく表記</a>
+      <a class="footer-link" href="/refund.html" target="_blank" rel="noopener">返金ポリシー</a>
+      <a class="footer-link" href="/antisocial.html" target="_blank" rel="noopener">反社会的勢力への基本方針</a>
     </div>
     <p>© 2025 IntakeAI. All rights reserved.</p>
   </footer>
@@ -1281,7 +1281,7 @@ function save() { localStorage.setItem('iai_users', JSON.stringify(users)); }
 function toast(msg) {
   const el = document.getElementById('toast');
   el.textContent = msg; el.classList.add('on');
-  setTimeout(() => el.classList.remove('on'), 2800);
+  setTimeout(() => el.classsList.remove('on'), 2800);
 }
 
 // ── upgrade modal bg click ─────────────
