@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IntakeAI – 初回相談メモをすばやく整理</title>
+<!-- =====================================================
+     Google Analytics 4
+     測定ID: G-8F7LVCTWX0
+           例）G-XXXXXXXXXX
+     ===================================================== -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8F7LVCTWX0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8F7LVCTWX0');
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -327,7 +339,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
         <div class="eyebrow">AI Legal Assistant</div>
         <h1>初回相談メモを<br><em>すばやく整理</em></h1>
         <p class="hero-sub">相談メモを入力すると、AIが<strong>事実関係・依頼者の主張・想定される論点・追加で確認すべき事項</strong>に自動で整理します。弁護士の初回面談後の情報整理を、数分で完了。</p>
-        <button class="btn-gold" onclick="go('auth','register')">無料で試す</button>
+        <button class="btn-gold" onclick="track('click_try_free',{location:'hero'});go('auth','register')">無料で試す</button>
       </div>
       <div class="fade-up">
         <div class="mock">
@@ -426,7 +438,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
             <li class="dim">✗ 無制限利用</li>
             <li class="dim">✗ 優先サポート</li>
           </ul>
-          <button class="btn-plan-free" onclick="go('auth','register')">無料で始める →</button>
+          <button class="btn-plan-free" onclick="track('click_try_free',{location:'pricing'});go('auth','register')">無料で始める →</button>
         </div>
         <div class="pricing-card featured">
           <div class="plan-rec">おすすめ</div>
@@ -450,7 +462,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
     <h2>まずは試してみる</h2>
     <p>アカウント登録は1分。クレジットカード不要。</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2">
-      <button class="btn-cta" onclick="go('auth','register')">無料で試す</button>
+      <button class="btn-cta" onclick="track('click_try_free',{location:'cta'});go('auth','register')">無料で試す</button>
       <a class="btn-cta-stripe" href="https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00" target="_blank" rel="noopener">有料登録 ¥9,800/月</a>
     </div>
   </section>
@@ -586,7 +598,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           <div class="res-hd">
             <div class="res-ttl">AI整理結果</div>
             <div class="res-acts">
-              <button class="btn-pdf" onclick="exportPDF()">📄 PDFで保存</button>
+              <button class="btn-pdf" onclick="track('click_pdf_download');exportPDF()">📄 PDFで保存</button>
               <span style="font-size:.72rem;color:var(--slate);display:flex;align-items:center;gap:4px">✅ 自動保存済み</span>
             </div>
           </div>
@@ -639,6 +651,15 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 <div class="toast" id="toast"></div>
 
 <script>
+// ── analytics ─────────────────────────
+function track(eventName, params) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, params || {});
+  }
+}
+// LP閲覧（ページ読み込み時に即送信）
+track('page_view_lp');
+
 // ── state ──────────────────────────────
 let users = JSON.parse(localStorage.getItem('iai_users') || '{}');
 let me = null;
@@ -768,6 +789,9 @@ async function analyze() {
   const isPro = u.isPro || false;
   if (!isPro && (u.usageCount || 0) >= 5) { openUpgrade(); return; }
 
+  track('click_analyze', { plan: isPro ? 'pro' : 'free' });
+  track('input_consultation', { char_count: memo.length, plan: isPro ? 'pro' : 'free' });
+
   document.getElementById('res-wrap').style.display = 'block';
   document.getElementById('res-loading').style.display = 'block';
   document.getElementById('res-card').style.display = 'none';
@@ -813,6 +837,7 @@ async function analyze() {
     const text = data.content.map(c => c.text || '').join('');
     const parsed = JSON.parse(text.replace(/```json|```/g, '').trim());
     result = { memo, ...parsed, date: new Date().toISOString(), isPro };
+    track('analyze_success', { plan: isPro ? 'pro' : 'free' });
   } catch {
     if (isPro) {
       result = {
