@@ -573,7 +573,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 
           <div class="faq-item">
             <button class="faq-q" onclick="toggleFaq(this)">領収書・適格請求書は発行されますか？<span class="arrow">▼</span></button>
-            <div class="faq-a">Stripeが発行する決済明細をご利用いただけます。インボイス対応の適格請求書が必要な場合は、<a href="mailto:iwaharu.422@outlook.jp">お問い合わせ</a>ください。</div>
+            <div class="faq-a">Stripeが発行する決済明細をご利用いただけます。インボイス対応の適格請求書が必要な場合は、<a href="/cdn-cgi/l/email-protection#2c455b4d444d5e5902181e1e6c4359584043434702465c">お問い合わせ</a>ください。</div>
           </div>
         </div>
 
@@ -598,7 +598,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 
           <div class="faq-item">
             <button class="faq-q" onclick="toggleFaq(this)">問題が発生した場合の問い合わせ先は？<span class="arrow">▼</span></button>
-            <div class="faq-a"><a href="mailto:iwaharu.422@outlook.jp">iwaharu.422@outlook.jp</a> までメールにてご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
+            <div class="faq-a"><a href="/cdn-cgi/l/email-protection#8fe6f8eee7eefdfaa1bbbdbdcfe0fafbe3e0e0e4a1e5ff"><span class="__cf_email__" data-cfemail="8be2fceae3eaf9fea5bfb9b9cbe4feffe7e4e4e0a5e1fb">[email&#160;protected]</span></a> までメールにてご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
           </div>
         </div>
 
@@ -633,6 +633,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
     <div class="footer-links">
       <a class="footer-link" href="./privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>
       <a class="footer-link" href="./terms.html" target="_blank" rel="noopener">利用規約</a>
+      <a class="footer-link" href="./antisocial.html" target="_blank" rel="noopener">反社会的勢力への基本方針</a>
     </div>
     <p>© 2025 IntakeAI. All rights reserved.</p>
   </footer>
@@ -808,7 +809,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── FAQ accordion ──────────────────────
 function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
@@ -1289,9 +1290,4 @@ document.getElementById('upg-modal').addEventListener('click', function(e) {
   if (e.target === this) closeUpgrade();
 });
 
-// ── scroll animations ──────────────────
-const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); }), {threshold:.1});
-document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
-</script>
-</body>
-</html>
+// ── scroll
