@@ -136,8 +136,7 @@ footer{background:var(--ink);padding:32px 48px;display:flex;align-items:center;j
 footer .logo{color:#fff}
 footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 
-.fade-up{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
-.fade-up.on{opacity:1;transform:none}
+.fade-up{opacity:1;transform:none}
 
 /* ══════════════════════════════
    AUTH SCREEN
@@ -557,11 +556,11 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">いつでも解約できますか？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans">はい、いつでも解約いただけます。解約後は次回更新日まで有料プランをご利用いただけます。日割り返金は対応しておりません。<a href="mailto:iwaharu.422@outlook.jp">お問い合わせ</a>よりご連絡ください。</div>
+            <div class="faq-ans">はい、いつでも解約いただけます。解約後は次回更新日まで有料プランをご利用いただけます。日割り返金は対応しておりません。<a href="/cdn-cgi/l/email-protection#01687660696073742f353333416e74756d6e6e6a2f6b71">お問い合わせ</a>よりご連絡ください。</div>
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">領収書・適格請求書は発行されますか？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans">Stripeが発行する決済明細をご利用いただけます。インボイス対応の適格請求書が必要な場合は、<a href="mailto:iwaharu.422@outlook.jp">お問い合わせ</a>ください。</div>
+            <div class="faq-ans">Stripeが発行する決済明細をご利用いただけます。インボイス対応の適格請求書が必要な場合は、<a href="/cdn-cgi/l/email-protection#741d03151c1506015a404646341b0100181b1b1f5a1e04">お問い合わせ</a>ください。</div>
           </div>
         </div>
 
@@ -582,7 +581,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">問題が発生した場合の問い合わせ先は？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans"><a href="mailto:iwaharu.422@outlook.jp">iwaharu.422@outlook.jp</a> までご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
+            <div class="faq-ans"><a href="/cdn-cgi/l/email-protection#224b55434a4350570c161010624d57564e4d4d490c4852"><span class="__cf_email__" data-cfemail="11786670797063643f252323517e64657d7e7e7a3f7b61">[email&#160;protected]</span></a> までご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
           </div>
         </div>
 
@@ -793,7 +792,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── FAQ accordion ──────────────────────
 function faqOpen(btn) {
   const item = btn.closest('.faq-item');
@@ -801,6 +800,20 @@ function faqOpen(btn) {
   item.closest('.faq-cats').querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
 }
+
+// ── fade-up observer ───────────────────
+(function(){
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
+  }, {threshold:0.1});
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  // LP画面に戻ったときも再実行
+  document.addEventListener('click', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    }, 100);
+  });
+})();
 
 // ── analytics ─────────────────────────
 function track(eventName, params) {
@@ -1270,12 +1283,4 @@ function toast(msg) {
 
 // ── upgrade modal bg click ─────────────
 document.getElementById('upg-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeUpgrade();
-});
-
-// ── scroll animations ──────────────────
-const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); }), {threshold:.1});
-document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
-</script>
-</body>
-</html>
+  if (e.target ==
