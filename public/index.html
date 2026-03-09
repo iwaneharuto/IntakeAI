@@ -46,7 +46,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 ══════════════════════════════ */
 /* hero */
 .hero{min-height:100vh;display:flex;align-items:center;padding:140px 48px 80px;background:var(--cream);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:0;right:0;width:55%;height:100%;background:linear-gradient(135deg,#eee8de,#e0d6c8);clip-path:polygon(12% 0,100% 0,100% 100%,0 100%)}
+.hero::before{content:'';position:absolute;top:0;right:0;width:55%;height:100%;background:linear-gradient(135deg,#eee8de,#e0d6c8);clip-path:polygon(12% 0,100% 0,100% 100%,0 100%);pointer-events:none}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;max-width:1200px;margin:0 auto;align-items:center;position:relative;z-index:1}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:500;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
 .eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
