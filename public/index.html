@@ -189,6 +189,33 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 .app-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:28px}
 .atab{padding:11px 24px;font-size:.82rem;font-weight:500;color:var(--slate);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit}
 .atab.on{color:var(--gold);border-bottom:2px solid var(--gold)}
+/* ── account settings ────────────────── */
+.acct-section{background:#fff;border:1px solid var(--border);border-radius:6px;padding:28px 32px;margin-bottom:20px}
+.acct-section h3{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:600;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);color:var(--ink2)}
+.acct-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0ece6;font-size:.85rem}
+.acct-row:last-child{border-bottom:none;padding-bottom:0}
+.acct-label{color:var(--slate);font-size:.78rem;width:140px;flex-shrink:0}
+.acct-val{color:var(--ink);font-weight:500;flex:1}
+.acct-badge-pro{display:inline-block;background:#fdf6e9;color:var(--gold);border:1px solid #e8d5a3;border-radius:3px;padding:2px 10px;font-size:.72rem;font-weight:600;letter-spacing:.04em}
+.acct-badge-free{display:inline-block;background:#f3f4f6;color:var(--slate);border:1px solid var(--border);border-radius:3px;padding:2px 10px;font-size:.72rem;font-weight:600}
+.acct-btn{padding:9px 20px;border-radius:4px;font-size:.8rem;font-family:inherit;cursor:pointer;transition:all .2s;font-weight:500}
+.acct-btn-outline{background:#fff;border:1px solid var(--border);color:var(--ink2)}
+.acct-btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.acct-btn-gold{background:var(--gold);border:1px solid var(--gold);color:#fff}
+.acct-btn-gold:hover{background:#a07840}
+.acct-btn-danger{background:#fff;border:1px solid #fca5a5;color:#dc2626}
+.acct-btn-danger:hover{background:#fef2f2}
+.acct-btn-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.acct-divider{height:1px;background:var(--border);margin:6px 0}
+.pw-form{display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+.pw-form.on{display:block}
+.pw-field{margin-bottom:12px}
+.pw-field label{display:block;font-size:.76rem;color:var(--slate);margin-bottom:5px}
+.pw-field input{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:4px;font-size:.84rem;font-family:inherit;background:var(--cream)}
+.pw-field input:focus{outline:none;border-color:var(--gold)}
+.pw-err{font-size:.76rem;color:var(--red);margin-top:6px;display:none}
+.pw-err.on{display:block}
+@media(max-width:600px){.acct-row{flex-direction:column;align-items:flex-start;gap:6px}.acct-label{width:auto}.acct-btn-group{width:100%}.acct-btn{flex:1;text-align:center}}
 
 .apanel{display:none}
 .apanel.on{display:block}
@@ -566,11 +593,11 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">いつでも解約できますか？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans">はい、いつでも解約いただけます。解約後は次回更新日まで有料プランをご利用いただけます。日割り返金は対応しておりません。<a href="mailto:iwaharu.422@outlook.jp">お問い合わせ</a>よりご連絡ください。</div>
+            <div class="faq-ans">はい、いつでも解約いただけます。解約後は次回更新日まで有料プランをご利用いただけます。日割り返金は対応しておりません。<a href="/cdn-cgi/l/email-protection#761f01171e17040358424444361903021a19191d581c06">お問い合わせ</a>よりご連絡ください。</div>
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">領収書・適格請求書は発行されますか？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans">Stripeが発行する決済明細をご利用いただけます。インボイス対応の適格請求書が必要な場合は、<a href="mailto:iwaharu.422@outlook.jp">お問い合わせ</a>ください。</div>
+            <div class="faq-ans">Stripeが発行する決済明細をご利用いただけます。インボイス対応の適格請求書が必要な場合は、<a href="/cdn-cgi/l/email-protection#1f76687e777e6d6a312b2d2d5f706a6b7370707431756f">お問い合わせ</a>ください。</div>
           </div>
         </div>
 
@@ -591,7 +618,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">問題が発生した場合の問い合わせ先は？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans"><a href="mailto:iwaharu.422@outlook.jp">iwaharu.422@outlook.jp</a> までご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
+            <div class="faq-ans"><a href="/cdn-cgi/l/email-protection#9df4eafcf5fcefe8b3a9afafddf2e8e9f1f2f2f6b3f7ed"><span class="__cf_email__" data-cfemail="620b15030a0310174c565050220d17160e0d0d094c0812">[email&#160;protected]</span></a> までご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
           </div>
         </div>
 
@@ -711,6 +738,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
     <div class="app-tabs">
       <button class="atab on" id="atab-inp" onclick="appTab('inp')">✍️ 新規整理</button>
       <button class="atab" id="atab-hist" onclick="appTab('hist')">📂 履歴</button>
+      <button class="atab" id="atab-acct" onclick="appTab('acct')">⚙️ アカウント</button>
     </div>
 
     <!-- 入力パネル -->
@@ -769,6 +797,72 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
     <!-- 履歴パネル -->
     <div class="apanel" id="panel-hist">
       <div id="hist-body"></div>
+    </div>
+    <!-- アカウント設定パネル -->
+    <div class="apanel" id="panel-acct">
+      <!-- プラン情報 -->
+      <div class="acct-section">
+        <h3>ご利用プラン</h3>
+        <div class="acct-row">
+          <span class="acct-label">メールアドレス</span>
+          <span class="acct-val" id="acct-email">—</span>
+        </div>
+        <div class="acct-row">
+          <span class="acct-label">現在のプラン</span>
+          <span class="acct-val" id="acct-plan-badge">—</span>
+        </div>
+        <div class="acct-row" id="acct-renewal-row">
+          <span class="acct-label">次回更新日</span>
+          <span class="acct-val" id="acct-renewal">—</span>
+        </div>
+        <div class="acct-row" id="acct-cancel-sched-row" style="display:none">
+          <span class="acct-label">解約予定日</span>
+          <span class="acct-val" id="acct-cancel-date" style="color:#dc2626">—</span>
+        </div>
+      </div>
+
+      <!-- 請求・プラン操作 -->
+      <div class="acct-section">
+        <h3>請求・プラン操作</h3>
+        <div class="acct-btn-group">
+          <button class="acct-btn acct-btn-outline" onclick="openBilling()">💳 請求情報を確認する</button>
+          <button class="acct-btn acct-btn-gold" id="acct-upgrade-btn" onclick="openUpgrade()" style="display:none">✨ プロプランに登録</button>
+          <button class="acct-btn acct-btn-outline" id="acct-cancel-btn" onclick="cancelPlan()">プランを解約する</button>
+        </div>
+        <p style="font-size:.74rem;color:var(--slate);margin-top:12px">※ 解約後は次回更新日まで引き続き有料機能をご利用いただけます。</p>
+      </div>
+
+      <!-- パスワード変更 -->
+      <div class="acct-section">
+        <h3>パスワードを変更する</h3>
+        <button class="acct-btn acct-btn-outline" onclick="togglePwForm()">🔑 パスワード変更フォームを開く</button>
+        <div class="pw-form" id="pw-form">
+          <div class="pw-field">
+            <label>現在のパスワード</label>
+            <input type="password" id="pw-current" placeholder="現在のパスワード">
+          </div>
+          <div class="pw-field">
+            <label>新しいパスワード（8文字以上）</label>
+            <input type="password" id="pw-new" placeholder="新しいパスワード">
+          </div>
+          <div class="pw-field">
+            <label>新しいパスワード（確認）</label>
+            <input type="password" id="pw-confirm" placeholder="確認用パスワード">
+          </div>
+          <div class="pw-err" id="pw-err"></div>
+          <div class="acct-btn-group" style="margin-top:4px">
+            <button class="acct-btn acct-btn-gold" onclick="changePassword()">変更を保存</button>
+            <button class="acct-btn acct-btn-outline" onclick="togglePwForm()">キャンセル</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- アカウント削除 -->
+      <div class="acct-section">
+        <h3 style="color:#dc2626">アカウント削除</h3>
+        <p style="font-size:.83rem;color:var(--slate);margin-bottom:16px">アカウントを削除すると、すべての相談履歴・設定が完全に消去されます。この操作は取り消せません。</p>
+        <button class="acct-btn acct-btn-danger" onclick="deleteAccount()">🗑 アカウントを削除する</button>
+      </div>
     </div>
   </div>
 </div>
@@ -936,11 +1030,12 @@ function closeUpgrade() {
 
 // ── app tabs ───────────────────────────
 function appTab(t) {
-  ['inp','hist'].forEach(x => {
+  ['inp','hist','acct'].forEach(x => {
     document.getElementById('atab-' + x).classList.toggle('on', x === t);
     document.getElementById('panel-' + x).classList.toggle('on', x === t);
   });
   if (t === 'hist') renderHist();
+  if (t === 'acct') renderAcct();
 }
 
 // ── analyze ────────────────────────────
@@ -1283,6 +1378,93 @@ function toast(msg) {
 document.getElementById('upg-modal').addEventListener('click', function(e) {
   if (e.target == this) closeUpgrade();
 });
+
+// ── account settings ───────────────────
+function renderAcct() {
+  if (!me) return;
+  const u = users[me.email];
+  const isPro = u.isPro || false;
+  const cancelScheduled = u.cancelScheduled || false;
+  document.getElementById('acct-email').textContent = me.email;
+  const badge = document.getElementById('acct-plan-badge');
+  badge.innerHTML = isPro
+    ? '<span class="acct-badge-pro">✨ プロプラン</span>'
+    : '<span class="acct-badge-free">無料プラン（月5件）</span>';
+  const renewRow = document.getElementById('acct-renewal-row');
+  const renewEl  = document.getElementById('acct-renewal');
+  const cancelRow = document.getElementById('acct-cancel-sched-row');
+  const cancelDateEl = document.getElementById('acct-cancel-date');
+  if (isPro) {
+    const rd = u.renewDate ? new Date(u.renewDate) : calcNextRenewal(u.joinDate);
+    renewEl.textContent = formatDate(rd);
+    renewRow.style.display = '';
+    if (cancelScheduled) {
+      cancelRow.style.display = '';
+      cancelDateEl.textContent = formatDate(rd) + '（解約予定）';
+    } else { cancelRow.style.display = 'none'; }
+  } else {
+    renewRow.style.display = 'none';
+    cancelRow.style.display = 'none';
+  }
+  document.getElementById('acct-upgrade-btn').style.display = isPro ? 'none' : '';
+  const cancelBtn = document.getElementById('acct-cancel-btn');
+  if (!isPro) { cancelBtn.style.display = 'none'; }
+  else if (cancelScheduled) { cancelBtn.textContent = '解約申請済み'; cancelBtn.disabled = true; cancelBtn.style.display = ''; }
+  else { cancelBtn.textContent = 'プランを解約する'; cancelBtn.disabled = false; cancelBtn.style.display = ''; }
+}
+function calcNextRenewal(joinDate) {
+  const base = joinDate ? new Date(joinDate) : new Date();
+  const now = new Date(); const next = new Date(base);
+  while (next <= now) next.setMonth(next.getMonth() + 1);
+  return next;
+}
+function formatDate(d) {
+  if (!d) return '—';
+  const dt = new Date(d);
+  return dt.getFullYear() + '年' + (dt.getMonth()+1) + '月' + dt.getDate() + '日';
+}
+function openBilling() {
+  window.open('https://billing.stripe.com/p/login/test_placeholder', '_blank');
+  toast('Stripeの請求ポータルに遷移します');
+}
+function openUpgrade() { window.open('https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00', '_blank'); }
+function cancelPlan() {
+  if (!me) return;
+  const u = users[me.email];
+  if (!u.isPro) return;
+  if (!confirm('プランを解約してもよいですか？\n解約後は次回更新日まで引き続きご利用いただけます。')) return;
+  u.cancelScheduled = true; save(); renderAcct();
+  toast('解約を受け付けました。次回更新日に自動停止します。');
+}
+function togglePwForm() {
+  const f = document.getElementById('pw-form');
+  f.classList.toggle('on');
+  if (!f.classList.contains('on')) {
+    ['pw-current','pw-new','pw-confirm'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('pw-err').classList.remove('on');
+  }
+}
+function changePassword() {
+  if (!me) return;
+  const cur = document.getElementById('pw-current').value;
+  const nw  = document.getElementById('pw-new').value;
+  const conf= document.getElementById('pw-confirm').value;
+  const err = document.getElementById('pw-err');
+  const u = users[me.email];
+  err.classList.remove('on');
+  if (!cur||!nw||!conf){err.textContent='すべての項目を入力してください';err.classList.add('on');return;}
+  if (u.pass!==cur){err.textContent='現在のパスワードが正しくありません';err.classList.add('on');return;}
+  if (nw.length<8){err.textContent='新しいパスワードは8文字以上にしてください';err.classList.add('on');return;}
+  if (nw!==conf){err.textContent='パスワードが一致しません';err.classList.add('on');return;}
+  u.pass=nw; save(); togglePwForm(); toast('パスワードを変更しました');
+}
+function deleteAccount() {
+  if (!me) return;
+  if (!confirm('アカウントを削除してもよいですか？\nすべての相談履歴・設定が完全に消去されます。\nこの操作は取り消せません。')) return;
+  if (!confirm('本当に削除しますか？この操作は元に戻せません。')) return;
+  delete users[me.email]; save();
+  me=null; result=null; go('lp'); toast('アカウントを削除しました');
+}
 </script>
 </body>
 </html>
