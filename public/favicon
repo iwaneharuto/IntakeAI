@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- White background -->
+  <rect width="512" height="512" fill="#ffffff"/>
+
+  <!-- Scale beam (horizontal bar) -->
+  <rect x="196" y="172" width="120" height="14" rx="7" fill="#1A4FBE"/>
+
+  <!-- Center pillar -->
+  <rect x="249" y="172" width="14" height="180" rx="7" fill="#1A4FBE"/>
+
+  <!-- Left pan string -->
+  <line x1="206" y1="186" x2="170" y2="240" stroke="#1A4FBE" stroke-width="8" stroke-linecap="round"/>
+  <line x1="170" y1="240" x2="134" y2="240" stroke="#1A4FBE" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Right pan string -->
+  <line x1="306" y1="186" x2="342" y2="240" stroke="#1A4FBE" stroke-width="8" stroke-linecap="round"/>
+  <line x1="342" y1="240" x2="378" y2="240" stroke="#1A4FBE" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Left pan -->
+  <path d="M118 240 Q152 278 186 240" fill="none" stroke="#1A4FBE" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Right pan (slightly lower - balanced feel) -->
+  <path d="M326 240 Q360 278 394 240" fill="none" stroke="#1A4FBE" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Base stand -->
+  <rect x="228" y="348" width="56" height="14" rx="7" fill="#1A4FBE"/>
+  <rect x="188" y="358" width="136" height="16" rx="8" fill="#1A4FBE"/>
+
+  <!-- Top pivot dot -->
+  <circle cx="256" cy="172" r="10" fill="#2B6BE8"/>
+</svg>
