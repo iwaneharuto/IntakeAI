@@ -69,18 +69,8 @@ export default async function handler(req, res) {
 
     if (!anthropicRes.ok) {
       const errText = await anthropicRes.text().catch(() => '');
-      console.error(
-        `[IntakeAI] Anthropic API エラー\n` +
-        `  status : ${anthropicRes.status} ${anthropicRes.statusText}\n` +
-        `  model  : ${model}\n` +
-        `  isPro  : ${isPro}\n` +
-        `  body   : ${errText.slice(0, 400)}`
-      );
-      const isDev = process.env.NODE_ENV !== 'production';
-      return res.status(502).json({
-        error: 'upstream_error',
-        ...(isDev && { status: anthropicRes.status, detail: errText.slice(0, 200) }),
-      });
+      console.error('[IntakeAI] FULL_ANTHROPIC_ERROR=' + errText);
+      return res.status(502).json({ error: 'upstream_error_' + anthropicRes.status, detail: errText });
     }
 
     const data = await anthropicRes.json();
