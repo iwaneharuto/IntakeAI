@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /blog/
+Allow: /templates/
+
+Disallow: /api/
+
+Sitemap: https://intakeai.com/sitemap.xml
