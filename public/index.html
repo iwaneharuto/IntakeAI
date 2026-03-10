@@ -274,9 +274,9 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 
 /* ── PRICING ── */
 .pricing-sec{background:var(--cream);padding:100px 48px;border-top:1px solid var(--border)}
-.pricing-inner{max-width:1100px;margin:0 auto}
+.pricing-inner{max-width:1160px;margin:0 auto}
 .pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;width:100%}
-.pricing-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:24px 18px;position:relative;transition:box-shadow .3s}
+.pricing-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:22px 18px;position:relative;transition:box-shadow .3s}
 .pricing-card.featured{border:2px solid var(--gold);box-shadow:0 12px 40px rgba(184,151,90,.15)}
 .plan-rec{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:.68rem;font-weight:600;letter-spacing:.1em;padding:4px 16px;border-radius:20px;white-space:nowrap}
 .plan-badge{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:16px}
@@ -329,23 +329,11 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
   .pricing-sec{padding:64px 24px}
 }
 
-/* オフィス・チームプラン */
-.plan-users{font-size:.72rem;color:var(--slate);background:var(--cream);border-radius:3px;padding:3px 10px;display:inline-block;margin-bottom:14px;border:1px solid var(--border)}
-.pricing-card.office{border:2px solid #4a7c6f;box-shadow:0 8px 32px rgba(74,124,111,.12)}
-.pricing-card.team{border:2px solid #5a4a8a;box-shadow:0 8px 32px rgba(90,74,138,.12)}
-.plan-badge.office{color:#4a7c6f}
-.plan-badge.team{color:#5a4a8a}
-.plan-rec-office{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#4a7c6f;color:#fff;font-size:.68rem;font-weight:600;letter-spacing:.1em;padding:4px 16px;border-radius:20px;white-space:nowrap}
-.plan-rec-team{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#5a4a8a;color:#fff;font-size:.68rem;font-weight:600;letter-spacing:.1em;padding:4px 16px;border-radius:20px;white-space:nowrap}
-.btn-plan-office{display:block;width:100%;padding:14px;background:#4a7c6f;color:#fff;border:none;border-radius:3px;font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;text-align:center;text-decoration:none;letter-spacing:.04em}
-.btn-plan-office:hover{background:#3a6460}
-.btn-plan-team{display:block;width:100%;padding:14px;background:#5a4a8a;color:#fff;border:none;border-radius:3px;font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;text-align:center;text-decoration:none;letter-spacing:.04em}
-.btn-plan-team:hover{background:#4a3a7a}
-/* レスポンシブ */
-@media(max-width:1024px){.pricing-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.pricing-grid{grid-template-columns:1fr}}
-
-/* ─── アカウント・チーム 共通 ─── */
+/* ── チームプラン追加CSS ── */
+.pricing-sec{padding:80px 32px}
+@media(max-width:700px){.pricing-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.pricing-grid{grid-template-columns:1fr}}
+/* アプリ追加パネル */
 .apanel{display:none}.apanel.on{display:block}
 .sec-box{background:#fff;border:1px solid var(--border);border-radius:6px;padding:22px 26px;margin-bottom:14px}
 .sec-box h3{font-family:'Noto Serif JP',serif;font-size:.88rem;font-weight:600;color:var(--ink2);padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:14px}
@@ -363,62 +351,41 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 .ab-outline{background:#fff;border-color:var(--border);color:var(--ink2)}.ab-outline:hover{border-color:var(--gold);color:var(--gold)}
 .ab-gold{background:var(--gold);border-color:var(--gold);color:#fff}.ab-gold:hover{background:#a07840}
 .ab-danger{background:#fff;border-color:#fca5a5;color:#dc2626}.ab-danger:hover{background:#fef2f2}
-.ab-green{background:#4a7c6f;border-color:#4a7c6f;color:#fff}.ab-green:hover{background:#3a6460}
 .ab-group{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-/* パスワード変更 */
-.pw-form{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
-.pw-form.on{display:block}
-.field-sm{margin-bottom:9px}
-.field-sm label{display:block;font-size:.73rem;color:var(--slate);margin-bottom:3px}
-.field-sm input{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:4px;font-size:.82rem;font-family:inherit;background:var(--cream)}
-.field-sm input:focus{outline:none;border-color:var(--gold)}
+.pw-form{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}.pw-form.on{display:block}
+.field-sm{margin-bottom:9px}.field-sm label{display:block;font-size:.73rem;color:var(--slate);margin-bottom:3px}
+.field-sm input{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:4px;font-size:.82rem;font-family:inherit;background:var(--cream)}.field-sm input:focus{outline:none;border-color:var(--gold)}
 .ferr{font-size:.73rem;color:var(--red);margin-top:3px;display:none}.ferr.on{display:block}
-/* チーム管理 */
 .team-locked-msg{text-align:center;padding:40px 20px;color:var(--slate);font-size:.85rem}
-.team-name-wrap{display:flex;gap:8px;align-items:center}
-.team-name-wrap input{flex:1;padding:8px 11px;border:1px solid var(--border);border-radius:4px;font-size:.82rem;font-family:inherit;background:var(--cream)}
-.team-name-wrap input:focus{outline:none;border-color:var(--gold)}
-/* メンバーテーブル */
+.team-name-wrap{display:flex;gap:8px;align-items:center}.team-name-wrap input{flex:1;padding:8px 11px;border:1px solid var(--border);border-radius:4px;font-size:.82rem;font-family:inherit;background:var(--cream)}
 .mtable{width:100%;border-collapse:collapse;font-size:.8rem}
-.mtable th{background:var(--cream);padding:7px 10px;text-align:left;border-bottom:2px solid var(--border);font-size:.72rem;font-weight:600;color:var(--ink2);letter-spacing:.04em}
-.mtable td{padding:9px 10px;border-bottom:1px solid #f0ece6;vertical-align:middle}
-.mtable tr:last-child td{border-bottom:none}
+.mtable th{background:var(--cream);padding:7px 10px;text-align:left;border-bottom:2px solid var(--border);font-size:.72rem;font-weight:600;color:var(--ink2)}
+.mtable td{padding:9px 10px;border-bottom:1px solid #f0ece6;vertical-align:middle}.mtable tr:last-child td{border-bottom:none}
 .rbdg{font-size:.67rem;padding:2px 7px;border-radius:3px;font-weight:600}
 .rbdg-admin{background:#fdf6e9;color:var(--gold);border:1px solid #e8d5a3}
 .rbdg-member{background:#f3f4f6;color:var(--slate);border:1px solid var(--border)}
 .sbdg-active{font-size:.7rem;color:#16a34a;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:3px;padding:2px 7px}
 .sbdg-pending{font-size:.7rem;color:#d97706;background:#fffbeb;border:1px solid #fde68a;border-radius:3px;padding:2px 7px}
 .btn-del{background:none;border:1px solid #fca5a5;color:#dc2626;border-radius:3px;padding:3px 8px;font-size:.68rem;cursor:pointer;font-family:inherit}.btn-del:hover{background:#fef2f2}
-/* 招待フォーム */
 .inv-form{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-bottom:8px}
 .inv-form .fg{flex:1;min-width:140px}
 .inv-form label{display:block;font-size:.72rem;color:var(--slate);margin-bottom:3px}
-.inv-form input{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:4px;font-size:.81rem;font-family:inherit;background:var(--cream)}
-.inv-form input:focus{outline:none;border-color:var(--gold)}
+.inv-form input{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:4px;font-size:.82rem;font-family:inherit;background:var(--cream)}.inv-form input:focus{outline:none;border-color:var(--gold)}
 .inv-form button{padding:8px 16px;background:var(--ink);color:#fff;border:none;border-radius:4px;font-size:.78rem;font-family:inherit;cursor:pointer;align-self:flex-end;white-space:nowrap}.inv-form button:hover{background:var(--gold)}
 .terr{font-size:.73rem;color:var(--red);margin-top:4px;display:none}.terr.on{display:block}
-/* 利用状況 */
 .stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:8px}
 .stat-box{background:var(--cream);border:1px solid var(--border);border-radius:4px;padding:12px;text-align:center}
 .stat-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--ink);line-height:1}
 .stat-lbl{font-size:.69rem;color:var(--slate);margin-top:3px}
-/* キャンセルモーダル */
-.cmodal{display:none;position:fixed;inset:0;background:rgba(26,26,46,.55);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
-.cmodal.on{display:flex}
+.cmodal{display:none;position:fixed;inset:0;background:rgba(26,26,46,.55);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(3px)}.cmodal.on{display:flex}
 .cmodal-box{background:#fff;border-radius:8px;padding:28px 24px;max-width:380px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.18)}
-.cmodal-box h3{font-family:'Noto Serif JP',serif;font-size:.95rem;font-weight:600;text-align:center;margin-bottom:10px}
+.cmodal-box h3{font-family:'Noto Serif JP',serif;font-size:.95rem;text-align:center;margin-bottom:10px}
 .cmodal-body{font-size:.81rem;color:var(--slate);line-height:1.9;margin-bottom:12px}
 .cmodal-note{background:#fef2f2;border-left:3px solid #fca5a5;padding:8px 12px;font-size:.74rem;color:#dc2626;margin-bottom:16px;line-height:1.8}
 .cmodal-btns{display:flex;flex-direction:column;gap:8px}
 .cmodal-btns button{width:100%;padding:9px;border-radius:4px;font-size:.81rem;font-family:inherit;cursor:pointer;font-weight:500}
 .btn-ccancel{background:#dc2626;border:1px solid #dc2626;color:#fff}.btn-ccancel:hover{background:#b91c1c}
 .btn-cback{background:#fff;border:1px solid var(--border);color:var(--ink2)}.btn-cback:hover{border-color:var(--gold);color:var(--gold)}
-@media(max-width:600px){
-  .info-row{flex-direction:column;align-items:flex-start;gap:4px}
-  .info-lbl{width:auto}
-  .stat-grid{grid-template-columns:1fr 1fr}
-  .inv-form{flex-direction:column}
-}
 </style>
 </head>
 <body>
@@ -542,7 +509,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
         <!-- 無料プラン -->
         <div class="pricing-card">
           <div class="plan-badge free">無料プラン</div>
-          <div class="plan-users">1名</div>
           <div class="plan-price">¥0<span>/月</span></div>
           <ul class="plan-features">
             <li>✓ AI整理：月5件まで</li>
@@ -558,7 +524,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
         <div class="pricing-card featured">
           <div class="plan-rec">おすすめ</div>
           <div class="plan-badge pro">プロプラン</div>
-          <div class="plan-users">1名</div>
           <div class="plan-price">¥9,800<span>/月</span></div>
           <ul class="plan-features">
             <li>✓ AI整理：<strong>無制限</strong></li>
@@ -567,41 +532,37 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
             <li>✓ 関連条文の自動引用・判例参照</li>
             <li>✓ 優先サポート</li>
           </ul>
-          <a class="btn-plan-pro" href="https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00" target="_blank" rel="noopener">登録する →</a>
+          <a class="btn-plan-pro" href="https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00" target="_blank" rel="noopener">有料登録する（月額 ¥9,800）→</a>
           <div class="plan-note">🔒 Stripeの安全な決済ページへ</div>
         </div>
         <!-- オフィスプラン -->
-        <div class="pricing-card office">
-          <div class="plan-rec-office">複数名向け</div>
-          <div class="plan-badge office">オフィスプラン</div>
-          <div class="plan-users">3名まで</div>
-          <div class="plan-price">¥19,800<span>/月</span></div>
+        <div class="pricing-card">
+          <div class="plan-badge" style="color:#4a7c6f">オフィスプラン</div>
+          <div class="plan-price" style="font-size:2.2rem">¥19,800<span>/月</span></div>
           <ul class="plan-features">
             <li>✓ AI整理：<strong>無制限</strong></li>
             <li>✓ PDF出力</li>
             <li>✓ 履歴保存：<strong>無制限</strong></li>
             <li>✓ 関連条文の自動引用・判例参照</li>
             <li>✓ 優先サポート</li>
-            <li>✓ <strong>3名</strong>まで利用可能</li>
+            <li>✓ <strong>3名まで</strong>利用可能</li>
           </ul>
-          <a class="btn-plan-office" href="https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00" target="_blank" rel="noopener">登録する →</a>
+          <a class="btn-plan-pro" style="background:#4a7c6f" href="https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00" target="_blank" rel="noopener">登録する（¥19,800/月）→</a>
           <div class="plan-note">🔒 Stripeの安全な決済ページへ</div>
         </div>
         <!-- チームプラン -->
-        <div class="pricing-card team">
-          <div class="plan-rec-team">事務所全体向け</div>
-          <div class="plan-badge team">チームプラン</div>
-          <div class="plan-users">5名まで</div>
-          <div class="plan-price">¥39,800<span>/月</span></div>
+        <div class="pricing-card">
+          <div class="plan-badge" style="color:#5a4a8a">チームプラン</div>
+          <div class="plan-price" style="font-size:2.2rem">¥39,800<span>/月</span></div>
           <ul class="plan-features">
             <li>✓ AI整理：<strong>無制限</strong></li>
             <li>✓ PDF出力</li>
             <li>✓ 履歴保存：<strong>無制限</strong></li>
             <li>✓ 関連条文の自動引用・判例参照</li>
             <li>✓ 優先サポート</li>
-            <li>✓ <strong>5名</strong>まで利用可能</li>
+            <li>✓ <strong>5名まで</strong>利用可能</li>
           </ul>
-          <a class="btn-plan-team" href="https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00" target="_blank" rel="noopener">登録する →</a>
+          <a class="btn-plan-pro" style="background:#5a4a8a" href="https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00" target="_blank" rel="noopener">登録する（¥39,800/月）→</a>
           <div class="plan-note">🔒 Stripeの安全な決済ページへ</div>
         </div>
       </div>
@@ -778,16 +739,10 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
     <div class="apanel" id="panel-hist">
       <div id="hist-body"></div>
     </div>
-
-    <!-- ── アカウント設定パネル ── -->
-    <div class="apanel" id="panel-acct">
-      <div id="acct-body"></div>
-    </div>
-
-    <!-- ── チーム管理パネル ── -->
-    <div class="apanel" id="panel-team">
-      <div id="team-body"></div>
-    </div>
+    <!-- アカウント設定 -->
+    <div class="apanel" id="panel-acct"><div id="acct-body"></div></div>
+    <!-- チーム管理 -->
+    <div class="apanel" id="panel-team"><div id="team-body"></div></div>
   </div>
 </div>
 
@@ -795,20 +750,14 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 <div class="cmodal" id="cancel-modal">
   <div class="cmodal-box">
     <h3>プランを解約する</h3>
-    <div class="cmodal-body">
-      解約すると、<strong id="cancel-modal-date"></strong>をもって有料機能が停止します。<br>
-      それまでは引き続きすべての機能をご利用いただけます。
-    </div>
-    <div class="cmodal-note">
-      ⚠️ チームプランを解約すると、メンバー全員のアクセスが停止します。
-    </div>
+    <div class="cmodal-body">解約すると、<strong id="cancel-modal-date"></strong>をもって有料機能が停止します。それまでは引き続きすべての機能をご利用いただけます。</div>
+    <div class="cmodal-note">⚠️ チームプランを解約すると、メンバー全員のアクセスが停止します。</div>
     <div class="cmodal-btns">
       <button class="btn-ccancel" onclick="confirmCancelPlan()">解約を申し込む</button>
       <button class="btn-cback" onclick="closeCancelModal()">キャンセル</button>
     </div>
   </div>
 </div>
-
 <!-- UPGRADE MODAL -->
 <div class="upg-overlay" id="upg-modal">
   <div class="upg-box">
@@ -842,7 +791,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 
 <script>
 
-// ── 定数・プラン管理 ─────────────────────────────────────
+// ── 定数・プラン管理 ──────────────────────────────────
 const _D = atob('aXdhaGFydS40MjJAb3V0bG9vay5qcA==');
 const DEV_PLAN = 'team';
 const STRIPE_PORTAL = 'https://billing.stripe.com/p/login/14AbJ0ckfbeZ79V8fR4sE00';
@@ -851,80 +800,50 @@ const PLAN_LIMITS = { free:1, pro:1, office:3, team:5 };
 
 function getEffectivePlan(email) {
   if (email === _D) return DEV_PLAN;
-  const u = users[email];
-  if (!u) return 'free';
-  if (u.plan) return u.plan;
-  if (u.isPro) return 'pro';
-  return 'free';
+  const u = users[email]; if (!u) return 'free';
+  return u.plan || (u.isPro ? 'pro' : 'free');
 }
-function isProOrAbove(email) {
-  return ['pro','office','team'].includes(getEffectivePlan(email));
-}
-function isTeamPlan(email) {
-  return ['office','team'].includes(getEffectivePlan(email));
-}
+function isProOrAbove(email) { return ['pro','office','team'].includes(getEffectivePlan(email)); }
+function isTeamPlan(email)   { return ['office','team'].includes(getEffectivePlan(email)); }
 
-// ── ストレージ ───────────────────────────────────────────
+// ── Analytics ─────────────────────────────────────────
+function track(ev, p) { if (typeof gtag === 'function') gtag('event', ev, p || {}); }
+
+// ── ストレージ ─────────────────────────────────────────
 let users = JSON.parse(localStorage.getItem('iai_users') || '{}');
 let me = null, result = null;
-
 function save() { localStorage.setItem('iai_users', JSON.stringify(users)); }
 
-// チームデータ（管理者メールをキーに保存）
-function getTeamKey(adminEmail) { return 'iai_team_' + adminEmail; }
-
+// ── チームデータ ───────────────────────────────────────
 function loadTeam(adminEmail) {
-  const raw = localStorage.getItem(getTeamKey(adminEmail));
+  const raw = localStorage.getItem('iai_team_' + adminEmail);
   return raw ? JSON.parse(raw) : null;
 }
-
 function saveTeam(team) {
-  localStorage.setItem(getTeamKey(team.adminEmail), JSON.stringify(team));
+  localStorage.setItem('iai_team_' + team.adminEmail, JSON.stringify(team));
 }
-
 function initTeam(adminEmail) {
   const plan = getEffectivePlan(adminEmail);
   const u = users[adminEmail];
-  const team = {
-    adminEmail,
-    name: u?.officeName || '',
-    plan,
-    maxMembers: PLAN_LIMITS[plan] || 1,
-    members: [{ email: adminEmail, name: u?.name || '', role: 'admin', status: 'active', joinedAt: new Date().toISOString() }],
-    invites: [],
-    createdAt: new Date().toISOString()
-  };
-  saveTeam(team);
-  return team;
+  const team = { adminEmail, name: u?.officeName||'', plan, maxMembers: PLAN_LIMITS[plan]||3,
+    members: [{ email:adminEmail, name:u?.name||'', role:'admin', status:'active', joinedAt:new Date().toISOString() }],
+    invites: [], createdAt: new Date().toISOString() };
+  saveTeam(team); return team;
 }
-
-// 自分が所属するチームを探す
 function findMyTeam() {
   if (!me) return null;
-  // 自分がAdminのチーム
-  const own = loadTeam(me.email);
-  if (own) return own;
-  // 自分がメンバーのチーム
+  const own = loadTeam(me.email); if (own) return own;
   for (const key of Object.keys(localStorage)) {
     if (!key.startsWith('iai_team_')) continue;
     try {
       const t = JSON.parse(localStorage.getItem(key));
-      if (t.members?.some(m2 => m2.email === me.email && m2.status === 'active')) return t;
-      if (t.invites?.some(iv => iv.email === me.email)) return t;
+      if (t.members?.some(m2 => m2.email === me.email)) return t;
     } catch(e) {}
   }
   return null;
 }
 
-function isTeamAdmin() {
-  const t = findMyTeam();
-  return t?.adminEmail === me?.email;
-}
-
-// ── analytics ───────────────────────────────────────────
-function track(ev, p) { if (typeof gtag === 'function') gtag('event', ev, p || {}); }
-
-// ── 画面遷移 ────────────────────────────────────────────
+// ── 画面遷移 ──────────────────────────────────────────
 function go(screen, sub) {
   ['lp','auth','app'].forEach(s => {
     const el = document.getElementById('screen-' + s);
@@ -933,128 +852,96 @@ function go(screen, sub) {
   if (screen === 'auth') authTab(sub || 'login');
   if (screen === 'lp') window.scrollTo(0, 0);
 }
-
 function goSec(id) {
   go('lp');
-  setTimeout(() => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 50);
+  setTimeout(() => { const el = document.getElementById(id); if (el) el.scrollIntoView({behavior:'smooth',block:'start'}); }, 50);
 }
 
-// ── 認証タブ ─────────────────────────────────────────────
+// ── 認証 ──────────────────────────────────────────────
 function authTab(t) {
   ['reg','login'].forEach(x => {
-    const tb = document.getElementById('atab-' + x);
-    const fm = document.getElementById('form-' + x);
-    if (tb) tb.classList.toggle('on', x === t);
-    if (fm) fm.classList.toggle('on', x === t);
+    const tb = document.getElementById('atab-'+x), fm = document.getElementById('form-'+x);
+    if (tb) tb.classList.toggle('on', x===t);
+    if (fm) fm.classList.toggle('on', x===t);
   });
   clearErrs();
 }
+function clearErrs() { document.querySelectorAll('.ferr,.aerr').forEach(e => e.classList.remove('on')); }
+function err(id, msg) { const el = document.getElementById(id); if (el) { el.textContent=msg; el.classList.add('on'); } }
 
-function clearErrs() {
-  document.querySelectorAll('.ferr, .aerr').forEach(e => e.classList.remove('on'));
-}
-
-function err(id, msg) {
-  const el = document.getElementById(id);
-  if (el) { el.textContent = msg; el.classList.add('on'); }
-}
-
-// ── 登録 ────────────────────────────────────────────────
 function register() {
-  const name  = document.getElementById('reg-name')?.value.trim() || '';
-  const email = document.getElementById('reg-email')?.value.trim() || '';
-  const pass  = document.getElementById('reg-pass')?.value || '';
+  const name  = document.getElementById('reg-name')?.value.trim()||'';
+  const email = document.getElementById('reg-email')?.value.trim()||'';
+  const pass  = document.getElementById('reg-pass')?.value||'';
   clearErrs();
   if (!name)  return err('e-reg-name',  '氏名を入力してください');
   if (!email) return err('e-reg-email', 'メールアドレスを入力してください');
   if (pass.length < 8) return err('e-reg-pass', '8文字以上で入力してください');
   if (users[email]) return err('e-reg-email', 'このメールアドレスは既に登録されています');
-  users[email] = { name, email, pass, history: [], usageCount: 0, monthKey: '', isPro: false, plan: '' };
+  users[email] = { name, email, pass, history:[], usageCount:0, monthKey:'', isPro:false, plan:'' };
   save();
   // 招待があれば自動承認
-  acceptPendingInvite(email, name);
-  enterApp(users[email]);
-  track('sign_up');
-}
-
-function acceptPendingInvite(email, name) {
   for (const key of Object.keys(localStorage)) {
     if (!key.startsWith('iai_team_')) continue;
     try {
       const t = JSON.parse(localStorage.getItem(key));
       const inv = t.invites?.find(iv => iv.email === email);
-      if (inv) {
-        t.invites = t.invites.filter(iv => iv.email !== email);
-        t.members.push({ email, name, role: 'member', status: 'active', joinedAt: new Date().toISOString() });
-        localStorage.setItem(key, JSON.stringify(t));
-      }
+      if (inv) { t.invites = t.invites.filter(iv=>iv.email!==email); t.members.push({email,name,role:'member',status:'active',joinedAt:new Date().toISOString()}); localStorage.setItem(key,JSON.stringify(t)); }
     } catch(e) {}
   }
+  enterApp(users[email]); track('sign_up');
 }
 
-// ── ログイン ─────────────────────────────────────────────
 function doLogin() {
-  const email = document.getElementById('login-email')?.value.trim() || '';
-  const pass  = document.getElementById('login-pass')?.value || '';
+  const email = document.getElementById('login-email')?.value.trim()||'';
+  const pass  = document.getElementById('login-pass')?.value||'';
   clearErrs();
-  if (!email) return err('e-login-email', 'メールアドレスを入力してください');
-  if (!pass)  return err('e-login-pass',  'パスワードを入力してください');
-  if (!users[email] || users[email].pass !== pass) return err('e-login-pass', 'メールアドレスまたはパスワードが正しくありません');
-  enterApp(users[email]);
-  track('login');
+  if (!email) return err('e-login-email','メールアドレスを入力してください');
+  if (!pass)  return err('e-login-pass', 'パスワードを入力してください');
+  if (!users[email] || users[email].pass !== pass) return err('e-login-pass','メールアドレスまたはパスワードが正しくありません');
+  enterApp(users[email]); track('login');
 }
+function logout() { me=null; result=null; go('lp'); toast('ログアウトしました'); }
 
-function logout() { me = null; result = null; go('lp'); toast('ログアウトしました'); }
-
-// ── アプリ入室 ───────────────────────────────────────────
+// ── アプリ入室 ────────────────────────────────────────
 function enterApp(u) {
   me = u;
   document.getElementById('uname').textContent = u.name + ' さん';
   go('app');
-  // チームタブ表示制御
   const tt = document.getElementById('atab-team');
   if (tt) tt.style.display = isTeamPlan(u.email) ? '' : 'none';
-  appTab('inp');
-  updateUsageBar();
+  appTab('inp'); updateUsageBar();
 }
 
-// ── アプリタブ ───────────────────────────────────────────
 function appTab(t) {
   ['inp','hist','acct','team'].forEach(x => {
-    const tb = document.getElementById('atab-' + x);
-    const pn = document.getElementById('panel-' + x);
-    if (tb) tb.classList.toggle('on', x === t);
-    if (pn) pn.classList.toggle('on', x === t);
+    const tb = document.getElementById('atab-'+x), pn = document.getElementById('panel-'+x);
+    if (tb) tb.classList.toggle('on', x===t);
+    if (pn) pn.classList.toggle('on', x===t);
   });
-  if (t === 'hist') renderHist();
-  if (t === 'acct') renderAcct();
-  if (t === 'team') renderTeam();
+  if (t==='hist') renderHist();
+  if (t==='acct') renderAcct();
+  if (t==='team') renderTeam();
 }
 
-// ── 使用量バー ───────────────────────────────────────────
+// ── 使用量バー ────────────────────────────────────────
 function updateUsageBar() {
   if (!me) return;
-  const u = users[me.email];
   const plan = getEffectivePlan(me.email);
   const isPro = isProOrAbove(me.email);
-  const bar = document.getElementById('usage-bar');
-  if (!bar) return;
+  const bar = document.getElementById('usage-bar'); if (!bar) return;
   if (isPro) {
-    const lbl = { pro:'プロプラン', office:'オフィスプラン', team:'チームプラン' }[plan] || '有料プラン';
+    const lbl = {pro:'プロプラン',office:'オフィスプラン',team:'チームプラン'}[plan]||'有料プラン';
     bar.innerHTML = `<div class="usage-left"><span class="usage-icon">✨</span><strong style="color:var(--gold)">${lbl}</strong>　AI整理：無制限</div>`;
     return;
   }
-  const count = u.usageCount || 0;
+  const count = users[me.email]?.usageCount || 0;
   bar.innerHTML = `<div class="usage-left"><span class="usage-icon">📊</span>今月の利用<span id="usage-count">${count}/5件</span></div><div id="usage-fill" class="usage-fill" style="width:${Math.min(100,(count/5)*100)}%"></div>`;
 }
-
-function openUpgrade()  { window.open(STRIPE_UPGRADE, '_blank'); track('click_upgrade'); }
+function openUpgrade()  { window.open(STRIPE_UPGRADE,'_blank'); track('click_upgrade'); }
 function closeUpgrade() { document.getElementById('upg-modal').classList.remove('on'); }
 
-// ── AI整理 ───────────────────────────────────────────────
+// ── AI整理 ────────────────────────────────────────────
 async function analyze() {
   const memo = document.getElementById('memo').value.trim();
   if (!memo) { toast('相談メモを入力してください'); return; }
@@ -1139,25 +1026,16 @@ async function analyze() {
   }
 }
 
-// ── 結果表示 ─────────────────────────────────────────────
 function showResult(parsed) {
   result = parsed;
-  const fields = { 'r-facts':parsed.facts, 'r-claims':parsed.claims, 'r-issues':parsed.legalIssues||parsed.issues, 'r-statutes':parsed.relatedStatutes||parsed.statutes, 'r-cases':parsed.relatedCases||parsed.cases, 'r-todo':parsed.actionItems||parsed.todo };
-  Object.entries(fields).forEach(([id,val]) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = val || '—';
-  });
-  document.getElementById('res-loading').style.display = 'none';
-  document.getElementById('res-card').style.display = 'block';
+  const fields = { 'r-facts':parsed.facts,'r-claims':parsed.claims,'r-issues':parsed.legalIssues||parsed.issues,'r-statutes':parsed.relatedStatutes||parsed.statutes,'r-cases':parsed.relatedCases||parsed.cases,'r-todo':parsed.actionItems||parsed.todo };
+  Object.entries(fields).forEach(([id,val]) => { const el=document.getElementById(id); if(el) el.textContent=val||'—'; });
+  document.getElementById('res-loading').style.display='none';
+  document.getElementById('res-card').style.display='block';
 }
+function clearAll() { document.getElementById('memo').value=''; document.getElementById('res-wrap').style.display='none'; result=null; }
 
-function clearAll() {
-  document.getElementById('memo').value = '';
-  document.getElementById('res-wrap').style.display = 'none';
-  result = null;
-}
-
-// ── PDF出力 ──────────────────────────────────────────────
+// ── PDF出力 ───────────────────────────────────────────
 function exportPDF() {
   if (!result) return;
 
@@ -1312,89 +1190,58 @@ function exportPDF() {
   toast('PDFをダウンロードしました ✅');
 }
 
-// ── 履歴 ─────────────────────────────────────────────────
+// ── history ────────────────────────────
+
+// ── 履歴 ──────────────────────────────────────────────
 function autoSave(r) {
-  if (!me || !r) return;
+  if (!me||!r) return;
   const u = users[me.email];
-  if (!u.history) u.history = [];
-  u.history.unshift({ ...r, savedAt: new Date().toISOString() });
-  if (!isProOrAbove(me.email)) u.history = u.history.slice(0, 5);
+  if (!u.history) u.history=[];
+  u.history.unshift({...r,savedAt:new Date().toISOString()});
+  if (!isProOrAbove(me.email)) u.history=u.history.slice(0,5);
   save();
 }
-
-function saveHist() {
-  if (!result) { toast('整理結果がありません'); return; }
-  autoSave(result);
-  toast('履歴に保存しました');
-  renderHist();
-}
-
+function saveHist() { if(!result){toast('整理結果がありません');return;} autoSave(result); toast('履歴に保存しました'); renderHist(); }
 function renderHist() {
   if (!me) return;
-  const body = document.getElementById('hist-body');
-  if (!body) return;
-  const hist = users[me.email]?.history || [];
-  if (!hist.length) { body.innerHTML = '<p style="color:var(--slate);font-size:.84rem;padding:20px 0">まだ履歴がありません</p>'; return; }
-  body.innerHTML = hist.map((h, i) => `
-    <div class="hist-item" onclick="loadHist(${i})">
-      <div class="hi-meta">${new Date(h.savedAt||h.date).toLocaleString('ja-JP')}</div>
-      <div class="hi-memo">${(h.memo||'').slice(0,80)}${(h.memo||'').length>80?'…':''}</div>
-      <button class="hi-del" onclick="event.stopPropagation();delHist(${i})">削除</button>
-    </div>`).join('');
+  const body=document.getElementById('hist-body'); if(!body)return;
+  const hist=users[me.email]?.history||[];
+  if(!hist.length){body.innerHTML='<p style="color:var(--slate);font-size:.84rem;padding:20px 0">まだ履歴がありません</p>';return;}
+  body.innerHTML=hist.map((h,i)=>`<div class="hist-item" onclick="loadHist(${i})"><div class="hi-meta">${new Date(h.savedAt||h.date).toLocaleString('ja-JP')}</div><div class="hi-memo">${(h.memo||'').slice(0,80)}${(h.memo||'').length>80?'…':''}</div><button class="hi-del" onclick="event.stopPropagation();delHist(${i})">削除</button></div>`).join('');
 }
-
 function loadHist(i) {
-  const h = users[me.email]?.history?.[i];
-  if (!h) return;
-  result = h;
-  document.getElementById('memo').value = h.memo || '';
-  showResult(h);
-  appTab('inp');
+  const h=users[me.email]?.history?.[i]; if(!h)return;
+  result=h; document.getElementById('memo').value=h.memo||''; showResult(h); appTab('inp');
 }
-
 function delHist(i) {
-  if (!confirm('この履歴を削除しますか？')) return;
-  users[me.email].history.splice(i, 1);
-  save(); renderHist(); toast('削除しました');
+  if(!confirm('この履歴を削除しますか？'))return;
+  users[me.email].history.splice(i,1); save(); renderHist(); toast('削除しました');
 }
 
-// ══════════════════════════════════════════════════════════
-// ── アカウント設定 ────────────────────────────────────────
-// ══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+// ── アカウント設定 ──────────────────────────────────
+// ══════════════════════════════════════════════════
 function renderAcct() {
   if (!me) return;
-  const u = users[me.email];
-  const plan = getEffectivePlan(me.email);
-  const isPro = isProOrAbove(me.email);
-  const isDev = me.email === _D;
-  const planNames = { free:'無料プラン', pro:'プロプラン', office:'オフィスプラン（3名）', team:'チームプラン（5名）' };
-  const planBdg   = { free:'bdg-free', pro:'bdg-pro', office:'bdg-office', team:'bdg-team' };
-  const body = document.getElementById('acct-body');
-  if (!body) return;
-
-  const nextRenewal = isPro && !isDev ? formatDate(calcNextRenewal(u.joinDate)) : '—';
-  const cs = u.cancelScheduled;
-
-  body.innerHTML = `
+  const u=users[me.email], plan=getEffectivePlan(me.email), isPro=isProOrAbove(me.email), isDev=me.email===_D;
+  const planNames={free:'無料プラン',pro:'プロプラン',office:'オフィスプラン（3名）',team:'チームプラン（5名）'};
+  const planBdg={free:'bdg-free',pro:'bdg-pro',office:'bdg-office',team:'bdg-team'};
+  const body=document.getElementById('acct-body'); if(!body)return;
+  const nextRenewal=isPro&&!isDev?formatDate(calcNextRenewal(u.joinDate)):'—';
+  const cs=u.cancelScheduled;
+  body.innerHTML=`
     <div class="sec-box">
       <h3>📋 プラン情報</h3>
-      <div class="info-row"><span class="info-lbl">現在のプラン</span>
-        <span class="info-val">
-          <span class="bdg ${planBdg[plan]||'bdg-free'}">${planNames[plan]||plan}</span>
-          ${isDev ? '<span class="bdg bdg-dev">DEV</span>' : ''}
-          ${cs ? '<span style="font-size:.7rem;color:#dc2626;margin-left:6px">（解約申請済み）</span>' : ''}
-        </span>
-      </div>
+      <div class="info-row"><span class="info-lbl">現在のプラン</span><span class="info-val"><span class="bdg ${planBdg[plan]||'bdg-free'}">${planNames[plan]||plan}</span>${isDev?'<span class="bdg bdg-dev">DEV</span>':''}${cs?'<span style="font-size:.7rem;color:#dc2626;margin-left:6px">（解約申請済み）</span>':''}</span></div>
       <div class="info-row"><span class="info-lbl">メールアドレス</span><span class="info-val">${me.email}</span></div>
       <div class="info-row"><span class="info-lbl">氏名</span><span class="info-val">${u.name}</span></div>
-      ${isPro && !isDev ? `<div class="info-row"><span class="info-lbl">次回更新日</span><span class="info-val">${cs ? nextRenewal+'（解約予定）' : nextRenewal}</span></div>` : ''}
+      ${isPro&&!isDev?`<div class="info-row"><span class="info-lbl">次回更新日</span><span class="info-val">${cs?nextRenewal+'（解約予定）':nextRenewal}</span></div>`:''}
       <div class="ab-group">
-        ${!isPro && !isDev ? `<button class="ab ab-gold" onclick="openUpgrade()">✨ 有料プランに登録</button>` : ''}
-        ${isPro && !isDev ? `<button class="ab ab-outline" onclick="window.open(STRIPE_PORTAL,'_blank')">請求情報を確認する</button>` : ''}
-        ${isPro && !isDev && !cs ? `<button class="ab ab-danger" onclick="cancelPlan()">プランを解約する</button>` : ''}
+        ${!isPro&&!isDev?`<button class="ab ab-gold" onclick="openUpgrade()">✨ 有料プランに登録</button>`:''}
+        ${isPro&&!isDev?`<button class="ab ab-outline" onclick="window.open(STRIPE_PORTAL,'_blank')">請求情報を確認する</button>`:''}
+        ${isPro&&!isDev&&!cs?`<button class="ab ab-danger" onclick="cancelPlan()">プランを解約する</button>`:''}
       </div>
     </div>
-
     <div class="sec-box">
       <h3>🔑 パスワード変更</h3>
       <button class="ab ab-outline" onclick="togglePwForm()">パスワードを変更する</button>
@@ -1406,278 +1253,162 @@ function renderAcct() {
         <div class="ab-group"><button class="ab ab-gold" onclick="changePassword()">変更する</button><button class="ab ab-outline" onclick="togglePwForm()">キャンセル</button></div>
       </div>
     </div>
-
     <div class="sec-box">
       <h3>⚠️ アカウント削除</h3>
       <p style="font-size:.8rem;color:var(--slate);margin-bottom:10px">アカウントとすべての履歴を完全に削除します。この操作は元に戻せません。</p>
       <button class="ab ab-danger" onclick="deleteAccount()">アカウントを削除する</button>
     </div>`;
 }
-
 function togglePwForm() {
-  const f = document.getElementById('pw-form');
-  if (!f) return;
+  const f=document.getElementById('pw-form'); if(!f)return;
   f.classList.toggle('on');
-  if (!f.classList.contains('on')) {
-    ['pw-current','pw-new','pw-confirm'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
-    const er = document.getElementById('pw-err'); if(er) er.classList.remove('on');
-  }
+  if(!f.classList.contains('on')){['pw-current','pw-new','pw-confirm'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});const er=document.getElementById('pw-err');if(er)er.classList.remove('on');}
 }
-
 function changePassword() {
-  if (!me) return;
-  const cur = document.getElementById('pw-current')?.value || '';
-  const nw  = document.getElementById('pw-new')?.value || '';
-  const cf  = document.getElementById('pw-confirm')?.value || '';
-  const er  = document.getElementById('pw-err');
-  if (er) er.classList.remove('on');
-  const u = users[me.email];
-  if (u.pass !== cur) return err('pw-err', '現在のパスワードが正しくありません');
-  if (nw.length < 8)  return err('pw-err', '8文字以上で入力してください');
-  if (nw !== cf)      return err('pw-err', 'パスワードが一致しません');
-  u.pass = nw; save(); togglePwForm(); toast('パスワードを変更しました');
+  if(!me)return;
+  const cur=document.getElementById('pw-current')?.value||'',nw=document.getElementById('pw-new')?.value||'',cf=document.getElementById('pw-confirm')?.value||'';
+  const er=document.getElementById('pw-err'); if(er)er.classList.remove('on');
+  const u=users[me.email];
+  if(u.pass!==cur)return err('pw-err','現在のパスワードが正しくありません');
+  if(nw.length<8)return err('pw-err','8文字以上で入力してください');
+  if(nw!==cf)return err('pw-err','パスワードが一致しません');
+  u.pass=nw; save(); togglePwForm(); toast('パスワードを変更しました');
 }
-
 function deleteAccount() {
-  if (!me) return;
-  if (!confirm('アカウントを削除しますか？\nすべての履歴・設定が完全に消去されます。この操作は取り消せません。')) return;
-  if (!confirm('本当に削除してよいですか？')) return;
-  delete users[me.email]; save();
-  me = null; result = null; go('lp'); toast('アカウントを削除しました');
+  if(!me)return;
+  if(!confirm('アカウントを削除しますか？\nすべての履歴・設定が完全に消去されます。この操作は取り消せません。'))return;
+  if(!confirm('本当に削除してよいですか？'))return;
+  delete users[me.email]; save(); me=null; result=null; go('lp'); toast('アカウントを削除しました');
 }
-
 function cancelPlan() {
-  if (!me) return;
-  const u = users[me.email];
-  const rd = calcNextRenewal(u.joinDate);
-  document.getElementById('cancel-modal-date').textContent = formatDate(rd);
+  if(!me)return;
+  const rd=calcNextRenewal(users[me.email].joinDate);
+  document.getElementById('cancel-modal-date').textContent=formatDate(rd);
   document.getElementById('cancel-modal').classList.add('on');
 }
 function closeCancelModal() { document.getElementById('cancel-modal').classList.remove('on'); }
 function confirmCancelPlan() {
-  if (!me) return;
-  users[me.email].cancelScheduled = true; save();
-  closeCancelModal(); renderAcct();
-  toast('解約を受け付けました。次回更新日に停止します。');
+  if(!me)return;
+  users[me.email].cancelScheduled=true; save();
+  closeCancelModal(); renderAcct(); toast('解約を受け付けました。次回更新日に停止します。');
 }
-
 function calcNextRenewal(joinDate) {
-  const base = joinDate ? new Date(joinDate) : new Date();
-  const now = new Date();
-  const x = new Date(base);
-  while (x <= now) x.setMonth(x.getMonth() + 1);
-  return x;
+  const base=joinDate?new Date(joinDate):new Date(),now=new Date(),x=new Date(base);
+  while(x<=now)x.setMonth(x.getMonth()+1); return x;
 }
 function formatDate(d) {
-  if (!d) return '—';
-  const dt = new Date(d);
-  return dt.getFullYear() + '年' + (dt.getMonth()+1) + '月' + dt.getDate() + '日';
+  if(!d)return'—'; const dt=new Date(d);
+  return dt.getFullYear()+'年'+(dt.getMonth()+1)+'月'+dt.getDate()+'日';
 }
 
-// ══════════════════════════════════════════════════════════
-// ── チーム管理 ────────────────────────────────────────────
-// ══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+// ── チーム管理 ──────────────────────────────────────
+// ══════════════════════════════════════════════════
 function renderTeam() {
-  if (!me) return;
-  const body = document.getElementById('team-body');
-  if (!body) return;
-  const isTeam = isTeamPlan(me.email);
-
-  if (!isTeam) {
-    body.innerHTML = `<div class="team-locked-msg">
-      <p>👥 チーム管理機能はオフィスプラン・チームプランでご利用いただけます。</p>
-      <button class="ab ab-gold" onclick="openUpgrade()">プランをアップグレード</button>
-    </div>`;
+  if(!me)return;
+  const body=document.getElementById('team-body'); if(!body)return;
+  if(!isTeamPlan(me.email)){
+    body.innerHTML=`<div class="team-locked-msg"><p>👥 チーム管理機能はオフィスプラン・チームプランでご利用いただけます。</p><button class="ab ab-gold" onclick="openUpgrade()">プランをアップグレード</button></div>`;
     return;
   }
+  const plan=getEffectivePlan(me.email);
+  let team=findMyTeam(); if(!team)team=initTeam(me.email);
+  const isAdmin=team.adminEmail===me.email;
+  const planLabel={office:'オフィスプラン',team:'チームプラン'}[plan]||plan;
+  const maxM=PLAN_LIMITS[plan]||3;
+  const activeCount=(team.members||[]).filter(m2=>m2.status==='active').length;
+  const pendingCount=(team.invites||[]).length;
+  const monthKey=new Date().toISOString().slice(0,7);
+  let totalAnalyze=0;
+  (team.members||[]).forEach(m2=>{const u2=users[m2.email];if(u2&&u2.monthKey===monthKey)totalAnalyze+=u2.usageCount||0;});
 
-  const plan = getEffectivePlan(me.email);
-  let team = findMyTeam();
-  if (!team && me.email === findMyTeam()?.adminEmail || (!findMyTeam() && isTeamAdmin())) team = null;
-  if (!team) team = initTeam(me.email);
-
-  const isAdmin = team.adminEmail === me.email;
-  const planLabel = { office:'オフィスプラン', team:'チームプラン' }[plan] || plan;
-  const maxM = PLAN_LIMITS[plan] || 3;
-  const activeCount = (team.members||[]).filter(m2=>m2.status==='active').length;
-  const pendingCount = (team.invites||[]).length;
-
-  // 利用統計集計
-  const monthKey = new Date().toISOString().slice(0,7);
-  let totalAnalyze = 0, totalPdf = 0;
-  (team.members||[]).forEach(m2 => {
-    const u2 = users[m2.email];
-    if (u2) {
-      if (u2.monthKey === monthKey) totalAnalyze += u2.usageCount || 0;
-      totalPdf += u2.pdfCount || 0;
-    }
-  });
-
-  body.innerHTML = `
-    <!-- プラン概要 -->
+  body.innerHTML=`
     <div class="sec-box">
       <h3>📋 チームプラン概要</h3>
       <div class="info-row"><span class="info-lbl">プラン</span><span class="info-val"><span class="bdg bdg-${plan}">${planLabel}</span></span></div>
       <div class="info-row"><span class="info-lbl">上限人数</span><span class="info-val">${maxM} 名</span></div>
       <div class="info-row"><span class="info-lbl">使用中</span><span class="info-val">${activeCount} 名（招待中：${pendingCount} 名）</span></div>
       <div class="info-row"><span class="info-lbl">管理者</span><span class="info-val">${team.adminEmail}</span></div>
-      ${isAdmin ? `<div class="ab-group"><button class="ab ab-outline" onclick="window.open(STRIPE_PORTAL,'_blank')">💳 請求情報を確認する</button></div>` : ''}
+      ${isAdmin?`<div class="ab-group"><button class="ab ab-outline" onclick="window.open(STRIPE_PORTAL,'_blank')">💳 請求情報を確認する</button></div>`:''}
     </div>
-
-    <!-- チーム名設定 -->
-    ${isAdmin ? `
-    <div class="sec-box">
-      <h3>🏢 事務所・チーム名</h3>
-      <div class="team-name-wrap">
-        <input type="text" id="team-name-input" value="${team.name||''}" placeholder="例：○○法律事務所">
-        <button class="ab ab-gold" onclick="saveTeamName()">保存</button>
-      </div>
-    </div>` : `
-    <div class="sec-box">
-      <h3>🏢 事務所・チーム名</h3>
-      <div class="info-row"><span class="info-val">${team.name || '（未設定）'}</span></div>
-    </div>`}
-
-    <!-- メンバー一覧 -->
+    ${isAdmin?`<div class="sec-box"><h3>🏢 事務所・チーム名</h3><div class="team-name-wrap"><input type="text" id="team-name-input" value="${team.name||''}" placeholder="例：○○法律事務所"><button class="ab ab-gold" onclick="saveTeamName()">保存</button></div></div>`:`<div class="sec-box"><h3>🏢 チーム名</h3><div class="info-row"><span class="info-val">${team.name||'（未設定）'}</span></div></div>`}
     <div class="sec-box">
       <h3>👤 メンバー一覧（${activeCount}/${maxM}名）</h3>
       <table class="mtable">
         <thead><tr><th>氏名</th><th>メールアドレス</th><th>役割</th><th>状態</th><th>参加日</th>${isAdmin?'<th></th>':''}</tr></thead>
         <tbody>
-          ${(team.members||[]).map(m2 => `
-          <tr>
-            <td>${m2.name}</td>
-            <td style="color:var(--slate);font-size:.78rem">${m2.email}</td>
-            <td><span class="rbdg ${m2.role==='admin'?'rbdg-admin':'rbdg-member'}">${m2.role==='admin'?'管理者':'メンバー'}</span></td>
-            <td><span class="sbdg-active">有効</span></td>
-            <td style="color:var(--slate);font-size:.76rem">${m2.joinedAt?new Date(m2.joinedAt).toLocaleDateString('ja-JP'):'—'}</td>
-            ${isAdmin && m2.role!=='admin' ? `<td><button class="btn-del" onclick="removeMember('${m2.email}')">削除</button></td>` : isAdmin ? '<td></td>' : ''}
-          </tr>`).join('')}
-          ${(team.invites||[]).map(iv => `
-          <tr>
-            <td style="color:var(--slate)">（招待中）</td>
-            <td style="color:var(--slate);font-size:.78rem">${iv.email}</td>
-            <td><span class="rbdg rbdg-member">メンバー</span></td>
-            <td><span class="sbdg-pending">招待中</span></td>
-            <td style="color:var(--slate);font-size:.76rem">${iv.invitedAt?new Date(iv.invitedAt).toLocaleDateString('ja-JP'):'—'}</td>
-            ${isAdmin ? `<td><button class="btn-del" onclick="cancelInvite('${iv.email}')">取消</button></td>` : ''}
-          </tr>`).join('')}
+          ${(team.members||[]).map(m2=>`<tr><td>${m2.name}</td><td style="color:var(--slate);font-size:.78rem">${m2.email}</td><td><span class="rbdg ${m2.role==='admin'?'rbdg-admin':'rbdg-member'}">${m2.role==='admin'?'管理者':'メンバー'}</span></td><td><span class="sbdg-active">有効</span></td><td style="color:var(--slate);font-size:.76rem">${m2.joinedAt?new Date(m2.joinedAt).toLocaleDateString('ja-JP'):'—'}</td>${isAdmin&&m2.role!=='admin'?`<td><button class="btn-del" onclick="removeMember('${m2.email}')">削除</button></td>`:isAdmin?'<td></td>':''}</tr>`).join('')}
+          ${(team.invites||[]).map(iv=>`<tr><td style="color:var(--slate)">（招待中）</td><td style="color:var(--slate);font-size:.78rem">${iv.email}</td><td><span class="rbdg rbdg-member">メンバー</span></td><td><span class="sbdg-pending">招待中</span></td><td style="color:var(--slate);font-size:.76rem">${iv.invitedAt?new Date(iv.invitedAt).toLocaleDateString('ja-JP'):'—'}</td>${isAdmin?`<td><button class="btn-del" onclick="cancelInvite('${iv.email}')">取消</button></td>`:''}</tr>`).join('')}
         </tbody>
       </table>
     </div>
-
-    <!-- 招待フォーム（管理者のみ） -->
-    ${isAdmin ? `
-    <div class="sec-box">
-      <h3>✉️ メンバーを招待する</h3>
-      ${activeCount + pendingCount >= maxM ? `<p style="color:#d97706;font-size:.82rem">⚠️ 上限（${maxM}名）に達しています。メンバーを削除してから招待してください。</p>` : `
-      <div class="inv-form">
-        <div class="fg"><label>氏名</label><input type="text" id="inv-name" placeholder="山田 太郎"></div>
-        <div class="fg"><label>メールアドレス</label><input type="email" id="inv-email" placeholder="example@law.jp"></div>
-        <button onclick="sendInvite()">招待する</button>
-      </div>
-      <div class="terr" id="inv-err"></div>
-      <p style="font-size:.74rem;color:var(--slate);margin-top:6px">※ 招待先の方がIntakeAIに登録すると、自動的にチームに参加されます。</p>`}
-    </div>` : ''}
-
-    <!-- 利用状況 -->
+    ${isAdmin?`<div class="sec-box"><h3>✉️ メンバーを招待する</h3>${activeCount+pendingCount>=maxM?`<p style="color:#d97706;font-size:.82rem">⚠️ 上限（${maxM}名）に達しています。</p>`:`<div class="inv-form"><div class="fg"><label>氏名</label><input type="text" id="inv-name" placeholder="山田 太郎"></div><div class="fg"><label>メールアドレス</label><input type="email" id="inv-email" placeholder="example@law.jp"></div><button onclick="sendInvite()">招待する</button></div><div class="terr" id="inv-err"></div><p style="font-size:.74rem;color:var(--slate);margin-top:6px">※ 招待先の方が登録すると自動的にチームに参加されます。</p>`}</div>`:''}
     <div class="sec-box">
       <h3>📊 チーム利用状況（今月）</h3>
       <div class="stat-grid">
         <div class="stat-box"><div class="stat-num">${totalAnalyze}</div><div class="stat-lbl">AI整理（件）</div></div>
-        <div class="stat-box"><div class="stat-num">${totalPdf}</div><div class="stat-lbl">PDF出力（件）</div></div>
         <div class="stat-box"><div class="stat-num">${activeCount}</div><div class="stat-lbl">アクティブメンバー</div></div>
+        <div class="stat-box"><div class="stat-num">${maxM-activeCount}</div><div class="stat-lbl">残り枠</div></div>
       </div>
     </div>`;
 }
-
-function saveTeamName() {
-  const input = document.getElementById('team-name-input');
-  if (!input || !me) return;
-  const name = input.value.trim();
-  const team = findMyTeam();
-  if (!team) return;
-  team.name = name;
-  if (users[me.email]) users[me.email].officeName = name;
-  saveTeam(team); save();
-  toast('チーム名を保存しました：' + (name || '（未設定）'));
+function saveTeamName(){
+  const input=document.getElementById('team-name-input'); if(!input||!me)return;
+  const name=input.value.trim(), team=findMyTeam(); if(!team)return;
+  team.name=name; if(users[me.email])users[me.email].officeName=name;
+  saveTeam(team); save(); toast('チーム名を保存しました：'+(name||'（未設定）'));
 }
-
-function sendInvite() {
-  if (!me) return;
-  const team = findMyTeam();
-  if (!team || team.adminEmail !== me.email) return;
-  const nameEl  = document.getElementById('inv-name');
-  const emailEl = document.getElementById('inv-email');
-  const errEl   = document.getElementById('inv-err');
-  if (errEl) errEl.classList.remove('on');
-
-  const name  = nameEl?.value.trim() || '';
-  const email = emailEl?.value.trim() || '';
-  if (!name)  return err('inv-err', '氏名を入力してください');
-  if (!email) return err('inv-err', 'メールアドレスを入力してください');
-
-  const maxM = PLAN_LIMITS[getEffectivePlan(me.email)] || 3;
-  const total = (team.members||[]).filter(m2=>m2.status==='active').length + (team.invites||[]).length;
-  if (total >= maxM) return err('inv-err', `上限（${maxM}名）に達しています`);
-  if (team.members.some(m2 => m2.email === email)) return err('inv-err', 'このメンバーはすでに参加しています');
-  if (team.invites.some(iv => iv.email === email)) return err('inv-err', '招待済みです');
-
-  // すでにアカウントがある場合は即追加
-  if (users[email]) {
-    team.members.push({ email, name: users[email].name || name, role: 'member', status: 'active', joinedAt: new Date().toISOString() });
-    toast(users[email].name + ' さんをチームに追加しました');
-  } else {
-    team.invites.push({ email, name, invitedAt: new Date().toISOString() });
-    toast(name + ' さんへの招待を送りました（登録後に自動参加）');
+function sendInvite(){
+  if(!me)return;
+  const team=findMyTeam(); if(!team||team.adminEmail!==me.email)return;
+  const nameEl=document.getElementById('inv-name'),emailEl=document.getElementById('inv-email'),errEl=document.getElementById('inv-err');
+  if(errEl)errEl.classList.remove('on');
+  const name=nameEl?.value.trim()||'',email=emailEl?.value.trim()||'';
+  if(!name)return err('inv-err','氏名を入力してください');
+  if(!email)return err('inv-err','メールアドレスを入力してください');
+  const maxM=PLAN_LIMITS[getEffectivePlan(me.email)]||3;
+  const total=(team.members||[]).filter(m2=>m2.status==='active').length+(team.invites||[]).length;
+  if(total>=maxM)return err('inv-err',`上限（${maxM}名）に達しています`);
+  if(team.members.some(m2=>m2.email===email))return err('inv-err','このメンバーはすでに参加しています');
+  if(team.invites.some(iv=>iv.email===email))return err('inv-err','招待済みです');
+  if(users[email]){
+    team.members.push({email,name:users[email].name||name,role:'member',status:'active',joinedAt:new Date().toISOString()});
+    toast(users[email].name+' さんをチームに追加しました');
+  }else{
+    team.invites.push({email,name,invitedAt:new Date().toISOString()});
+    toast(name+' さんへの招待を送りました（登録後に自動参加）');
   }
   saveTeam(team);
-  if (nameEl) nameEl.value = '';
-  if (emailEl) emailEl.value = '';
+  if(nameEl)nameEl.value=''; if(emailEl)emailEl.value='';
   renderTeam();
 }
-
-function removeMember(email) {
-  if (!me) return;
-  const team = findMyTeam();
-  if (!team || team.adminEmail !== me.email) return;
-  const m2 = team.members.find(m3 => m3.email === email);
-  if (!m2) return;
-  if (!confirm(m2.name + ' さんをチームから削除しますか？')) return;
-  team.members = team.members.filter(m3 => m3.email !== email);
-  saveTeam(team); renderTeam();
-  toast(m2.name + ' さんをチームから削除しました');
+function removeMember(email){
+  if(!me)return;
+  const team=findMyTeam(); if(!team||team.adminEmail!==me.email)return;
+  const m2=team.members.find(m3=>m3.email===email); if(!m2)return;
+  if(!confirm(m2.name+' さんをチームから削除しますか？'))return;
+  team.members=team.members.filter(m3=>m3.email!==email);
+  saveTeam(team); renderTeam(); toast(m2.name+' さんをチームから削除しました');
+}
+function cancelInvite(email){
+  if(!me)return;
+  const team=findMyTeam(); if(!team||team.adminEmail!==me.email)return;
+  const iv=team.invites.find(i2=>i2.email===email); if(!iv)return;
+  if(!confirm(iv.name+' さんへの招待を取り消しますか？'))return;
+  team.invites=team.invites.filter(i2=>i2.email!==email);
+  saveTeam(team); renderTeam(); toast('招待を取り消しました');
 }
 
-function cancelInvite(email) {
-  if (!me) return;
-  const team = findMyTeam();
-  if (!team || team.adminEmail !== me.email) return;
-  const iv = team.invites.find(i2 => i2.email === email);
-  if (!iv) return;
-  if (!confirm(iv.name + ' さんへの招待を取り消しますか？')) return;
-  team.invites = team.invites.filter(i2 => i2.email !== email);
-  saveTeam(team); renderTeam();
-  toast('招待を取り消しました');
+// ── toast / modal / scroll ─────────────────────────
+function toast(msg){
+  const el=document.getElementById('toast'); if(!el)return;
+  el.textContent=msg; el.classList.add('on');
+  setTimeout(()=>el.classList.remove('on'),2800);
 }
-
-// ── toast / scroll ────────────────────────────────────────
-function toast(msg) {
-  const el = document.getElementById('toast');
-  if (!el) return;
-  el.textContent = msg; el.classList.add('on');
-  setTimeout(() => el.classList.remove('on'), 2800);
-}
-
-document.getElementById('upg-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeUpgrade();
-});
-document.getElementById('cancel-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeCancelModal();
-});
-
-const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); }), {threshold:.1});
-document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+document.getElementById('upg-modal').addEventListener('click',function(e){if(e.target===this)closeUpgrade();});
+document.getElementById('cancel-modal').addEventListener('click',function(e){if(e.target===this)closeCancelModal();});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
 
 </script>
 </body>
