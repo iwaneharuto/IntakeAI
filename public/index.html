@@ -1644,12 +1644,12 @@ function closeUpgrade() { document.getElementById('upg-modal').classList.remove(
 async function analyze() {
   const memo = document.getElementById('memo').value.trim();
   if (!memo || memo.length < 10) { toast('相談内容を入力してください（10文字以上）'); return; }
-  console.log('[IntakeAI] 送信する相談文:', memo.slice(0,50) + (memo.length>50?'...':''));
-  console.log('[IntakeAI] 文字数:', memo.length, '/ モデル:', isPro ? 'claude-sonnet' : 'claude-haiku');
-  const u = users[me.email];
+  const u        = users[me.email];
   const isPro    = isProOrAbove(me.email);
   const inTrial  = isInTrial(me.email);
   const trialExp = isTrialExpired(me.email);
+  console.log('[IntakeAI] 送信する相談文:', memo.slice(0,50) + (memo.length>50?'...':''));
+  console.log('[IntakeAI] isPro:', isPro, '/ inTrial:', inTrial, '/ trialExp:', trialExp);
 
   // 有料プランでなく、トライアルも終了 → 有料案内
   if (!isPro && trialExp) { openTrialExpiredModal(); return; }
@@ -1705,7 +1705,7 @@ const proSystem = `以下の相談メモを分類し、指定のJSON形式のみ
 - nextActions: 箇条書き（・）で、初動において確認対象となる事項を4〜6点列挙する。「〜の確認」「〜の有無を確認」「〜資料の取得状況を確認」「〜事情の整理」「〜経過の確認」「〜可能性の検討材料を整理」の形式を使用する。「〜すべき」「〜してください」「〜した方がよい」「〜すること」「〜を行う」「〜を検討する」等の命令・助言・断定表現は使用しない`;
 
 
-  const model    = isPro ? 'claude-sonnet-4-20250514' : 'claude-haiku-4-5-20251001';
+  const model    = isPro ? 'claude-sonnet-4-5' : 'claude-haiku-4-5';
   const maxTok   = isPro ? 1800 : 1000;
   const system   = isPro ? proSystem : freeSystem;
 
@@ -1715,12 +1715,26 @@ const proSystem = `以下の相談メモを分類し、指定のJSON形式のみ
       headers: { 'Content-Type': 'application/json', 'anthropic-dangerous-direct-browser-access': 'true' },
       body: JSON.stringify({
         model, max_tokens: maxTok, system,
-        messages: [{ role: 'user', content: memo }]
+        messages: [{ role: 'user', content: '以下の相談内容を整理してください。\n\n' + memo }]
       })
     });
+    if (!res.ok) {
+      const errBody = await res.text().catch(()=>'');
+      console.error('[IntakeAI] APIエラー status:', res.status, errBody.slice(0,200));
+      throw new Error('API error ' + res.status);
+    }
     const data = await res.json();
-    const text = data.content.map(c => c.text || '').join('');
-    const parsed = JSON.parse(text.replace(/```json|```/g, '').trim());
+    console.log('[IntakeAI] APIレスポンス type:', data.type, '/ stop_reason:', data.stop_reason);
+    if (!data.content || !data.content.length) throw new Error('empty response');
+    const text = data.content.map(b => b.text || '').join('');
+    console.log('[IntakeAI] raw text (先頭100):', text.slice(0,100));
+    const cleaned = text.replace(/^```json\s*/,'').replace(/```\s*$/,'').trim();
+    let parsed;
+    try { parsed = JSON.parse(cleaned); }
+    catch(parseErr) {
+      console.error('[IntakeAI] JSONパース失敗:', parseErr, '/ raw:', cleaned.slice(0,200));
+      throw new Error('JSON parse failed');
+    }
     result = { memo, ...parsed, date: new Date().toISOString(), isPro };
     track('analyze_success', { plan: isPro ? 'pro' : 'free' });
   } catch (err) {
