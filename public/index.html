@@ -1445,10 +1445,14 @@ footer{padding:24px;flex-direction:column;text-align:center}
 <script>
 
 // ── 定数・プラン管理 ──────────────────────────────────
-const _D = atob('aXdhaGFydS40MjJAb3V0bG9vay5qcA==');
+const _D  = atob('aXdhaGFydS40MjJAb3V0bG9vay5qcA=='); // dev
+const _U2 = atob('aXdhX2hhcnUuNDIyQGljbG91ZC5jb20='); // iwa_haru.422@icloud.com - Largeプラン契約
 const DEV_PLAN = 'large';
-// ↓ ここに自分のAnthropicのAPIキーを貼り付けてください（例: 'sk-ant-api03-...'）
-const DEV_API_KEY = '';
+// 特定メールアドレスへの固定プラン付与テーブル
+const FIXED_PLANS = {
+  [_D]:  'large',  // dev override
+  [_U2]: 'large',  // 契約ユーザー（Largeプラン / 最大10名）
+};
 const STRIPE_PORTAL = 'https://billing.stripe.com/p/login/14AbJ0ckfbeZ79V8fR4sE00';
 const STRIPE_SMALL  = 'https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00'; // 5人プラン（要更新）
 const STRIPE_LARGE  = 'https://buy.stripe.com/fZueVc6ZV4QB9i3dAb4sE03'; // 10人プラン
@@ -1456,7 +1460,8 @@ const STRIPE_UPGRADE = 'https://buy.stripe.com/fZueVc6ZV4QB9i3dAb4sE03';
 const PLAN_LIMITS = { free:0, personal:1, small:5, large:10 }; // 0=無制限（free=AI整理のみ制限）
 
 function getEffectivePlan(email) {
-  if (email === _D) return DEV_PLAN;
+  // 固定プラン付与テーブルを最優先で参照
+  if (FIXED_PLANS[email]) return FIXED_PLANS[email];
   const u = users[email]; if (!u) return 'free';
   // 旧プラン互換: pro/office→small, team→large
   const p = u.plan || (u.isPro ? 'small' : 'free');
@@ -1574,7 +1579,7 @@ function enterApp(u) {
   go('app');
   const tt = document.getElementById('atab-team');
   if (tt) tt.style.display = isTeamPlan(u.email) ? '' : 'none';
-  appTab('inp'); updateUsageBar(); updateApiKeyBanner();
+  appTab('inp'); updateUsageBar();
   if (isTrialExpired(me.email)) { setTimeout(openTrialExpiredModal, 800); }
 }
 
@@ -1590,10 +1595,6 @@ function appTab(t) {
 }
 
 // ── 使用量バー ────────────────────────────────────────
-function updateApiKeyBanner() {
-  const banner = document.getElementById('api-key-banner');
-  if (banner) banner.style.display = getApiKey() ? 'none' : 'flex';
-}
 function updateUsageBar() {
   if (!me) return;
   const plan = getEffectivePlan(me.email);
@@ -1651,11 +1652,7 @@ function closeUpgrade() { document.getElementById('upg-modal').classList.remove(
 async function analyze() {
   const memo = document.getElementById('memo').value.trim();
   if (!memo || memo.length < 10) { toast('相談内容を入力してください（10文字以上）'); return; }
-  if (!getApiKey()) {
-    toast('APIキーが設定されていません。アカウント設定から入力してください。');
-    appTab('acct');
-    return;
-  }
+
   const u        = users[me.email];
   const isPro    = isProOrAbove(me.email);
   const inTrial  = isInTrial(me.email);
@@ -1722,36 +1719,24 @@ const proSystem = `以下の相談メモを分類し、指定のJSON形式のみ
   const system   = isPro ? proSystem : freeSystem;
 
   try {
-    const apiKey = getApiKey();
-    if (!apiKey) throw new Error('no_key');
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('/api/intake/organize', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model, max_tokens: maxTok, system,
-        messages: [{ role: 'user', content: '以下の相談内容を整理してください。\n\n' + memo }]
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ consultationText: memo, isPro })
     });
     if (!res.ok) {
-      const errBody = await res.text().catch(()=>'');
-      console.error('[IntakeAI] APIエラー status:', res.status, errBody.slice(0,200));
+      const errData = await res.json().catch(()=>({error: String(res.status)}));
+      console.error('[IntakeAI] APIエラー:', res.status, errData.error);
       throw new Error(String(res.status));
     }
     const data = await res.json();
-    console.log('[IntakeAI] APIレスポンス type:', data.type, '/ stop_reason:', data.stop_reason);
-    if (!data.content || !data.content.length) throw new Error('empty response');
-    const text = data.content.map(b => b.text || '').join('');
-    console.log('[IntakeAI] raw text (先頭100):', text.slice(0,100));
-    const cleaned = text.replace(/^```json\s*/,'').replace(/```\s*$/,'').trim();
+    console.log('[IntakeAI] レスポンス受信 / isPro:', isPro);
+    if (!data.result) throw new Error('empty response');
+    const cleaned = data.result.replace(/^```json\s*/,'').replace(/```\s*$/,'').trim();
     let parsed;
     try { parsed = JSON.parse(cleaned); }
     catch(parseErr) {
-      console.error('[IntakeAI] JSONパース失敗:', parseErr, '/ raw:', cleaned.slice(0,200));
+      console.error('[IntakeAI] JSONパース失敗:', parseErr);
       throw new Error('JSON parse failed');
     }
     result = { memo, ...parsed, date: new Date().toISOString(), isPro };
@@ -1759,8 +1744,7 @@ const proSystem = `以下の相談メモを分類し、指定のJSON形式のみ
   } catch (err) {
     console.error('[IntakeAI] AI整理エラー:', err);
     const msg = err.message || '';
-    if (msg === 'no_key')          { toast('APIキーが設定されていません。アカウント設定で入力してください。'); appTab('acct'); return; }
-    else if (msg.includes('401'))  toast('APIキーが無効または期限切れです。アカウント設定で正しいキーを確認してください。');
+    if (msg.includes('503') || msg.includes('401')) toast('現在AI機能を利用できません。管理者にお問い合わせください。');
     else if (msg.includes('429')) toast('APIの利用上限に達しました。しばらくお待ちください。');
     else if (msg.includes('529') || msg.includes('overloaded')) toast('APIが混雑しています。少し待ってから再試行してください。');
     else if (msg.includes('JSON parse')) toast('AIの応答形式が不正でした。再試行してください。');
@@ -2041,14 +2025,12 @@ function renderAcct() {
   const trialLeft=(!isPro&&isInTrial(u.email))?trialDaysLeft(u.email):null;
   const trialExp=(!isPro&&isTrialExpired(u.email));
   const cs=u.cancelScheduled;
-  const currentKey = getApiKey();
-  const maskedKey = currentKey ? currentKey.slice(0,8) + '••••••••••••••••' + currentKey.slice(-4) : '';
   body.innerHTML=`
     <div class="sec-box" style="margin-bottom:16px">
       <h3>🔑 Anthropic APIキー</h3>
       <p style="font-size:.78rem;color:var(--slate);margin-bottom:12px">
-        AI整理機能を使用するには、Anthropic APIキーが必要です。<br>
-        <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" style="color:var(--gold)">Anthropic Console</a> で発行したキーを入力してください。
+        AI整理機能を使用するには、Anthropic APIキーが必要です。キーはこのブラウザにのみ保存され、外部に送信されません。<br>
+        <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" style="color:var(--gold)">Anthropic Console → API Keys</a> でキーを発行してここに貼り付けてください。
       </p>
       ${currentKey
         ? `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -2057,7 +2039,7 @@ function renderAcct() {
             <button onclick="editApiKey()" style="font-size:.72rem;padding:4px 12px;background:#fff;border:1px solid var(--gold);border-radius:3px;cursor:pointer;color:var(--gold)">変更</button>
           </div>`
         : `<div style="display:flex;gap:8px;flex-wrap:wrap">
-            <input id="api-key-input" type="password" placeholder="sk-ant-..." 
+            <input id="api-key-input" type="password" placeholder="sk-ant-api03-..." autocomplete="off" spellcheck="false" 
               style="flex:1;min-width:200px;padding:9px 12px;border:1px solid var(--border);border-radius:4px;font-size:.82rem;font-family:inherit">
             <button onclick="doSaveApiKey()" style="padding:9px 20px;background:var(--gold);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:.82rem;font-weight:600">保存</button>
           </div>`
@@ -2234,15 +2216,7 @@ function cancelInvite(email){
 
 // ── toast / modal / scroll ─────────────────────────
 
-// ── APIキー管理 ────────────────────────────────────────
-function getApiKey() {
-  if (DEV_API_KEY) return DEV_API_KEY;
-  return localStorage.getItem('iai_api_key') || '';
-}
-function saveApiKey(key) {
-  if (key) localStorage.setItem('iai_api_key', key.trim());
-  else localStorage.removeItem('iai_api_key');
-}
+// ── APIキーはサーバー側（Vercel環境変数）で管理 ──
 
 // ── トライアル機能 ──────────────────────────────────────
 const TRIAL_DAYS  = 7;
@@ -2275,26 +2249,6 @@ function canUseFeature(email) {
 }
 
 
-function doSaveApiKey() {
-  const input = document.getElementById('api-key-input');
-  if (!input) return;
-  const key = input.value.trim();
-  if (!key.startsWith('sk-ant-')) { toast('正しいAnthropicのAPIキーを入力してください（sk-ant-で始まります）'); return; }
-  saveApiKey(key);
-  toast('APIキーを保存しました ✅');
-  updateApiKeyBanner();
-  renderAcct();
-}
-function clearApiKey() {
-  if (!confirm('APIキーを削除しますか？')) return;
-  saveApiKey('');
-  toast('APIキーを削除しました');
-  renderAcct();
-}
-function editApiKey() {
-  saveApiKey('');
-  renderAcct();
-}
 
 function faqOpen(btn) {
   const item = btn.closest('.faq-item');
