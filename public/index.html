@@ -1863,14 +1863,21 @@ function exportPDF() {
   const date = new Date(result.date).toLocaleDateString('ja-JP');
   const DISCLAIMER = '※本表示は相談内容の整理補助を目的とするものであり、法的意見、受任判断、具体的な対応方針を示すものではありません。';
   const SERVICE_NOTE = '本サービスは弁護士・法律事務所向けの情報整理支援ツールです。法律相談、法的判断、代理判断その他の法律事務を提供するものではありません。';
+  function toStr(v) {
+    if (typeof v === 'string') return v;
+    if (Array.isArray(v)) return v.join('\n');
+    if (v == null) return '';
+    return JSON.stringify(v, null, 2);
+  }
   const sections = [
-    ['事実関係', result.facts],
-    ['依頼者の主張', result.claims],
-    ['想定される論点（関連条文）', result.issues],
-    ['確認対象事項', result.todo],
+    ['事実関係',                   toStr(result.facts)],
+    ['依頼者の主張',               toStr(result.claims)],
+    ['想定される論点（関連条文）', toStr(result.issues)],
+    ['確認対象事項',               toStr(result.todo)],
   ];
-  if (result.nextActions) {
-    sections.push(['初動で確認したい事項', '※本項目は参考表示です。法的判断・助言を行うものではありません。\n' + result.nextActions]);
+  if (result.nextActions || result.todo) {
+    const naVal = toStr(result.nextActions || result.todo);
+    sections.push(['初動で確認したい事項', '※本項目は参考表示です。法的判断・助言を行うものではありません。\n' + naVal]);
   }
 
   // A4 at 96dpi = 794×1123px; we use 2× for sharpness
@@ -1891,8 +1898,13 @@ function exportPDF() {
   const tmpCtx = tmpC.getContext('2d');
 
   function wrapText(ctx, text, maxW) {
+    // text が配列・null等でも安全に文字列化
+    const textStr = typeof text === 'string' ? text
+      : Array.isArray(text) ? text.join('\n')
+      : text == null ? ''
+      : JSON.stringify(text, null, 2);
     const lines = [];
-    for (const raw of text.split('\n')) {
+    for (const raw of textStr.split('\n')) {
       if (!raw.trim()) { lines.push(''); continue; }
       let cur = '';
       for (const ch of raw) {
