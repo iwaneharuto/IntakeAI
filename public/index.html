@@ -604,13 +604,13 @@ footer{padding:24px;flex-direction:column;text-align:center}
           </div>
           <div class="mock-bd">
             <div class="ml">相談メモを入力</div>
-            <div class="mock-input">依頼者は会社員。先月交通事故に遭い、相手方は任意保険未加入。現在通院中で休業損害が発生。示談額に合意できていない...</div>
+            <div class="mock-input">依頼者より離婚の相談。配偶者と別居中で、子ども2名の親権を希望。生活費の支払いもなく、早期解決を求めている...</div>
             <div class="ml" style="margin-top:4px">AI整理結果</div>
             <div class="mock-grid">
-              <div class="mock-item"><div class="lbl">事実関係</div><div class="val">交通事故・保険未加入・通院中</div></div>
-              <div class="mock-item"><div class="lbl">依頼者の主張</div><div class="val">相手方過失・適正示談額の実現</div></div>
-              <div class="mock-item"><div class="lbl">想定される論点</div><div class="val">過失割合・損害算定・強制執行</div></div>
-              <div class="mock-item"><div class="lbl">確認すべき事項</div><div class="val">診断書・事故証明・休業証明</div></div>
+              <div class="mock-item"><div class="lbl">事実関係</div><div class="val">別居中・生活費不払い・子ども2名</div></div>
+              <div class="mock-item"><div class="lbl">依頼者の主張</div><div class="val">離婚・親権取得・早期解決を希望</div></div>
+              <div class="mock-item"><div class="lbl">想定される論点</div><div class="val">民法770条・819条・養育費算定</div></div>
+              <div class="mock-item"><div class="lbl">確認すべき事項</div><div class="val">別居期間・婚姻費用・子の年齢</div></div>
             </div>
             <div class="mock-btns">
               <div class="mock-btn g">📄 PDFで保存</div>
@@ -674,7 +674,7 @@ footer{padding:24px;flex-direction:column;text-align:center}
     </section>
   </div>
 
-  <!-- OUTPUT DEMO -->
+  <!-- OUTPUT DEMO: 以下はLPの視覚デモ用静的HTML。AIには渡されません -->
   <section class="demo-sec">
     <div class="demo-inner">
       <div class="sec-ey">Demo</div>
@@ -1212,7 +1212,7 @@ footer{padding:24px;flex-direction:column;text-align:center}
       </div>
       <div class="card">
         <label class="card-label">相談メモ</label>
-        <textarea id="memo" class="textarea" placeholder="初回相談で聞き取った内容を入力してください。&#10;&#10;例）&#10;・依頼者：会社員（35歳男性）&#10;・相談内容：昨年10月に交通事故に遭い、相手方は任意保険未加入&#10;・現在通院中（整形外科）で休業損害が発生している&#10;・相手方は過失を認めているが示談額に合意できていない"></textarea>
+        <textarea id="memo" class="textarea" placeholder="初回相談で聞き取った内容を入力してください。&#10;&#10;（例：相談者の状況、経緯、相手方との関係、希望する解決内容など）"></textarea>
         <div class="inp-actions">
           <button class="btn-analyze" id="btn-go" onclick="analyze()">🤖 AIで整理する</button>
           <button class="btn-sec" onclick="clearAll()">クリア</button>
@@ -1643,7 +1643,9 @@ function closeUpgrade() { document.getElementById('upg-modal').classList.remove(
 // ── AI整理 ────────────────────────────────────────────
 async function analyze() {
   const memo = document.getElementById('memo').value.trim();
-  if (!memo) { toast('相談メモを入力してください'); return; }
+  if (!memo || memo.length < 10) { toast('相談内容を入力してください（10文字以上）'); return; }
+  console.log('[IntakeAI] 送信する相談文:', memo.slice(0,50) + (memo.length>50?'...':''));
+  console.log('[IntakeAI] 文字数:', memo.length, '/ モデル:', isPro ? 'claude-sonnet' : 'claude-haiku');
   const u = users[me.email];
   const isPro    = isProOrAbove(me.email);
   const inTrial  = isInTrial(me.email);
@@ -1680,7 +1682,7 @@ async function analyze() {
 出力形式：{"caseType":"案件類型","keyIssues":"主要論点","priority":"初動確認事項","facts":"事実関係","claims":"依頼者の主張","issues":"想定される論点","todo":"追加で確認すべき事項","nextActions":"初動で確認したい事項"}
 
 記載ルール：
-- caseType: 案件の類型（例：離婚・親権、交通事故・人身 等）を短く1行で
+- caseType: 相談内容から判断される案件の類型を短く1行で記載する（入力内容に基づき決定する）
 - keyIssues: 関連する法的論点を1〜2点、条文番号を付記して列挙する
 - priority: 初動で確認対象となる事項を1点、「〜の確認」「〜の有無を確認」の形式で記載する
 - facts: 箇条書き（・）で、相談メモに記載された日時・当事者・出来事・状況を3〜4点抽出する
@@ -1693,7 +1695,7 @@ const proSystem = `以下の相談メモを分類し、指定のJSON形式のみ
 出力形式：{"caseType":"案件類型","keyIssues":"主要論点","priority":"初動確認事項","facts":"事実関係","claims":"依頼者の主張","issues":"想定される論点と関連条文","todo":"追加で確認すべき事項","nextActions":"初動で確認したい事項"}
 
 記載ルール：
-- caseType: 案件の類型（例：離婚・親権、交通事故・人身 等）を短く1行で
+- caseType: 相談内容から判断される案件の類型を短く1行で記載する（入力内容に基づき決定する）
 - keyIssues: 関連する法的論点を1〜2点、条文番号を付記して列挙する
 - priority: 初動で確認対象となる事項を1点、「〜の確認」「〜の有無を確認」の形式で記載する
 - facts: 箇条書き（・）で、相談メモに記載された日時・当事者・出来事・状況・背景を時系列順に4〜6点抽出する
@@ -1713,7 +1715,7 @@ const proSystem = `以下の相談メモを分類し、指定のJSON形式のみ
       headers: { 'Content-Type': 'application/json', 'anthropic-dangerous-direct-browser-access': 'true' },
       body: JSON.stringify({
         model, max_tokens: maxTok, system,
-        messages: [{ role: 'user', content: `以下の相談メモを整理してください：\n\n${memo}` }]
+        messages: [{ role: 'user', content: memo }]
       })
     });
     const data = await res.json();
@@ -1721,29 +1723,13 @@ const proSystem = `以下の相談メモを分類し、指定のJSON形式のみ
     const parsed = JSON.parse(text.replace(/```json|```/g, '').trim());
     result = { memo, ...parsed, date: new Date().toISOString(), isPro };
     track('analyze_success', { plan: isPro ? 'pro' : 'free' });
-  } catch {
-    if (isPro) {
-      result = {
-        memo, isPro: true,
-        facts:  '・依頼者は会社員（35歳男性、既婚）\n・昨年10月15日、帰宅途中に交差点で相手方車両と衝突\n・相手方は任意保険未加入（自賠責保険のみ）\n・事故後より整形外科に通院中（頸椎捻挫・腰部挫傷）\n・事故による欠勤で休業損害が発生している\n・相手方は過失を認めているが提示示談額に依頼者が不満',
-        claims: '・相手方の不法行為責任に基づく損害賠償請求\n・治療費・通院交通費・休業損害・慰謝料の全額賠償\n・適正な過失割合の認定による示談解決\n・相手方の任意保険未加入を踏まえた実効的な回収',
-        issues: '・過失割合の確定（信号機の状況・車線・速度等が争点）（関連条文：民法709条、722条2項）\n・損害額の算定－治療費・休業損害・傷害慰謝料・後遺障害慰謝料（関連条文：民法709条、710条、711条）\n・自賠責保険の限度額（傷害：120万円）超過分の請求方法（関連条文：自動車損害賠償保障法3条、16条）\n・任意保険未加入時の強制執行手続き（財産開示・第三者情報取得）（関連条文：民事執行法197条以下）\n・既往症・素因減額の有無（関連条文：民法722条2項、最判H8.10.29）\n・示談後の追加請求可能性と留保条項の要否（関連条文：民法696条）',
-        todo:   '・交通事故証明書（自動車安全運転センター発行）の取得\n・診断書・診療録・画像データ（MRI・レントゲン）の収集\n・休業損害証明書（勤務先作成）の準備\n・修理費見積書・物損関係書類の確認\n・相手方の資産状況調査（不動産登記・預金等）\n・ドライブレコーダー映像・目撃者情報の保全',
-        date: new Date().toISOString()
-      };
-    } else {
-      result = {
-        memo, isPro: false,
-        facts:  '・依頼者は会社員（35歳男性）\n・昨年10月に交通事故に遭う\n・相手方は任意保険未加入\n・現在整形外科に通院中\n・休業損害が発生している',
-        claims: '・相手方の過失責任の認定\n・適正な損害賠償額の支払いを求める\n・示談による早期解決を希望',
-        issues: '・過失割合の確定\n・損害額（治療費・休業損害・慰謝料）の算定\n・任意保険未加入時の強制執行可能性\n・示談交渉の進め方',
-        todo:   '・交通事故証明書の取得\n・診断書・診療録の確認\n・休業損害証明書の準備\n・相手方の資力確認',
-        date: new Date().toISOString()
-      };
-    }
+  } catch (err) {
+    console.error('[IntakeAI] AI整理エラー:', err);
+    toast('整理結果の生成に失敗しました。もう一度お試しください。');
+    document.getElementById('res-wrap').style.display = 'none';
+    result = null; // フォールバックとして固定データを使用しない
   } finally {
-    showResult(result);
-    autoSave(result);
+    if (result) { showResult(result); autoSave(result); }
     document.getElementById('btn-go').disabled = false;
     updateUsageBar();
   }
