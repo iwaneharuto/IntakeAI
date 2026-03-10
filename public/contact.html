@@ -71,7 +71,7 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-wei
     <div class="contact-card-body">
       <div class="mail-row">
         <span style="font-size:.75rem;color:var(--slate);white-space:nowrap">メールアドレス</span>
-        <a href="mailto:iwaharu.422@outlook.jp">iwaharu.422@outlook.jp</a>
+        <a id="mcon1" href="#"></a><script>(function(){var u='iwaharu.422',d='outlook.jp',e=u+'@'+d;var a=document.getElementById('mcon1');a.href='mailto:'+e;a.textContent=e;})();</script>
         <button class="mail-copy-btn" onclick="copyMail()">コピー</button>
       </div>
       <div class="hours">
@@ -113,8 +113,6 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-wei
   <p>© 2025 IntakeAI. All rights reserved.</p>
 </footer>
 
-<script>
-function copyMail() {
-  navigator.clipboard.writeText('iwaharu.422@outlook.jp').then(function() {
-    const btn = document.querySelector('.mail-copy-btn');
-    btn.textContent = 'コ�
+
+</body>
+</html>
