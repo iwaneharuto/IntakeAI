@@ -1837,8 +1837,15 @@ function clearAll() { document.getElementById('memo').value=''; document.getElem
 
 // ── PDF出力 ───────────────────────────────────────────
 function exportPDF() {
-  if (!result) return;
-
+  if (!result) { toast('整理結果がありません。先にAI整理を実行してください。'); return; }
+  try {
+  _exportPDFInner();
+  } catch(e) {
+    console.error('[IntakeAI] PDF生成エラー:', e);
+    toast('PDF生成に失敗しました：' + e.message);
+  }
+}
+function _exportPDFInner() {
   const date = new Date(result.date).toLocaleDateString('ja-JP');
   const DISCLAIMER = '※本表示は相談内容の整理補助を目的とするものであり、法的意見、受任判断、具体的な対応方針を示すものではありません。';
   const SERVICE_NOTE = '本サービスは弁護士・法律事務所向けの情報整理支援ツールです。法律相談、法的判断、代理判断その他の法律事務を提供するものではありません。';
@@ -1997,6 +2004,7 @@ function exportPDF() {
   disclaimerLines.forEach(function(line) { ctx.fillText(line, marginX, y); y += lineH * 0.85; });
 
   // ── split into A4 pages and save ────
+  if (!window.jspdf) throw new Error('jsPDFライブラリが読み込まれていません。ページを再読み込みしてください。');
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
   const pageH = 297; // mm
@@ -2057,28 +2065,16 @@ function renderAcct() {
   const planBdg={free:'bdg-free',personal:'bdg-pro',small:'bdg-office',large:'bdg-team'};
   const body=document.getElementById('acct-body'); if(!body)return;
   const nextRenewal=isPro&&!isDev?formatDate(calcNextRenewal(u.joinDate)):'—';
-  const trialLeft=(!isPro&&isInTrial(u.email))?trialDaysLeft(u.email):null;
-  const trialExp=(!isPro&&isTrialExpired(u.email));
+  const trialLeft=(!isPro&&isInTrial(me.email))?trialDaysLeft(me.email):null;
+  const trialExp=(!isPro&&isTrialExpired(me.email));
   const cs=u.cancelScheduled;
   body.innerHTML=`
     <div class="sec-box" style="margin-bottom:16px">
-      <h3>🔑 Anthropic APIキー</h3>
-      <p style="font-size:.78rem;color:var(--slate);margin-bottom:12px">
-        AI整理機能を使用するには、Anthropic APIキーが必要です。キーはこのブラウザにのみ保存され、外部に送信されません。<br>
-        <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" style="color:var(--gold)">Anthropic Console → API Keys</a> でキーを発行してここに貼り付けてください。
+      <h3>🔑 AI機能について</h3>
+      <p style="font-size:.78rem;color:var(--slate);line-height:1.8">
+        AI整理機能はサーバー側で安全に処理されます。<br>
+        APIキーはサーバー環境変数として管理されており、ブラウザには一切送信されません。
       </p>
-      ${currentKey
-        ? `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <span style="font-size:.8rem;color:#4a7c6f;font-weight:600">✅ 設定済み：${maskedKey}</span>
-            <button onclick="clearApiKey()" style="font-size:.72rem;padding:4px 12px;background:#fff;border:1px solid var(--border);border-radius:3px;cursor:pointer;color:var(--slate)">削除</button>
-            <button onclick="editApiKey()" style="font-size:.72rem;padding:4px 12px;background:#fff;border:1px solid var(--gold);border-radius:3px;cursor:pointer;color:var(--gold)">変更</button>
-          </div>`
-        : `<div style="display:flex;gap:8px;flex-wrap:wrap">
-            <input id="api-key-input" type="password" placeholder="sk-ant-api03-..." autocomplete="off" spellcheck="false" 
-              style="flex:1;min-width:200px;padding:9px 12px;border:1px solid var(--border);border-radius:4px;font-size:.82rem;font-family:inherit">
-            <button onclick="doSaveApiKey()" style="padding:9px 20px;background:var(--gold);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:.82rem;font-weight:600">保存</button>
-          </div>`
-      }
     </div>
     <div class="sec-box">
       <h3>📋 プラン情報</h3>
