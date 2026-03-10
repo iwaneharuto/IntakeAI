@@ -4,18 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IntakeAI – 初回相談メモをすばやく整理</title>
-<!-- =====================================================
-     Google Analytics 4
-     測定ID: G-8F7LVCTWX0
-           例）G-XXXXXXXXXX
-     ===================================================== -->
-
-
-
-
+<!-- Google Analytics 4 / 測定ID: G-8F7LVCTWX0 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8F7LVCTWX0"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-8F7LVCTWX0');
+function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
+
+
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ink:#1a1a2e;--ink2:#2d2d4e;--gold:#b8975a;--gold2:#d4af72;
@@ -433,15 +436,15 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
   .faq-cats{grid-template-columns:1fr;gap:36px}
   .pricing-grid{grid-template-columns:1fr 1fr}
 }
+
 @media(max-width:560px){.pricing-grid{grid-template-columns:1fr}}
+
+
 </style>
-
-
-
-
-
 </head>
 <body>
+
+
 
 <!-- NAV -->
 <nav>
@@ -715,7 +718,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">問題が発生した場合の問い合わせ先は？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans"><a href="/contact.html">お問い合わせページ</a>またはメール（<a href="/cdn-cgi/l/email-protection#0a637d6b626b787f243e38384a657f7e6665656124607a"><span class="__cf_email__" data-cfemail="81e8f6e0e9e0f3f4afb5b3b3c1eef4f5edeeeeeaafebf1">[email&#160;protected]</span></a>）までご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
+            <div class="faq-ans"><a href="/contact.html">お問い合わせページ</a>またはメール（）までご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
           </div>
         </div>
 
@@ -1159,7 +1162,7 @@ function goSec(id) {
 }
 
 // ── auth tabs ──────────────────────────
-function authTab(t){['reg','login','reset'].forEach(x=>{const t2=document.getElementById('atab-'+x),f2=document.getElementById('form-'+x);if(t2)t2.classList.toggle('on',x===t);if(f2)f2.classList.toggle('on',x===t);});clearErrs();if(t==='reset'){['reset-email','reset-newpw','reset-newpw2'].forEach(id=>{const el=document.getElementById(id);if(el){el.value='';el.disabled=false;}});document.getElementById('reset-newpw-wrap').style.display='none';document.getElementById('reset-newpw2-wrap').style.display='none';const btn=document.getElementById('reset-btn');btn.textContent='次へ';btn.onclick=doReset;}}
+function authTab(t){['reg','login','reset'].forEach(x=>{const t2=document.getElementById('atab-'+x),f2=document.getElementById('form-'+x);if(t2)t2.classList.toggle('on',x===t);if(f2)f2.classList.toggle('on',x===t);});clearErrs();}
 function clearErrs() { document.querySelectorAll('.ferr').forEach(e => e.classList.remove('on')); }
 function err(id, msg) { const e = document.getElementById(id); if (msg) e.textContent = msg; e.classList.add('on'); }
 
@@ -1197,7 +1200,7 @@ function doLogin() {
 
 function logout() { me = null; result = null; go('lp'); toast('ログアウトしました'); }
 
-function enterApp(u){me=u;document.getElementById('uname').textContent=u.name+' さん';go('app');renderHist();updateUsageBar();const _it=isTeamPlan(u.email);const _tt=document.getElementById('atab-team');if(_tt)_tt.style.display=_it?'':'none';const _sb=document.getElementById('btn-share-team');if(_sb)_sb.style.display=_it?'':'none';}
+function enterApp(u){me=u;document.getElementById('uname').textContent=u.name+' さん';go('app');renderHist();updateUsageBar();const _it=isTeamPlan(u.email);const _tt=document.getElementById('atab-team');if(_tt)_tt.style.display=_it?'':'none';}
 
 function updateUsageBar() {
   if (!me) return;
@@ -1429,7 +1432,7 @@ function exportPDF() {
   ctx.font = `${11 * scale}px 'Noto Sans JP', sans-serif`;
   ctx.fillStyle = '#b8975a';
   ctx.fillText('初回相談整理レポート', marginX, 52 * scale);
-  ctx.fillStyle='#888888';ctx.textAlign='right';ctx.fillText(date,W-marginX,52*scale);ctx.textAlign='left';const _on=me?(users[me.email]?.officeName||getTeamOfficeName()):'';if(_on){ctx.font=`${10*scale}px 'Noto Sans JP',sans-serif`;ctx.fillStyle='#6b7280';ctx.fillText('📌 '+_on,marginX,68*scale);y=88*scale+28*scale;}else{y=72*scale+28*scale;}
+  ctx.fillStyle='#888888';ctx.textAlign='right';ctx.fillText(date,W-marginX,52*scale);ctx.textAlign='left';const _on=me?(users[me.email]?.officeName||''):'';if(_on){ctx.font=`${10*scale}px 'Noto Sans JP',sans-serif`;ctx.fillStyle='#6b7280';ctx.fillText('📌 '+_on,marginX,68*scale);y=88*scale+28*scale;}else{y=72*scale+28*scale;}
 
   // sections
   sections.forEach(([lbl, val]) => {
@@ -1572,7 +1575,7 @@ document.getElementById('upg-modal').addEventListener('click', function(e) {
 });
 
 function doReset(){const eEl=document.getElementById('reset-email'),eErr=document.getElementById('e-reset-email'),nW=document.getElementById('reset-newpw-wrap'),n2W=document.getElementById('reset-newpw2-wrap'),btn=document.getElementById('reset-btn');eErr.classList.remove('on');const em=eEl.value.trim();if(!em){eErr.textContent='メールアドレスを入力してください';eErr.classList.add('on');return;}if(!users[em]){eErr.textContent='このメールアドレスで登録されたアカウントが見つかりません';eErr.classList.add('on');return;}nW.style.display='';n2W.style.display='';eEl.disabled=true;btn.textContent='パスワードを変更する';btn.onclick=doResetConfirm;}
-function doResetConfirm(){const em=document.getElementById('reset-email').value.trim(),np=document.getElementById('reset-newpw').value,np2=document.getElementById('reset-newpw2').value,e1=document.getElementById('e-reset-newpw'),e2=document.getElementById('e-reset-newpw2');[e1,e2].forEach(e=>e.classList.remove('on'));if(np.length<8){e1.textContent='8文字以上で入力してください';e1.classList.add('on');return;}if(np!==np2){e2.textContent='パスワードが一致しません';e2.classList.add('on');return;}users[em].pass=np;save();toast('パスワードを再設定しました。新しいパスワードでログインしてください。');authTab('login');document.getElementById('login-email').value=em;}
+function doResetConfirm(){const em=document.getElementById('reset-email').value.trim(),np=document.getElementById('reset-newpw').value,np2=document.getElementById('reset-newpw2').value,e1=document.getElementById('e-reset-newpw'),e2=document.getElementById('e-reset-newpw2');[e1,e2].forEach(e=>e.classList.remove('on'));if(np.length<8){e1.textContent='8文字以上で入力してください';e1.classList.add('on');return;}if(np!==np2){e2.textContent='パスワードが一致しません';e2.classList.add('on');return;}users[em].pass=np;save();toast('パスワードを再設定しました');authTab('login');document.getElementById('login-email').value=em;}
 function renderAcct(){if(!me)return;const u=users[me.email],plan=getEffectivePlan(me.email),isPro=isProOrAbove(me.email),cs=u.cancelScheduled||false;document.getElementById('acct-email').textContent=me.email;const badge=document.getElementById('acct-plan-badge'),lmap={free:'<span class="acct-badge-free">無料プラン（月5件）</span>',pro:'<span class="acct-badge-pro">✨ プロプラン</span>',office:'<span class="acct-badge-pro" style="background:#f0f8f4;color:#4a7c6f;border-color:#b8d8cc">🏢 オフィスプラン（3名）</span>',team:'<span class="acct-badge-pro" style="background:#f0f4ff;color:#5a4a8a;border-color:#c4b8e8">👥 チームプラン（5名）</span>'};badge.innerHTML=(lmap[plan]||lmap['free'])+(me.email===_D?' <span style="font-size:.65rem;color:#888;border:1px solid #ddd;border-radius:3px;padding:1px 5px">DEV</span>':'');const rr=document.getElementById('acct-renewal-row'),re2=document.getElementById('acct-renewal'),cr=document.getElementById('acct-cancel-sched-row'),cd=document.getElementById('acct-cancel-date');if(isPro&&me.email!==_D){const rd=u.renewDate?new Date(u.renewDate):calcNextRenewal(u.joinDate);re2.textContent=formatDate(rd);rr.style.display='';cr.style.display=cs?'':'none';if(cs)cd.textContent=formatDate(rd)+'（解約予定）';}else{rr.style.display='none';cr.style.display='none';}document.getElementById('acct-upgrade-btn').style.display=(isPro||me.email===_D)?'none':'';const cb=document.getElementById('acct-cancel-btn');if(!isPro||me.email===_D){cb.style.display='none';}else if(cs){cb.textContent='解約申請済み';cb.disabled=true;cb.style.display='';}else{cb.textContent='プランを解約する';cb.disabled=false;cb.style.display='';}}
 function calcNextRenewal(j){const b=j?new Date(j):new Date(),n=new Date(),x=new Date(b);while(x<=n)x.setMonth(x.getMonth()+1);return x;}
 function formatDate(d){if(!d)return'—';const dt=new Date(d);return dt.getFullYear()+'年'+(dt.getMonth()+1)+'月'+dt.getDate()+'日';}
@@ -1586,9 +1589,8 @@ function changePassword(){if(!me)return;const c2=document.getElementById('pw-cur
 function deleteAccount(){if(!me)return;if(!confirm('アカウントを削除してもよいですか？\nすべての相談履歴・設定が完全に消去されます。\nこの操作は取り消せません。'))return;if(!confirm('本当に削除しますか？この操作は元に戻せません。'))return;delete users[me.email];save();me=null;result=null;go('lp');toast('アカウントを削除しました');}
 function getTeam(){if(!me)return null;const plan=getEffectivePlan(me.email);if(plan!=='office'&&plan!=='team')return null;const tk='team_'+me.email;if(!localStorage.getItem(tk)){const u=users[me.email],mm=plan==='office'?3:5;localStorage.setItem(tk,JSON.stringify({adminEmail:me.email,officeName:u.officeName||'',members:[{email:me.email,name:u.name,role:'admin'}],maxMembers:mm,sharedPdfs:[]}));}return JSON.parse(localStorage.getItem(tk));}
 function saveTeam(t){if(!t)return;localStorage.setItem('team_'+t.adminEmail,JSON.stringify(t));}
-function getTeamOfficeName(){const t=getTeam();return t?(t.officeName||''):'';}
 function findMyTeam(){if(!me)return null;const mt=getTeam();if(mt)return mt;for(const em in users){const r=localStorage.getItem('team_'+em);if(!r)continue;const t=JSON.parse(r);if(t.members.some(m=>m.email===me.email))return t;}return null;}
-function renderTeam(){if(!me)return;const plan=getEffectivePlan(me.email),itf=isTeamPlan(me.email);document.getElementById('team-locked-msg').style.display=itf?'none':'';['team-settings-sec','team-members-sec','team-usage-sec','team-shared-sec'].forEach(id=>{document.getElementById(id).style.display=itf?'':'none';});if(!itf)return;const team=getTeam();if(!team)return;const pl=plan==='office'?'オフィスプラン（3名まで）':'チームプラン（5名まで）',dm=me.email===_D?' <span style="font-size:.65rem;color:#888;border:1px solid #ddd;border-radius:3px;padding:1px 5px">DEV</span>':'';document.getElementById('team-badge-wrap').innerHTML='<div class="team-badge '+plan+'">'+pl+dm+'</div>';document.getElementById('office-name-input').value=team.officeName||'';document.getElementById('member-capacity').textContent='メンバー：'+team.members.length+' / '+team.maxMembers+'名';document.getElementById('member-list-wrap').innerHTML=team.members.map(m=>'<div class="member-row"><span class="m-name">'+m.name+'</span><span class="m-email">'+m.email+'</span><span class="m-role '+(m.role==='admin'?'admin':'')+'">'+(m.role==='admin'?'管理者':'メンバー')+'</span>'+(m.role!=='admin'?'<button class="m-del" onclick="removeMember(\'+m.email+\')">削除</button>':'')+'</div>').join('');const tbody=document.getElementById('team-usage-body');tbody.innerHTML=team.members.map(m=>{const mu=users[m.email],cnt=mu?(mu.usageCount||0):0,ip2=mu?isProOrAbove(m.email):false,pct=Math.min(100,(cnt/5)*100);return'<tr><td>'+m.name+(m.role==='admin'?'<span style="font-size:.68rem;color:var(--gold);margin-left:6px">管理者</span>':'')+'</td><td style="display:flex;align-items:center;gap:8px">'+cnt+'件'+(!ip2?'<div class="usage-bar-mini"><div class="usage-bar-mini-fill" style="width:'+pct+'%"></div></div>':'')+'</td><td>'+(ip2?'<span style="color:var(--gold);font-size:.75rem">有料</span>':'<span style="color:var(--slate);font-size:.75rem">無料</span>')+'</td></tr>';}).join('');renderSharedPdfs(team);}
+function renderTeam(){if(!me)return;const plan=getEffectivePlan(me.email),itf=isTeamPlan(me.email);document.getElementById('team-locked-msg').style.display=itf?'none':'';['team-settings-sec','team-members-sec','team-usage-sec','team-shared-sec'].forEach(id=>{document.getElementById(id).style.display=itf?'':'none';});if(!itf)return;const team=getTeam();if(!team)return;const pl=plan==='office'?'オフィスプラン（3名まで）':'チームプラン（5名まで）';document.getElementById('team-badge-wrap').innerHTML='<div class="team-badge '+plan+'">'+pl+'</div>';document.getElementById('office-name-input').value=team.officeName||'';document.getElementById('member-capacity').textContent='メンバー：'+team.members.length+' / '+team.maxMembers+'名';document.getElementById('member-list-wrap').innerHTML=team.members.map(m=>'<div class="member-row"><span class="m-name">'+m.name+'</span><span class="m-email">'+m.email+'</span><span class="m-role '+(m.role==='admin'?'admin':'')+'">'+(m.role==='admin'?'管理者':'メンバー')+'</span>'+(m.role!=='admin'?'<button class="m-del" onclick="removeMember(\'+m.email+\')">削除</button>':'')+'</div>').join('');const tbody=document.getElementById('team-usage-body');tbody.innerHTML=team.members.map(m=>{const mu=users[m.email],cnt=mu?(mu.usageCount||0):0,ip2=mu?isProOrAbove(m.email):false,pct=Math.min(100,(cnt/5)*100);return'<tr><td>'+m.name+(m.role==='admin'?'<span style="font-size:.68rem;color:var(--gold);margin-left:6px">管理者</span>':'')+'</td><td style="display:flex;align-items:center;gap:8px">'+cnt+'件'+(!ip2?'<div class="usage-bar-mini"><div class="usage-bar-mini-fill" style="width:'+pct+'%"></div></div>':'')+'</td><td>'+(ip2?'<span style="color:var(--gold);font-size:.75rem">有料</span>':'<span style="color:var(--slate);font-size:.75rem">無料</span>')+'</td></tr>';}).join('');renderSharedPdfs(team);}
 function renderSharedPdfs(team){const wrap=document.getElementById('shared-list-wrap'),pdfs=team.sharedPdfs||[];if(!pdfs.length){wrap.innerHTML='<p style="color:var(--slate);font-size:.82rem">共有されたPDFはありません。</p>';return;}wrap.innerHTML=pdfs.slice().reverse().map((p,i)=>'<div class="shared-item" onclick="loadSharedResult('+(pdfs.length-1-i)+')"><span>📄</span><div style="flex:1"><div class="sh-name">'+(p.memo?p.memo.slice(0,30)+'...':'相談メモ')+'</div><div class="sh-meta">共有者：'+p.sharedBy+' ／ '+new Date(p.date).toLocaleDateString('ja-JP')+'</div></div><span style="font-size:.72rem;color:var(--gold)">閲覧する →</span></div>').join('');}
 function loadSharedResult(idx){const team=findMyTeam();if(!team)return;const item=team.sharedPdfs[idx];if(!item)return;result=item.result;appTab('inp');renderResult(result);toast(item.sharedBy+' さんが共有した整理結果を表示しています');}
 function saveOfficeName(){if(!me)return;const name=document.getElementById('office-name-input').value.trim(),team=getTeam();if(!team)return;team.officeName=name;saveTeam(team);users[me.email].officeName=name;save();renderTeam();toast('事務所名を保存しました：'+(name||'（未設定）'));}
