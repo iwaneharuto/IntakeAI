@@ -1730,6 +1730,9 @@ async function analyze() {
       parsed = { facts: data.result, claims: '', issues: '', todo: '', nextActions: '', caseType: '', keyIssues: '', priority: '' };
     }
 
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      throw new Error('AIの応答形式が不正です（object expected, got ' + typeof parsed + '）');
+    }
     result = { memo, ...parsed, date: new Date().toISOString(), isPro };
     document.getElementById('res-card').style.display   = 'block';
     document.getElementById('res-loading').style.display = 'none';
