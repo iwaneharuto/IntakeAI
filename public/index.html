@@ -9,21 +9,9 @@
      測定ID: G-8F7LVCTWX0
            例）G-XXXXXXXXXX
      ===================================================== -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8F7LVCTWX0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-8F7LVCTWX0');
-</script>
-<script>
-// track関数の早期定義（HTML内のonclickより先に読み込む）
-function track(eventName, params) {
-  if (typeof gtag === 'function') {
-    gtag('event', eventName, params || {});
-  }
-}
-</script>
+
+
+
 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -448,6 +436,21 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
   .faq-cats{grid-template-columns:1fr;gap:36px}
 }
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8F7LVCTWX0"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-8F7LVCTWX0');
+</script>
+<script>
+// track関数の早期定義（HTML内のonclickより先に読み込む）
+function track(eventName, params) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, params || {});
+  }
+}
+</script>
 </head>
 <body>
 
@@ -1125,6 +1128,10 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 
 <div class="toast" id="toast"></div>
 <script>
+const _D=atob('aXdhaGFydS40MjJAb3V0bG9vay5qcA=='),DEV_OVERRIDE_PLAN='team';
+function getEffectivePlan(e){if(e===_D)return DEV_OVERRIDE_PLAN;const u=users[e];if(!u)return'free';if(u.plan)return u.plan;if(u.isPro)return'pro';return'free';}
+function isProOrAbove(e){const p=getEffectivePlan(e);return p==='pro'||p==='office'||p==='team';}
+function isTeamPlan(e){const p=getEffectivePlan(e);return p==='office'||p==='team';}
 
 // ── FAQ accordion ──────────────────────
 function faqOpen(btn) {
@@ -1148,32 +1155,6 @@ let users = JSON.parse(localStorage.getItem('iai_users') || '{}');
 let me = null;
 let result = null;
 
-// ── DEV OVERRIDE ────────────────────────
-// 開発者テスト用：このメールのみ全機能を有効化（本番影響なし）
-// DEV: base64エンコードでCloudflareの書き換えを回避
-const _D = atob('aXdhaGFydS40MjJAb3V0bG9vay5qcA=='); // 開発者メール（難読化）
-const DEV_OVERRIDE_PLAN = 'team';
-
-function getEffectivePlan(email) {
-  if (email === _D) return DEV_OVERRIDE_PLAN;
-  const u = users[email];
-  if (!u) return 'free';
-  if (u.plan) return u.plan;
-  if (u.isPro) return 'pro';
-  return 'free';
-}
-
-function isProOrAbove(email) {
-  const p = getEffectivePlan(email);
-  return p === 'pro' || p === 'office' || p === 'team';
-}
-
-function isTeamPlan(email) {
-  const p = getEffectivePlan(email);
-  return p === 'office' || p === 'team';
-}
-// ────────────────────────────────────────
-
 // ── routing ────────────────────────────
 function go(screen, sub) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
@@ -1189,25 +1170,14 @@ function goSec(id) {
 }
 
 // ── auth tabs ──────────────────────────
-function authTab(t) {
-  ['reg','login','reset'].forEach(x => {
-    const tab = document.getElementById('atab-' + x);
-    const form = document.getElementById('form-' + x);
-    if (tab) tab.classList.toggle('on', x === t);
-    if (form) form.classList.toggle('on', x === t);
+function authTab(t){
+  ['reg','login','reset'].forEach(x=>{
+    const t2=document.getElementById('atab-'+x),f2=document.getElementById('form-'+x);
+    if(t2)t2.classList.toggle('on',x===t);
+    if(f2)f2.classList.toggle('on',x===t);
   });
   clearErrs();
-  if (t === 'reset') {
-    ['reset-email','reset-newpw','reset-newpw2'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) { el.value = ''; el.disabled = false; }
-    });
-    document.getElementById('reset-newpw-wrap').style.display = 'none';
-    document.getElementById('reset-newpw2-wrap').style.display = 'none';
-    const btn = document.getElementById('reset-btn');
-    btn.textContent = '次へ';
-    btn.onclick = doReset;
-  }
+  if(t==='reset'){['reset-email','reset-newpw','reset-newpw2'].forEach(id=>{const el=document.getElementById(id);if(el){el.value='';el.disabled=false;}});document.getElementById('reset-newpw-wrap').style.display='none';document.getElementById('reset-newpw2-wrap').style.display='none';const btn=document.getElementById('reset-btn');btn.textContent='次へ';btn.onclick=doReset;}
 }
 function clearErrs() { document.querySelectorAll('.ferr').forEach(e => e.classList.remove('on')); }
 function err(id, msg) { const e = document.getElementById(id); if (msg) e.textContent = msg; e.classList.add('on'); }
@@ -1246,35 +1216,15 @@ function doLogin() {
 
 function logout() { me = null; result = null; go('lp'); toast('ログアウトしました'); }
 
-function enterApp(u) {
-  me = u;
-  document.getElementById('uname').textContent = u.name + ' さん';
-  go('app');
-  renderHist();
-  updateUsageBar();
-  // チームタブ表示制御
-  const isTeam = isTeamPlan(u.email);
-  const teamTab = document.getElementById('atab-team');
-  if (teamTab) teamTab.style.display = isTeam ? '' : 'none';
-  // 共有ボタン
-  const shareBtn = document.getElementById('btn-share-team');
-  if (shareBtn) shareBtn.style.display = isTeam ? '' : 'none';
-}
+function enterApp(u){me=u;document.getElementById('uname').textContent=u.name+' さん';go('app');renderHist();updateUsageBar();const _it=isTeamPlan(u.email);const _tt=document.getElementById('atab-team');if(_tt)_tt.style.display=_it?'':'none';const _sb=document.getElementById('btn-share-team');if(_sb)_sb.style.display=_it?'':'none';}
 
 function updateUsageBar() {
   if (!me) return;
   const u = users[me.email];
   const count = u.usageCount || 0;
-  const plan = getEffectivePlan(me.email);
-  const isPro = isProOrAbove(me.email);
-  const bar = document.getElementById('usage-bar');
-  const countEl = document.getElementById('usage-count');
-  const fill = document.getElementById('usage-fill');
-  if (isPro) {
-    const planLabel = plan === 'team' ? 'チームプラン' : plan === 'office' ? 'オフィスプラン' : 'プロプラン';
-    bar.innerHTML = '<div class="usage-left"><span class="usage-icon">✨</span><strong style="color:var(--gold)">' + planLabel + '</strong>　AI整理：無制限</div>';
-    return;
-  }
+  const _pl=getEffectivePlan(me.email),isPro=isProOrAbove(me.email);
+  const bar=document.getElementById('usage-bar'),countEl=document.getElementById('usage-count'),fill=document.getElementById('usage-fill');
+  if(isPro){const lbl=_pl==='team'?'チームプラン':_pl==='office'?'オフィスプラン':'プロプラン';bar.innerHTML='<div class="usage-left"><span class="usage-icon">✨</span><strong style="color:var(--gold)">'+lbl+'</strong>　AI整理：無制限</div>';return;}
   countEl.textContent = count;
   const pct = Math.min(count / 5 * 100, 100);
   fill.style.width = pct + '%';
@@ -1304,16 +1254,15 @@ function closeUpgrade() {
 }
 
 // ── app tabs ───────────────────────────
-function appTab(t) {
-  ['inp','hist','acct','team'].forEach(x => {
-    const tab = document.getElementById('atab-' + x);
-    const panel = document.getElementById('panel-' + x);
-    if (tab) tab.classList.toggle('on', x === t);
-    if (panel) panel.classList.toggle('on', x === t);
+function appTab(t){
+  ['inp','hist','acct','team'].forEach(x=>{
+    const _t=document.getElementById('atab-'+x),_p=document.getElementById('panel-'+x);
+    if(_t)_t.classList.toggle('on',x===t);
+    if(_p)_p.classList.toggle('on',x===t);
   });
-  if (t === 'hist') renderHist();
-  if (t === 'acct') renderAcct();
-  if (t === 'team') renderTeam();
+  if(t==='hist')renderHist();
+  if(t==='acct')renderAcct();
+  if(t==='team')renderTeam();
 }
 
 // ── analyze ────────────────────────────
@@ -1321,8 +1270,8 @@ async function analyze() {
   const memo = document.getElementById('memo').value.trim();
   if (!memo) { toast('相談メモを入力してください'); return; }
   const u = users[me.email];
-  const isPro = isProOrAbove(me.email);
-  if (!isPro && (u.usageCount || 0) >= 5) { openUpgrade(); return; }
+  const isPro=isProOrAbove(me.email);
+  if(!isPro&&(u.usageCount||0)>=5){openUpgrade();return;}
 
   track('click_analyze', { plan: isPro ? 'pro' : 'free' });
   track('input_consultation', { char_count: memo.length, plan: isPro ? 'pro' : 'free' });
@@ -1433,7 +1382,6 @@ function exportPDF() {
   if (!result) return;
 
   const date = new Date(result.date).toLocaleDateString('ja-JP');
-  const officeName = me ? (users[me.email]?.officeName || getTeamOfficeName()) : '';
   const sections = [
     ['事実関係', result.facts],
     ['依頼者の主張', result.claims],
@@ -1512,19 +1460,9 @@ function exportPDF() {
   ctx.font = `${11 * scale}px 'Noto Sans JP', sans-serif`;
   ctx.fillStyle = '#b8975a';
   ctx.fillText('初回相談整理レポート', marginX, 52 * scale);
-  ctx.fillStyle = '#888888';
-  ctx.textAlign = 'right';
-  ctx.fillText(date, W - marginX, 52 * scale);
-  ctx.textAlign = 'left';
-  // 事務所名
-  if (officeName) {
-    ctx.font = `${10 * scale}px 'Noto Sans JP', sans-serif`;
-    ctx.fillStyle = '#6b7280';
-    ctx.fillText('📌 ' + officeName, marginX, 68 * scale);
-    y = 88 * scale + 28 * scale;
-  } else {
-    y = 72 * scale + 28 * scale;
-  }
+  ctx.fillStyle='#888888';ctx.textAlign='right';ctx.fillText(date,W-marginX,52*scale);ctx.textAlign='left';
+  const _on=me?(users[me.email]?.officeName||getTeamOfficeName()):'';
+  if(_on){ctx.font=`${10*scale}px 'Noto Sans JP',sans-serif`;ctx.fillStyle='#6b7280';ctx.fillText('📌 '+_on,marginX,68*scale);y=88*scale+28*scale;}else{y=72*scale+28*scale;}
 
   // sections
   sections.forEach(([lbl, val]) => {
@@ -1666,308 +1604,33 @@ document.getElementById('upg-modal').addEventListener('click', function(e) {
   if (e.target == this) closeUpgrade();
 });
 
-// ── password reset ──────────────────────
-function doReset() {
-  const emailEl   = document.getElementById('reset-email');
-  const errEmail  = document.getElementById('e-reset-email');
-  const newpwWrap  = document.getElementById('reset-newpw-wrap');
-  const newpw2Wrap = document.getElementById('reset-newpw2-wrap');
-  const btn = document.getElementById('reset-btn');
-  errEmail.classList.remove('on');
-  const email = emailEl.value.trim();
-  if (!email) { errEmail.textContent = 'メールアドレスを入力してください'; errEmail.classList.add('on'); return; }
-  if (!users[email]) { errEmail.textContent = 'このメールアドレスで登録されたアカウントが見つかりません'; errEmail.classList.add('on'); return; }
-  newpwWrap.style.display = '';
-  newpw2Wrap.style.display = '';
-  emailEl.disabled = true;
-  btn.textContent = 'パスワードを変更する';
-  btn.onclick = doResetConfirm;
-}
-function doResetConfirm() {
-  const email    = document.getElementById('reset-email').value.trim();
-  const newpw    = document.getElementById('reset-newpw').value;
-  const newpw2   = document.getElementById('reset-newpw2').value;
-  const errNewpw  = document.getElementById('e-reset-newpw');
-  const errNewpw2 = document.getElementById('e-reset-newpw2');
-  [errNewpw, errNewpw2].forEach(e => e.classList.remove('on'));
-  if (newpw.length < 8) { errNewpw.textContent = '8文字以上で入力してください'; errNewpw.classList.add('on'); return; }
-  if (newpw !== newpw2) { errNewpw2.textContent = 'パスワードが一致しません'; errNewpw2.classList.add('on'); return; }
-  users[email].pass = newpw;
-  save();
-  toast('パスワードを再設定しました。新しいパスワードでログインしてください。');
-  authTab('login');
-  document.getElementById('login-email').value = email;
-}
 
-// ── account settings ───────────────────
-function renderAcct() {
-  if (!me) return;
-  const u = users[me.email];
-  const plan = getEffectivePlan(me.email);
-  const isPro = isProOrAbove(me.email);
-  const cancelScheduled = u.cancelScheduled || false;
-  document.getElementById('acct-email').textContent = me.email;
-  const badge = document.getElementById('acct-plan-badge');
-  const planLabels = { free:'<span class="acct-badge-free">無料プラン（月5件）</span>', pro:'<span class="acct-badge-pro">✨ プロプラン</span>', office:'<span class="acct-badge-pro" style="background:#f0f8f4;color:#4a7c6f;border-color:#b8d8cc">🏢 オフィスプラン（3名）</span>', team:'<span class="acct-badge-pro" style="background:#f0f4ff;color:#5a4a8a;border-color:#c4b8e8">👥 チームプラン（5名）</span>' };
-  badge.innerHTML = planLabels[plan] || planLabels['free'];
-  const renewRow = document.getElementById('acct-renewal-row');
-  const renewEl  = document.getElementById('acct-renewal');
-  const cancelRow = document.getElementById('acct-cancel-sched-row');
-  const cancelDateEl = document.getElementById('acct-cancel-date');
-  if (isPro) {
-    const rd = u.renewDate ? new Date(u.renewDate) : calcNextRenewal(u.joinDate);
-    renewEl.textContent = formatDate(rd);
-    renewRow.style.display = '';
-    if (cancelScheduled) {
-      cancelRow.style.display = '';
-      cancelDateEl.textContent = formatDate(rd) + '（解約予定）';
-    } else { cancelRow.style.display = 'none'; }
-  } else {
-    renewRow.style.display = 'none';
-    cancelRow.style.display = 'none';
-  }
-  document.getElementById('acct-upgrade-btn').style.display = isPro ? 'none' : '';
-  const cancelBtn = document.getElementById('acct-cancel-btn');
-  if (!isPro || me.email === _D) { cancelBtn.style.display = 'none'; }
-  else if (cancelScheduled) { cancelBtn.textContent = '解約申請済み'; cancelBtn.disabled = true; cancelBtn.style.display = ''; }
-  else { cancelBtn.textContent = 'プランを解約する'; cancelBtn.disabled = false; cancelBtn.style.display = ''; }
-}
-function calcNextRenewal(joinDate) {
-  const base = joinDate ? new Date(joinDate) : new Date();
-  const now = new Date(); const next = new Date(base);
-  while (next <= now) next.setMonth(next.getMonth() + 1);
-  return next;
-}
-function formatDate(d) {
-  if (!d) return '—';
-  const dt = new Date(d);
-  return dt.getFullYear() + '年' + (dt.getMonth()+1) + '月' + dt.getDate() + '日';
-}
-function openBilling() {
-  window.open('https://billing.stripe.com/p/login/14AbJ0ckfbeZ79V8fR4sE00', '_blank');
-}
-function openUpgrade() { window.open('https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00', '_blank'); }
-function cancelPlan() {
-  if (!me) return;
-  const u = users[me.email];
-  if (!u.isPro) return;
-  const rd = u.renewDate ? new Date(u.renewDate) : calcNextRenewal(u.joinDate);
-  document.getElementById('cancel-modal-date').textContent = formatDate(rd);
-  document.getElementById('cancel-modal').classList.add('on');
-}
-function closeCancelModal() {
-  document.getElementById('cancel-modal').classList.remove('on');
-}
-function confirmCancelPlan() {
-  if (!me) return;
-  const u = users[me.email];
-  u.cancelScheduled = true; save();
-  closeCancelModal();
-  renderAcct();
-  toast('解約を受け付けました。次回更新日に自動停止します。');
-}
-function togglePwForm() {
-  const f = document.getElementById('pw-form');
-  f.classList.toggle('on');
-  if (!f.classList.contains('on')) {
-    ['pw-current','pw-new','pw-confirm'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('pw-err').classList.remove('on');
-  }
-}
-function changePassword() {
-  if (!me) return;
-  const cur = document.getElementById('pw-current').value;
-  const nw  = document.getElementById('pw-new').value;
-  const conf= document.getElementById('pw-confirm').value;
-  const err = document.getElementById('pw-err');
-  const u = users[me.email];
-  err.classList.remove('on');
-  if (!cur||!nw||!conf){err.textContent='すべての項目を入力してください';err.classList.add('on');return;}
-  if (u.pass!==cur){err.textContent='現在のパスワードが正しくありません';err.classList.add('on');return;}
-  if (nw.length<8){err.textContent='新しいパスワードは8文字以上にしてください';err.classList.add('on');return;}
-  if (nw!==conf){err.textContent='パスワードが一致しません';err.classList.add('on');return;}
-  u.pass=nw; save(); togglePwForm(); toast('パスワードを変更しました');
-}
-function deleteAccount() {
-  if (!me) return;
-  if (!confirm('アカウントを削除してもよいですか？\nすべての相談履歴・設定が完全に消去されます。\nこの操作は取り消せません。')) return;
-  if (!confirm('本当に削除しますか？この操作は元に戻せません。')) return;
-  delete users[me.email]; save();
-  me=null; result=null; go('lp'); toast('アカウントを削除しました');
-}
-
-// ══════════════════════════════════════════
-// TEAM FUNCTIONS
-// ══════════════════════════════════════════
-
-function getTeam() {
-  if (!me) return null;
-  const u = users[me.email];
-  const plan = getEffectivePlan(me.email);
-  if (plan !== 'office' && plan !== 'team') return null;
-  const teamKey = 'team_' + me.email;
-  if (!localStorage.getItem(teamKey)) {
-    const maxMembers = plan === 'office' ? 3 : 5;
-    const teamData = { adminEmail: me.email, officeName: u.officeName || '', members: [{ email: me.email, name: u.name, role: 'admin' }], maxMembers, sharedPdfs: [] };
-    localStorage.setItem(teamKey, JSON.stringify(teamData));
-  }
-  return JSON.parse(localStorage.getItem(teamKey));
-}
-
-function saveTeam(team) {
-  if (!team) return;
-  localStorage.setItem('team_' + team.adminEmail, JSON.stringify(team));
-}
-
-function getTeamOfficeName() {
-  const team = getTeam();
-  return team ? (team.officeName || '') : '';
-}
-
-function findMyTeam() {
-  if (!me) return null;
-  const myTeam = getTeam();
-  if (myTeam) return myTeam;
-  for (const email in users) {
-    const raw = localStorage.getItem('team_' + email);
-    if (!raw) continue;
-    const team = JSON.parse(raw);
-    if (team.members.some(m => m.email === me.email)) return team;
-  }
-  return null;
-}
-
-function renderTeam() {
-  if (!me) return;
-  const u = users[me.email];
-  const plan = getEffectivePlan(me.email);
-  const isTeamPlanFlag = isTeamPlan(me.email);
-
-  document.getElementById('team-locked-msg').style.display = isTeamPlanFlag ? 'none' : '';
-  ['team-settings-sec','team-members-sec','team-usage-sec','team-shared-sec'].forEach(id => {
-    document.getElementById(id).style.display = isTeamPlanFlag ? '' : 'none';
-  });
-  if (!isTeamPlanFlag) return;
-
-  const team = getTeam();
-  if (!team) return;
-
-  const badgeWrap = document.getElementById('team-badge-wrap');
-  const planLabel = plan === 'office' ? 'オフィスプラン（3名まで）' : 'チームプラン（5名まで）';
-  const devMark = me.email === _D ? ' <span style="font-size:.65rem;color:#888;border:1px solid #ddd;border-radius:3px;padding:1px 5px">DEV</span>' : '';
-  badgeWrap.innerHTML = '<div class="team-badge ' + plan + '">' + planLabel + devMark + '</div>';
-
-  document.getElementById('office-name-input').value = team.officeName || '';
-
-  const maxM = team.maxMembers;
-  document.getElementById('member-capacity').textContent = 'メンバー：' + team.members.length + ' / ' + maxM + '名';
-  const listWrap = document.getElementById('member-list-wrap');
-  listWrap.innerHTML = team.members.map(m =>
-    '<div class="member-row">' +
-    '<span class="m-name">' + m.name + '</span>' +
-    '<span class="m-email">' + m.email + '</span>' +
-    '<span class="m-role ' + (m.role === 'admin' ? 'admin' : '') + '">' + (m.role === 'admin' ? '管理者' : 'メンバー') + '</span>' +
-    (m.role !== 'admin' ? '<button class="m-del" onclick="removeMember(\'' + m.email + '\')">削除</button>' : '') +
-    '</div>'
-  ).join('');
-
-  const tbody = document.getElementById('team-usage-body');
-  tbody.innerHTML = team.members.map(m => {
-    const mu = users[m.email];
-    const count = mu ? (mu.usageCount || 0) : 0;
-    const isPro2 = mu ? (mu.isPro || mu.plan === 'office' || mu.plan === 'team') : false;
-    const pct = Math.min(100, (count / 5) * 100);
-    return '<tr><td>' + m.name + (m.role === 'admin' ? '<span style="font-size:.68rem;color:var(--gold);margin-left:6px">管理者</span>' : '') + '</td>' +
-      '<td style="display:flex;align-items:center;gap:8px">' + count + '件' +
-      (!isPro2 ? '<div class="usage-bar-mini"><div class="usage-bar-mini-fill" style="width:' + pct + '%"></div></div>' : '') + '</td>' +
-      '<td>' + (isPro2 ? '<span style="color:var(--gold);font-size:.75rem">有料</span>' : '<span style="color:var(--slate);font-size:.75rem">無料</span>') + '</td></tr>';
-  }).join('');
-
-  renderSharedPdfs(team);
-}
-
-function renderSharedPdfs(team) {
-  const wrap = document.getElementById('shared-list-wrap');
-  const pdfs = team.sharedPdfs || [];
-  if (!pdfs.length) { wrap.innerHTML = '<p style="color:var(--slate);font-size:.82rem">共有されたPDFはありません。</p>'; return; }
-  wrap.innerHTML = pdfs.slice().reverse().map((p, i) =>
-    '<div class="shared-item" onclick="loadSharedResult(' + (pdfs.length - 1 - i) + ')">' +
-    '<span style="font-size:1.2rem">📄</span>' +
-    '<div style="flex:1"><div class="sh-name">' + (p.memo ? p.memo.slice(0, 30) + '...' : '相談メモ') + '</div>' +
-    '<div class="sh-meta">共有者：' + p.sharedBy + ' ／ ' + new Date(p.date).toLocaleDateString('ja-JP') + '</div></div>' +
-    '<span style="font-size:.72rem;color:var(--gold)">閲覧する →</span></div>'
-  ).join('');
-}
-
-function loadSharedResult(idx) {
-  const team = findMyTeam();
-  if (!team) return;
-  const item = team.sharedPdfs[idx];
-  if (!item) return;
-  result = item.result;
-  appTab('inp');
-  renderResult(result);
-  toast(item.sharedBy + ' さんが共有した整理結果を表示しています');
-}
-
-function saveOfficeName() {
-  if (!me) return;
-  const name = document.getElementById('office-name-input').value.trim();
-  const team = getTeam();
-  if (!team) return;
-  team.officeName = name;
-  saveTeam(team);
-  users[me.email].officeName = name;
-  save();
-  renderTeam();
-  toast('事務所名を保存しました：' + (name || '（未設定）'));
-}
-
-function addMember() {
-  if (!me) return;
-  const team = getTeam();
-  if (!team) return;
-  const name  = document.getElementById('add-member-name').value.trim();
-  const email = document.getElementById('add-member-email').value.trim();
-  const errEl = document.getElementById('team-add-err');
-  errEl.classList.remove('on');
-  if (!name || !email) { errEl.textContent = '名前とメールアドレスを入力してください'; errEl.classList.add('on'); return; }
-  if (!users[email]) { errEl.textContent = 'このメールアドレスで登録されたアカウントが見つかりません'; errEl.classList.add('on'); return; }
-  if (team.members.some(m => m.email === email)) { errEl.textContent = 'すでに追加されています'; errEl.classList.add('on'); return; }
-  if (team.members.length >= team.maxMembers) { errEl.textContent = 'このプランのメンバー上限（' + team.maxMembers + '名）に達しています'; errEl.classList.add('on'); return; }
-  team.members.push({ email, name, role: 'member' });
-  saveTeam(team);
-  document.getElementById('add-member-name').value = '';
-  document.getElementById('add-member-email').value = '';
-  renderTeam();
-  toast(name + ' さんをチームに追加しました');
-}
-
-function removeMember(email) {
-  if (!me) return;
-  const team = getTeam();
-  if (!team) return;
-  const member = team.members.find(m => m.email === email);
-  if (!member) return;
-  if (!confirm(member.name + ' さんをチームから削除しますか？')) return;
-  team.members = team.members.filter(m => m.email !== email);
-  saveTeam(team);
-  renderTeam();
-  toast(member.name + ' さんをチームから削除しました');
-}
-
-function shareToTeam() {
-  if (!result) { toast('整理結果がありません'); return; }
-  const team = findMyTeam();
-  if (!team) { toast('チームプランでのみ共有できます'); return; }
-  const item = { result, memo: result.memo || '', date: new Date().toISOString(), sharedBy: me.name };
-  team.sharedPdfs = team.sharedPdfs || [];
-  team.sharedPdfs.push(item);
-  if (team.sharedPdfs.length > 20) team.sharedPdfs.shift();
-  saveTeam(team);
-  toast('チームに共有しました');
-}
-
+function doReset(){const eEl=document.getElementById('reset-email'),eErr=document.getElementById('e-reset-email'),nW=document.getElementById('reset-newpw-wrap'),n2W=document.getElementById('reset-newpw2-wrap'),btn=document.getElementById('reset-btn');eErr.classList.remove('on');const em=eEl.value.trim();if(!em){eErr.textContent='メールアドレスを入力してください';eErr.classList.add('on');return;}if(!users[em]){eErr.textContent='このメールアドレスで登録されたアカウントが見つかりません';eErr.classList.add('on');return;}nW.style.display='';n2W.style.display='';eEl.disabled=true;btn.textContent='パスワードを変更する';btn.onclick=doResetConfirm;}
+function doResetConfirm(){const em=document.getElementById('reset-email').value.trim(),np=document.getElementById('reset-newpw').value,np2=document.getElementById('reset-newpw2').value,e1=document.getElementById('e-reset-newpw'),e2=document.getElementById('e-reset-newpw2');[e1,e2].forEach(e=>e.classList.remove('on'));if(np.length<8){e1.textContent='8文字以上で入力してください';e1.classList.add('on');return;}if(np!==np2){e2.textContent='パスワードが一致しません';e2.classList.add('on');return;}users[em].pass=np;save();toast('パスワードを再設定しました。新しいパスワードでログインしてください。');authTab('login');document.getElementById('login-email').value=em;}
+function renderAcct(){if(!me)return;const u=users[me.email],plan=getEffectivePlan(me.email),isPro=isProOrAbove(me.email),cs=u.cancelScheduled||false;document.getElementById('acct-email').textContent=me.email;const badge=document.getElementById('acct-plan-badge'),lmap={free:'<span class="acct-badge-free">無料プラン（月5件）</span>',pro:'<span class="acct-badge-pro">✨ プロプラン</span>',office:'<span class="acct-badge-pro" style="background:#f0f8f4;color:#4a7c6f;border-color:#b8d8cc">🏢 オフィスプラン（3名）</span>',team:'<span class="acct-badge-pro" style="background:#f0f4ff;color:#5a4a8a;border-color:#c4b8e8">👥 チームプラン（5名）</span>'};badge.innerHTML=(lmap[plan]||lmap['free'])+(me.email===_D?' <span style="font-size:.65rem;color:#888;border:1px solid #ddd;border-radius:3px;padding:1px 5px">DEV</span>':'');const rr=document.getElementById('acct-renewal-row'),re2=document.getElementById('acct-renewal'),cr=document.getElementById('acct-cancel-sched-row'),cd=document.getElementById('acct-cancel-date');if(isPro&&me.email!==_D){const rd=u.renewDate?new Date(u.renewDate):calcNextRenewal(u.joinDate);re2.textContent=formatDate(rd);rr.style.display='';cr.style.display=cs?'':'none';if(cs)cd.textContent=formatDate(rd)+'（解約予定）';}else{rr.style.display='none';cr.style.display='none';}document.getElementById('acct-upgrade-btn').style.display=(isPro||me.email===_D)?'none':'';const cb=document.getElementById('acct-cancel-btn');if(!isPro||me.email===_D){cb.style.display='none';}else if(cs){cb.textContent='解約申請済み';cb.disabled=true;cb.style.display='';}else{cb.textContent='プランを解約する';cb.disabled=false;cb.style.display='';}}
+function calcNextRenewal(j){const b=j?new Date(j):new Date(),n=new Date(),x=new Date(b);while(x<=n)x.setMonth(x.getMonth()+1);return x;}
+function formatDate(d){if(!d)return'—';const dt=new Date(d);return dt.getFullYear()+'年'+(dt.getMonth()+1)+'月'+dt.getDate()+'日';}
+function openBilling(){window.open('https://billing.stripe.com/p/login/14AbJ0ckfbeZ79V8fR4sE00','_blank');}
+function openUpgrade(){window.open('https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00','_blank');}
+function cancelPlan(){if(!me)return;if(!isProOrAbove(me.email))return;const u=users[me.email],rd=u.renewDate?new Date(u.renewDate):calcNextRenewal(u.joinDate);document.getElementById('cancel-modal-date').textContent=formatDate(rd);document.getElementById('cancel-modal').classList.add('on');}
+function closeCancelModal(){document.getElementById('cancel-modal').classList.remove('on');}
+function confirmCancelPlan(){if(!me)return;users[me.email].cancelScheduled=true;save();closeCancelModal();renderAcct();toast('解約を受け付けました。次回更新日に自動停止します。');}
+function togglePwForm(){const f=document.getElementById('pw-form');f.classList.toggle('on');if(!f.classList.contains('on')){['pw-current','pw-new','pw-confirm'].forEach(id=>document.getElementById(id).value='');document.getElementById('pw-err').classList.remove('on');}}
+function changePassword(){if(!me)return;const c2=document.getElementById('pw-current').value,nw=document.getElementById('pw-new').value,cf=document.getElementById('pw-confirm').value,er=document.getElementById('pw-err'),u=users[me.email];er.classList.remove('on');if(!c2||!nw||!cf){er.textContent='すべての項目を入力してください';er.classList.add('on');return;}if(u.pass!==c2){er.textContent='現在のパスワードが正しくありません';er.classList.add('on');return;}if(nw.length<8){er.textContent='8文字以上にしてください';er.classList.add('on');return;}if(nw!==cf){er.textContent='パスワードが一致しません';er.classList.add('on');return;}u.pass=nw;save();togglePwForm();toast('パスワードを変更しました');}
+function deleteAccount(){if(!me)return;if(!confirm('アカウントを削除してもよいですか？\nすべての相談履歴・設定が完全に消去されます。\nこの操作は取り消せません。'))return;if(!confirm('本当に削除しますか？この操作は元に戻せません。'))return;delete users[me.email];save();me=null;result=null;go('lp');toast('アカウントを削除しました');}
+function getTeam(){if(!me)return null;const plan=getEffectivePlan(me.email);if(plan!=='office'&&plan!=='team')return null;const tk='team_'+me.email;if(!localStorage.getItem(tk)){const u=users[me.email],mm=plan==='office'?3:5;localStorage.setItem(tk,JSON.stringify({adminEmail:me.email,officeName:u.officeName||'',members:[{email:me.email,name:u.name,role:'admin'}],maxMembers:mm,sharedPdfs:[]}));}return JSON.parse(localStorage.getItem(tk));}
+function saveTeam(t){if(!t)return;localStorage.setItem('team_'+t.adminEmail,JSON.stringify(t));}
+function getTeamOfficeName(){const t=getTeam();return t?(t.officeName||''):'';}
+function findMyTeam(){if(!me)return null;const mt=getTeam();if(mt)return mt;for(const em in users){const r=localStorage.getItem('team_'+em);if(!r)continue;const t=JSON.parse(r);if(t.members.some(m=>m.email===me.email))return t;}return null;}
+function renderTeam(){if(!me)return;const plan=getEffectivePlan(me.email),itf=isTeamPlan(me.email);document.getElementById('team-locked-msg').style.display=itf?'none':'';['team-settings-sec','team-members-sec','team-usage-sec','team-shared-sec'].forEach(id=>{document.getElementById(id).style.display=itf?'':'none';});if(!itf)return;const team=getTeam();if(!team)return;const pl=plan==='office'?'オフィスプラン（3名まで）':'チームプラン（5名まで）',dm=me.email===_D?' <span style="font-size:.65rem;color:#888;border:1px solid #ddd;border-radius:3px;padding:1px 5px">DEV</span>':'';document.getElementById('team-badge-wrap').innerHTML='<div class="team-badge '+plan+'">'+pl+dm+'</div>';document.getElementById('office-name-input').value=team.officeName||'';document.getElementById('member-capacity').textContent='メンバー：'+team.members.length+' / '+team.maxMembers+'名';document.getElementById('member-list-wrap').innerHTML=team.members.map(m=>'<div class="member-row"><span class="m-name">'+m.name+'</span><span class="m-email">'+m.email+'</span><span class="m-role '+(m.role==='admin'?'admin':'')+'">'+(m.role==='admin'?'管理者':'メンバー')+'</span>'+(m.role!=='admin'?'<button class="m-del" onclick="removeMember(\'+m.email+\')">削除</button>':'')+'</div>').join('');const tbody=document.getElementById('team-usage-body');tbody.innerHTML=team.members.map(m=>{const mu=users[m.email],cnt=mu?(mu.usageCount||0):0,ip2=mu?isProOrAbove(m.email):false,pct=Math.min(100,(cnt/5)*100);return'<tr><td>'+m.name+(m.role==='admin'?'<span style="font-size:.68rem;color:var(--gold);margin-left:6px">管理者</span>':'')+'</td><td style="display:flex;align-items:center;gap:8px">'+cnt+'件'+(!ip2?'<div class="usage-bar-mini"><div class="usage-bar-mini-fill" style="width:'+pct+'%"></div></div>':'')+'</td><td>'+(ip2?'<span style="color:var(--gold);font-size:.75rem">有料</span>':'<span style="color:var(--slate);font-size:.75rem">無料</span>')+'</td></tr>';}).join('');renderSharedPdfs(team);}
+function renderSharedPdfs(team){const wrap=document.getElementById('shared-list-wrap'),pdfs=team.sharedPdfs||[];if(!pdfs.length){wrap.innerHTML='<p style="color:var(--slate);font-size:.82rem">共有されたPDFはありません。</p>';return;}wrap.innerHTML=pdfs.slice().reverse().map((p,i)=>'<div class="shared-item" onclick="loadSharedResult('+(pdfs.length-1-i)+')"><span>📄</span><div style="flex:1"><div class="sh-name">'+(p.memo?p.memo.slice(0,30)+'...':'相談メモ')+'</div><div class="sh-meta">共有者：'+p.sharedBy+' ／ '+new Date(p.date).toLocaleDateString('ja-JP')+'</div></div><span style="font-size:.72rem;color:var(--gold)">閲覧する →</span></div>').join('');}
+function loadSharedResult(idx){const team=findMyTeam();if(!team)return;const item=team.sharedPdfs[idx];if(!item)return;result=item.result;appTab('inp');renderResult(result);toast(item.sharedBy+' さんが共有した整理結果を表示しています');}
+function saveOfficeName(){if(!me)return;const name=document.getElementById('office-name-input').value.trim(),team=getTeam();if(!team)return;team.officeName=name;saveTeam(team);users[me.email].officeName=name;save();renderTeam();toast('事務所名を保存しました：'+(name||'（未設定）'));}
+function addMember(){if(!me)return;const team=getTeam();if(!team)return;const name=document.getElementById('add-member-name').value.trim(),email=document.getElementById('add-member-email').value.trim(),errEl=document.getElementById('team-add-err');errEl.classList.remove('on');if(!name||!email){errEl.textContent='名前とメールアドレスを入力してください';errEl.classList.add('on');return;}if(!users[email]){errEl.textContent='このメールアドレスで登録されたアカウントが見つかりません';errEl.classList.add('on');return;}if(team.members.some(m=>m.email===email)){errEl.textContent='すでに追加されています';errEl.classList.add('on');return;}if(team.members.length>=team.maxMembers){errEl.textContent='このプランのメンバー上限（'+team.maxMembers+'名）に達しています';errEl.classList.add('on');return;}team.members.push({email,name,role:'member'});saveTeam(team);document.getElementById('add-member-name').value='';document.getElementById('add-member-email').value='';renderTeam();toast(name+' さんをチームに追加しました');}
+function removeMember(email){if(!me)return;const team=getTeam();if(!team)return;const member=team.members.find(m=>m.email===email);if(!member)return;if(!confirm(member.name+' さんをチームから削除しますか？'))return;team.members=team.members.filter(m=>m.email!==email);saveTeam(team);renderTeam();toast(member.name+' さんをチームから削除しました');}
+function shareToTeam(){if(!result){toast('整理結果がありません');return;}const team=findMyTeam();if(!team){toast('チームプランでのみ共有できます');return;}const item={result,memo:result.memo||'',date:new Date().toISOString(),sharedBy:me.name};team.sharedPdfs=team.sharedPdfs||[];team.sharedPdfs.push(item);if(team.sharedPdfs.length>20)team.sharedPdfs.shift();saveTeam(team);toast('チームに共有しました');}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('on');setTimeout(()=>el.classList.remove('on'),2800);}
+document.getElementById('upg-modal').addEventListener('click',function(e){if(e.target==this)closeUpgrade();});
 
 </script>
 </body>
