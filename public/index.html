@@ -723,7 +723,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">問題が発生した場合の問い合わせ先は？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans"><a href="/contact.html">お問い合わせページ</a>またはメール（<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="254c52444d4457500b111717654a5051494a4a4e0b4f55">[email&#160;protected]</a>）までご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
+            <div class="faq-ans"><a href="/contact.html">お問い合わせページ</a>またはメール（<a href="mailto:iwaharu.422@outlook.jp">iwaharu.422@outlook.jp</a>）までご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
           </div>
         </div>
 
@@ -1150,11 +1150,12 @@ let result = null;
 
 // ── DEV OVERRIDE ────────────────────────
 // 開発者テスト用：このメールのみ全機能を有効化（本番影響なし）
-const DEV_OVERRIDE_EMAILS = ['iwaharu.422@outlook.jp'];
-const DEV_OVERRIDE_PLAN   = 'team'; // 'pro' | 'office' | 'team'
+// DEV: base64エンコードでCloudflareの書き換えを回避
+const _D = atob('aXdhaGFydS40MjJAb3V0bG9vay5qcA=='); // 開発者メール（難読化）
+const DEV_OVERRIDE_PLAN = 'team';
 
 function getEffectivePlan(email) {
-  if (DEV_OVERRIDE_EMAILS.includes(email)) return DEV_OVERRIDE_PLAN;
+  if (email === _D) return DEV_OVERRIDE_PLAN;
   const u = users[email];
   if (!u) return 'free';
   if (u.plan) return u.plan;
@@ -1727,7 +1728,7 @@ function renderAcct() {
   }
   document.getElementById('acct-upgrade-btn').style.display = isPro ? 'none' : '';
   const cancelBtn = document.getElementById('acct-cancel-btn');
-  if (!isPro || DEV_OVERRIDE_EMAILS.includes(me.email)) { cancelBtn.style.display = 'none'; }
+  if (!isPro || me.email === _D) { cancelBtn.style.display = 'none'; }
   else if (cancelScheduled) { cancelBtn.textContent = '解約申請済み'; cancelBtn.disabled = true; cancelBtn.style.display = ''; }
   else { cancelBtn.textContent = 'プランを解約する'; cancelBtn.disabled = false; cancelBtn.style.display = ''; }
 }
@@ -1853,7 +1854,7 @@ function renderTeam() {
 
   const badgeWrap = document.getElementById('team-badge-wrap');
   const planLabel = plan === 'office' ? 'オフィスプラン（3名まで）' : 'チームプラン（5名まで）';
-  const devMark = DEV_OVERRIDE_EMAILS.includes(me.email) ? ' <span style="font-size:.65rem;color:#888;border:1px solid #ddd;border-radius:3px;padding:1px 5px">DEV</span>' : '';
+  const devMark = me.email === _D ? ' <span style="font-size:.65rem;color:#888;border:1px solid #ddd;border-radius:3px;padding:1px 5px">DEV</span>' : '';
   badgeWrap.innerHTML = '<div class="team-badge ' + plan + '">' + planLabel + devMark + '</div>';
 
   document.getElementById('office-name-input').value = team.officeName || '';
