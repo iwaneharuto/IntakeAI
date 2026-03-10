@@ -482,6 +482,33 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
 .faq-item.open .faq-ans{max-height:260px;padding-bottom:14px}
 .faq-ans a{color:var(--gold);text-decoration:underline}
 @media(max-width:900px){.faq-sec{padding:64px 20px}.faq-cats{grid-template-columns:1fr;gap:36px}}
+
+/* ── OUTPUT DEMO ── */
+.demo-sec{background:var(--ink);padding:100px 48px;border-top:1px solid rgba(255,255,255,.08)}
+.demo-inner{max-width:960px;margin:0 auto}
+.demo-sec .sec-ey{color:rgba(255,255,255,.45)}
+.demo-sec .sec-ttl{color:#fff}
+.demo-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start;margin-top:48px}
+.demo-arrow{display:flex;align-items:center;justify-content:center;padding:0 24px;color:var(--gold);font-size:1.6rem;margin-top:48px}
+.demo-pane{border-radius:8px;overflow:hidden}
+.demo-pane-hd{padding:10px 16px;display:flex;align-items:center;gap:8px;font-size:.68rem;letter-spacing:.1em;font-weight:700;text-transform:uppercase}
+.demo-pane-hd .dot{width:10px;height:10px;border-radius:50%}
+.demo-input .demo-pane-hd{background:#1e2a1e;color:#7ab87a}
+.demo-output .demo-pane-hd{background:#1a1a3e;color:#9a8afa}
+.demo-pane-body{padding:20px 22px;font-size:.82rem;line-height:1.9;font-family:'Noto Sans JP',sans-serif}
+.demo-input .demo-pane-body{background:#0d160d;color:#c8e8c8;border:1px solid #2a4a2a;border-top:none;border-radius:0 0 8px 8px}
+.demo-output .demo-pane-body{background:#0d0d20;color:#d4d0f8;border:1px solid #2a2a5a;border-top:none;border-radius:0 0 8px 8px}
+.demo-section{margin-bottom:14px}
+.demo-section-label{font-size:.68rem;letter-spacing:.14em;font-weight:700;color:#9a8afa;text-transform:uppercase;margin-bottom:6px;border-left:2px solid #5a4a9a;padding-left:8px}
+.demo-section-items{display:flex;flex-direction:column;gap:3px}
+.demo-item{font-size:.8rem;color:#c8c4f4;padding-left:12px;position:relative}
+.demo-item::before{content:'·';position:absolute;left:2px;color:#9a8afa}
+.demo-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(154,138,250,.12);border:1px solid rgba(154,138,250,.3);border-radius:3px;padding:2px 10px;font-size:.67rem;color:#9a8afa;margin-bottom:12px}
+@media(max-width:800px){
+  .demo-sec{padding:64px 24px}
+  .demo-grid{grid-template-columns:1fr;gap:24px}
+  .demo-arrow{transform:rotate(90deg);margin:0 auto;padding:8px 0}
+}
 </style>
 </head>
 <body>
@@ -595,32 +622,106 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
     </section>
   </div>
 
+  <!-- OUTPUT DEMO -->
+  <section class="demo-sec">
+    <div class="demo-inner">
+      <div class="sec-ey">Demo</div>
+      <h2 class="sec-ttl" style="text-align:center">AIが10秒で整理する内容</h2>
+      <p style="text-align:center;font-size:.84rem;color:rgba(255,255,255,.5);margin-top:10px">実際の入力と出力のイメージです</p>
+
+      <div class="demo-grid">
+
+        <!-- 入力 -->
+        <div class="demo-pane demo-input">
+          <div class="demo-pane-hd">
+            <div class="dot" style="background:#e74c3c"></div>
+            <div class="dot" style="background:#f39c12"></div>
+            <div class="dot" style="background:#2ecc71"></div>
+            <span style="margin-left:6px">相談メモの入力例</span>
+          </div>
+          <div class="demo-pane-body">
+            <div style="font-size:.75rem;color:rgba(200,232,200,.5);margin-bottom:12px;letter-spacing:.04em">CONSULTATION MEMO</div>
+            離婚を考えています。夫が生活費を入れてくれず、ここ1年ほど別居状態です。子どもは2人で親権を取りたいと思っています。
+          </div>
+        </div>
+
+        <!-- 矢印 -->
+        <div class="demo-arrow">→</div>
+
+        <!-- 出力 -->
+        <div class="demo-pane demo-output">
+          <div class="demo-pane-hd">
+            <div class="dot" style="background:#e74c3c"></div>
+            <div class="dot" style="background:#f39c12"></div>
+            <div class="dot" style="background:#2ecc71"></div>
+            <span style="margin-left:6px">AIが10秒で整理</span>
+          </div>
+          <div class="demo-pane-body">
+            <div class="demo-badge">✦ AI整理結果</div>
+            <div class="demo-section">
+              <div class="demo-section-label">事実関係</div>
+              <div class="demo-section-items">
+                <div class="demo-item">夫婦は現在1年ほど別居中</div>
+                <div class="demo-item">夫による生活費の不払いあり</div>
+                <div class="demo-item">子ども2名あり</div>
+              </div>
+            </div>
+            <div class="demo-section">
+              <div class="demo-section-label">依頼者の主張</div>
+              <div class="demo-section-items">
+                <div class="demo-item">離婚を希望</div>
+                <div class="demo-item">子ども2名の親権を取得したい</div>
+              </div>
+            </div>
+            <div class="demo-section">
+              <div class="demo-section-label">追加で確認すべき事項</div>
+              <div class="demo-section-items">
+                <div class="demo-item">別居の具体的な開始時期</div>
+                <div class="demo-item">婚姻費用請求の有無</div>
+                <div class="demo-item">子どもの年齢・就学状況</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- PRICING -->
   <section class="pricing-sec" id="pricing">
     <div class="pricing-inner">
       <!-- サービス概要ブロック -->
-      <div style="max-width:680px;margin:0 auto 56px;text-align:center">
+      <div style="max-width:720px;margin:0 auto 52px;text-align:center">
         <div class="sec-ey" style="justify-content:center">Pricing</div>
-        <h2 class="sec-ttl" style="margin-bottom:16px">弁護士・法律事務所向け料金プラン</h2>
-        <p style="font-size:.92rem;color:var(--ink2);line-height:1.9;margin-bottom:10px">初回相談メモを約10秒で整理し、要点整理・追加確認事項・PDF出力まで対応します。<br>弁護士・事務員・スタッフ問わず、事務所全体でご利用いただけます。</p>
-        <div style="display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px;padding:14px 28px;background:linear-gradient(135deg,#f0f8f4,#f5f0ff);border:1px solid #c8e0d4;border-radius:6px">
-          <span style="font-size:.82rem;font-weight:600;color:var(--ink)">🎁 7日間の無料トライアル + 10回まで無料利用</span>
-          <span style="width:1px;height:14px;background:var(--border);display:inline-block"></span>
+        <h2 class="sec-ttl" style="margin-bottom:18px">弁護士・法律事務所向け料金プラン</h2>
+        <p style="font-size:.9rem;color:var(--ink2);line-height:2;margin-bottom:0">
+          初回相談メモの整理、確認事項の洗い出し、PDF出力までを効率化するためのプランです。<br>
+          弁護士個人の利用から、小規模事務所での共有利用まで対応します。
+        </p>
+        <div style="display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:22px;padding:12px 28px;background:linear-gradient(135deg,#f0f8f4,#f5f0ff);border:1px solid #c8e0d4;border-radius:6px">
+          <span style="font-size:.8rem;font-weight:600;color:var(--ink)">🎁 7日間の無料トライアル + 10回まで無料</span>
+          <span style="width:1px;height:12px;background:var(--border);display:inline-block"></span>
           <span style="font-size:.76rem;color:var(--slate)">クレジットカード登録不要</span>
         </div>
       </div>
 
-      <!-- 導入タイプ -->
-      <div class="pricing-type-nav" style="margin-bottom:40px">
-        <div class="ptn-item">
-          <div class="ptn-label">Free Trial</div>
-          <div class="ptn-title">まず試したい方向け</div>
-          <div class="ptn-desc">月5件・登録無料・CC不要</div>
+      <!-- 対象者タイプナビ -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:860px;margin:0 auto 44px">
+        <div style="padding:16px 18px;background:#fff;border:1px solid var(--border);border-radius:6px">
+          <div style="font-size:.6rem;letter-spacing:.16em;font-weight:700;color:var(--gold);text-transform:uppercase;margin-bottom:5px">Personal</div>
+          <div style="font-size:.86rem;font-weight:600;color:var(--ink);margin-bottom:3px">弁護士個人向け</div>
+          <div style="font-size:.72rem;color:var(--slate)">1名で効率化したい弁護士に</div>
         </div>
-        <div class="ptn-item ptn-team">
-          <div class="ptn-label">Paid Plan</div>
-          <div class="ptn-title">事務所全体で導入したい方向け</div>
-          <div class="ptn-desc">AI整理無制限・メンバー管理対応</div>
+        <div style="padding:16px 18px;background:#f0f8f4;border:2px solid #4a7c6f;border-radius:6px">
+          <div style="font-size:.6rem;letter-spacing:.16em;font-weight:700;color:#4a7c6f;text-transform:uppercase;margin-bottom:5px">Small ⭐ 一番人気</div>
+          <div style="font-size:.86rem;font-weight:600;color:var(--ink);margin-bottom:3px">小規模事務所向け</div>
+          <div style="font-size:.72rem;color:var(--slate)">弁護士・事務員あわせて最大5名</div>
+        </div>
+        <div style="padding:16px 18px;background:#fff;border:1px solid var(--border);border-radius:6px">
+          <div style="font-size:.6rem;letter-spacing:.16em;font-weight:700;color:#5a4a8a;text-transform:uppercase;margin-bottom:5px">Large</div>
+          <div style="font-size:.86rem;font-weight:600;color:var(--ink);margin-bottom:3px">複数人運用向け</div>
+          <div style="font-size:.72rem;color:var(--slate)">弁護士・事務員あわせて最大10名</div>
         </div>
       </div>
 
@@ -629,12 +730,12 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
         <div class="pfb-left">
           <div class="pfb-icon">🆓</div>
           <div>
-            <div class="pfb-title">無料プラン　¥0 / 月</div>
+            <div class="pfb-title">無料トライアル　¥0</div>
             <div class="pfb-sub">7日間 + 10回まで無料・CC不要・1分で登録完了</div>
           </div>
         </div>
         <div class="pfb-features">
-          <span class="pfb-feat">AI整理：月5件まで</span>
+          <span class="pfb-feat">AI整理：7日間+10回まで</span>
           <span class="pfb-feat">PDF出力</span>
           <span class="pfb-feat">履歴保存：5件</span>
         </div>
@@ -672,11 +773,12 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
         </div>
 
         <!-- スモールプラン -->
-        <div class="pricing-card">
-          <div class="plan-head">
+        <div class="pricing-card featured" style="border:2px solid #4a7c6f;box-shadow:0 16px 48px rgba(74,124,111,.18);background:#fff;margin-top:-16px">
+          <div class="plan-rec" style="background:#4a7c6f">⭐ 一番人気</div>
+          <div class="plan-head" style="padding-top:10px">
             <div class="plan-tag office">Small — 小規模事務所向け</div>
             <div class="plan-name">スモールプラン</div>
-            <div class="plan-target">弁護士・事務員あわせて5名まで</div>
+            <div class="plan-target">弁護士・事務員あわせて最大5名</div>
           </div>
           <div class="plan-price-wrap">
             <div class="plan-price">¥39,800<sub>/月（税込）</sub></div>
@@ -698,9 +800,9 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
         <div class="pricing-card team-card" style="margin-top:-12px">
           <div class="plan-rec rec-team">複数弁護士・事務員向け</div>
           <div class="plan-head" style="padding-top:10px">
-            <div class="plan-tag team">Large — 中規模事務所向け</div>
+            <div class="plan-tag team">Large — 複数人運用向け</div>
             <div class="plan-name">ラージプラン</div>
-            <div class="plan-target">弁護士・事務員あわせて10名まで</div>
+            <div class="plan-target">弁護士・事務員あわせて最大10名</div>
           </div>
           <div class="plan-price-wrap">
             <div class="plan-price">¥74,900<sub>/月（税込）</sub></div>
@@ -749,7 +851,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">無料プランと有料プランの違いは？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans">無料プランはAI整理を月5件まで利用できます。有料プランでは利用回数が無制限となり、関連条文の自動引用・より高精度なAIモデルが使用できます。パーソナルプラン（1名・¥9,800/月）は個人利用向け、スモールプラン（5名・¥39,800/月）・ラージプラン（10名・¥74,900/月）では弁護士・事務員を含むチームでの利用に対応します。</div>
+            <div class="faq-ans">登録後7日間・10回まで無料でお試しいただけます。トライアル終了後は有料プランへの登録が必要です。パーソナルプラン（1名・¥9,800/月）は個人利用向け、スモールプラン（5名・¥39,800/月）・ラージプラン（10名・¥74,900/月）では弁護士・事務員を含むチームでの利用に対応します。</div>
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">法的助言として利用できますか？<span class="faq-chevron">▼</span></button>
@@ -823,7 +925,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">無料トライアル期間はありますか？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans">無料プランでAI整理を月5件まで永続的にご利用いただけます。期間限定のトライアルではなく、無料プランとして継続してお使いいただけます。有料プランへの移行はいつでも任意です。</div>
+            <div class="faq-ans">登録後7日間・10回まで無料でお試しいただけます（クレジットカード不要）。トライアル終了後は有料プランへの登録が必要です。</div>
           </div>
         </div>
 
@@ -870,7 +972,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">導入前に操作方法を確認できますか？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans">はい。無料プランでAI整理を月5件まで実際にお試しいただけます。クレジットカード不要・登録1分で始められますので、まずは無料でご体験ください。</div>
+            <div class="faq-ans">はい。登録後7日間・10回まで全機能を無料でお試しいただけます。クレジットカード不要・登録1分で始められますので、まずは無料でご体験ください。</div>
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">事務所の複数名でまとめて導入したい場合は？<span class="faq-chevron">▼</span></button>
@@ -895,11 +997,11 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
   </section>
 
   <section class="cta">
-    <h2>まずは試してみる</h2>
-    <p>アカウント登録は1分。クレジットカード不要。</p>
+    <h2>7日間・10回まで無料でお試しください</h2>
+    <p>クレジットカード不要。メールアドレスだけで今すぐ始められます。</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2">
-      <button class="btn-cta" onclick="track('click_try_free',{location:'cta'});go('auth','reg')">無料で試す</button>
-      <button class="btn-cta-stripe" onclick="openPlanModal()">有料登録</button>
+      <button class="btn-cta" onclick="track('click_try_free',{location:'cta'});go('auth','reg')">無料トライアルを始める</button>
+      <button class="btn-cta-stripe" onclick="openPlanModal()">プランを見る</button>
     </div>
   </section>
 
@@ -1130,7 +1232,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
           <div>
             <div style="font-size:.62rem;letter-spacing:.14em;font-weight:700;color:#4a7c6f;margin-bottom:3px">SMALL — 小規模事務所向け</div>
             <div style="font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:2px">スモールプラン</div>
-            <div style="font-size:.73rem;color:var(--slate)">弁護士・事務員まとめて <strong style="color:var(--ink)">5名まで</strong> 利用可能</div>
+            <div style="font-size:.73rem;color:var(--slate)">弁護士・事務員まとめて <strong style="color:var(--ink)">最大5名</strong> 利用可能</div>
           </div>
           <div style="text-align:right;flex-shrink:0;margin-left:16px">
             <div style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:var(--ink)">¥39,800</div>
@@ -1212,8 +1314,8 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
   <div class="upg-box">
     <div class="upg-hd">
       <div class="lock">🔒</div>
-      <h3>無料プランの上限に達しました</h3>
-      <p>今月の無料利用（5件）をすべて使い切りました</p>
+      <h3>無料トライアルが終了しました</h3>
+      <p>引き続き利用するには有料プランへの登録が必要です</p>
     </div>
     <div class="upg-body">
       <div class="upg-price">
@@ -1231,7 +1333,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3)}
       <a class="btn-upgrade" href="#" onclick="event.preventDefault();closeUpgrade();openPlanModal()">
         有料プランへ →
       </a>
-      <span class="upg-cancel" onclick="closeUpgrade()">今は無料プランを続ける</span>
+      <span class="upg-cancel" onclick="closeUpgrade()">後で登録する</span>
       <div class="upg-note">🔒 Stripeの安全な決済ページへ遷移します</div>
     </div>
   </div>
