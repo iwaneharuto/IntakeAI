@@ -1682,7 +1682,7 @@ async function analyze() {
   document.getElementById('res-card').style.display    = 'none';
   document.getElementById('btn-go').disabled = true;
 
-  let result = null;
+  result = null; // グローバルをリセット（let宣言しない）
 
   // AbortController で20秒タイムアウト
   const controller = new AbortController();
