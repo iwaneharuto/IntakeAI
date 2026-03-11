@@ -1625,14 +1625,35 @@ footer{padding:28px 20px;text-align:center}
 
 <!-- CANCEL PLAN MODAL -->
 <div class="cmodal" id="cancel-modal">
-  <div class="cmodal-box">
-    <h3>プランを解約する</h3>
-    <div class="cmodal-body">解約すると、<strong id="cancel-modal-date"></strong>をもって有料機能が停止します。それまでは引き続きすべての機能をご利用いただけます。</div>
-    <div class="cmodal-note">⚠️ チームプランを解約すると、メンバー全員のアクセスが停止します。</div>
-    <div class="cmodal-btns">
-      <button class="btn-ccancel" onclick="confirmCancelPlan()">解約を申し込む</button>
-      <button class="btn-cback" onclick="closeCancelModal()">キャンセル</button>
+  <div class="cmodal-box" style="max-width:460px">
+    <h3 style="color:#dc2626">⚠️ プランを解約する</h3>
+    <div class="cmodal-body" style="margin-bottom:14px">
+      解約すると、<strong id="cancel-modal-date"></strong>をもって有料機能が停止します。<br>
+      それまでは引き続きすべての機能をご利用いただけます。
     </div>
+    <div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:6px;padding:14px 16px;margin-bottom:18px;font-size:.78rem;color:#7f1d1d;line-height:1.8">
+      <div style="font-weight:700;margin-bottom:6px;font-size:.8rem">解約前にご確認ください</div>
+      <ul style="margin:0;padding-left:1.2em">
+        <li>解約後はAI整理機能・PDF出力が利用できなくなります</li>
+        <li>保存済みの相談履歴はアカウント内に残ります</li>
+        <li>チームプランの場合、メンバー全員のアクセスが停止します</li>
+        <li>解約後の再登録はいつでも可能です</li>
+      </ul>
+    </div>
+    <p style="font-size:.78rem;color:var(--slate);text-align:center;margin-bottom:14px">
+      解約はStripeの管理画面から行います。<br>下のボタンを押すとStripeの解約ページへ移動します。
+    </p>
+    <div class="cmodal-btns" style="flex-direction:column;gap:8px">
+      <button class="btn-ccancel" onclick="goToStripeCancel()"
+        style="background:#dc2626;color:#fff;border:none;border-radius:4px;padding:13px;font-size:.88rem;font-weight:600;cursor:pointer;width:100%;font-family:inherit">
+        Stripeで解約手続きへ進む →
+      </button>
+      <button class="btn-cback" onclick="closeCancelModal()"
+        style="background:#fff;border:1px solid var(--border);border-radius:4px;padding:11px;font-size:.84rem;cursor:pointer;width:100%;font-family:inherit;color:var(--slate)">
+        キャンセル（解約しない）
+      </button>
+    </div>
+    <p style="text-align:center;font-size:.68rem;color:var(--slate);margin-top:10px">🔒 Stripeの安全な管理画面へ移動します</p>
   </div>
 </div>
 
@@ -2376,7 +2397,7 @@ function renderAcct() {
       <div class="ab-group">
         <button class="ab ab-gold" onclick="openPlanModal()">${isPro?'🔄 プランを変更する':'✨ 有料プランに登録する'}</button>
         ${isPro&&!isDev?`<button class="ab ab-outline" onclick="window.open(STRIPE_PORTAL,'_blank')">請求情報・領収書を確認する</button>`:''}
-        ${isPro&&!isDev&&!cs?`<button class="ab ab-danger" onclick="cancelPlan()">プランを解約する</button>`:''}
+        ${isPro&&!cs?`<button class="ab ab-danger" onclick="cancelPlan()">プランを解約する</button>`:''}
       </div>
     </div>
     <div class="sec-box">
@@ -2424,11 +2445,16 @@ function cancelPlan() {
   document.getElementById('cancel-modal').classList.add('on');
 }
 function closeCancelModal() { document.getElementById('cancel-modal').classList.remove('on'); }
-function confirmCancelPlan() {
-  if(!me)return;
-  users[me.email].cancelScheduled=true; save();
-  closeCancelModal(); renderAcct(); toast('解約を受け付けました。次回更新日に停止します。');
+function goToStripeCancel() {
+  // Stripeカスタマーポータルで解約手続き
+  window.open(STRIPE_PORTAL, '_blank');
+  // ローカルに解約フラグをセット（表示用）
+  if(me) { users[me.email].cancelScheduled=true; save(); }
+  closeCancelModal();
+  renderAcct();
+  toast('Stripeの管理画面で解約手続きを完了してください');
 }
+function confirmCancelPlan() { goToStripeCancel(); }
 function calcNextRenewal(joinDate) {
   const base=joinDate?new Date(joinDate):new Date(),now=new Date(),x=new Date(base);
   while(x<=now)x.setMonth(x.getMonth()+1); return x;
