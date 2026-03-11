@@ -2,6 +2,8 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+<link rel="shortcut icon" href="/favicon.svg?v=3">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>お問い合わせ – Lexoria</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
@@ -41,12 +43,12 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-wei
 .topic-list li{font-size:.83rem;color:var(--slate);display:flex;gap:10px;align-items:baseline}
 .topic-list li::before{content:'—';color:var(--gold);flex-shrink:0}
 /* footer */
-.ft{background:var(--ink);padding:28px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.ft-links{display:flex;gap:16px;flex-wrap:wrap}
+.ft{background:var(--ink);padding:36px 48px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0}
+.ft-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
 .ft-links a{font-size:.7rem;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
 .ft-links a:hover{color:#fff}
 .ft p{font-size:.72rem;color:rgba(255,255,255,.3)}
-@media(max-width:640px){nav{padding:14px 20px}.wrap{padding:44px 16px 80px}.ft{padding:20px;flex-direction:column;text-align:center}.mail-row{flex-direction:column;align-items:flex-start;gap:8px}.mail-copy-btn{margin-left:0}}
+@media(max-width:640px){nav{padding:14px 20px}.wrap{padding:44px 16px 80px}.ft{padding:24px 20px}.mail-row{flex-direction:column;align-items:flex-start;gap:8px}.mail-copy-btn{margin-left:0}}
 </style>
 </head>
 <body>
@@ -71,7 +73,7 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-wei
     <div class="contact-card-body">
       <div class="mail-row">
         <span style="font-size:.75rem;color:var(--slate);white-space:nowrap">メールアドレス</span>
-        <a id="mcon1" href="#"></a><script>(function(){var u='iwaharu.422',d='outlook.jp',e=u+'@'+d;var a=document.getElementById('mcon1');a.href='mailto:'+e;a.textContent=e;})();</script>
+        <a id="mcon1" href="mailto:support@lexoriaai.com">support@lexoriaai.com</a>
         <button class="mail-copy-btn" onclick="copyMail()">コピー</button>
       </div>
       <div class="hours">
@@ -101,18 +103,31 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-wei
 </div>
 
 <footer class="ft">
-  <a href="/index.html" style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:#fff;text-decoration:none;letter-spacing:.04em">Intake<span style="color:#b8975a">AI</span></a>
-  <div class="ft-links">
-    <a href="/privacy.html">プライバシーポリシー</a>
-    <a href="/terms.html">利用規約</a>
-    <a href="/tokusho.html">特定商取引法に基づく表記</a>
-    <a href="/refund.html">返金ポリシー</a>
-    <a href="/antisocial.html">反社会的勢力への基本方針</a>
-    <a href="/contact.html">お問い合わせ</a>
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;width:100%">
+    <!-- ロゴ -->
+    <a href="/index.html" style="display:flex;align-items:center;gap:9px;text-decoration:none">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" style="flex-shrink:0">
+        <rect width="32" height="32" rx="4" fill="#0d0d14"/>
+        <rect x="1.5" y="1.5" width="29" height="29" rx="3" fill="none" stroke="#6e5830" stroke-width="0.75"/>
+        <rect x="9" y="7" width="4" height="18" fill="#b8975a"/>
+        <rect x="9" y="21" width="14" height="4" fill="#b8975a"/>
+      </svg>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:#fff;letter-spacing:.04em">Lexoria</span>
+    </a>
+    <!-- リンク -->
+    <div class="ft-links">
+      <a href="/privacy.html">プライバシーポリシー</a>
+      <a href="/terms.html">利用規約</a>
+      <a href="/tokusho.html">特定商取引法に基づく表記</a>
+      <a href="/refund.html">返金ポリシー</a>
+      <a href="/antisocial.html">反社会的勢力への基本方針</a>
+      <a href="/contact.html">お問い合わせ</a>
+    </div>
+    <!-- メール -->
+    <a href="mailto:support@lexoriaai.com" style="font-size:.72rem;color:rgba(255,255,255,.45);text-decoration:none;letter-spacing:.03em">support@lexoriaai.com</a>
+    <!-- コピーライト -->
+    <p>© 2025 Lexoria. All rights reserved.</p>
   </div>
-  <p>© 2025 Lexoria. All rights reserved.</p>
 </footer>
-
-
 </body>
 </html>
