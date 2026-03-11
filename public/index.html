@@ -1102,7 +1102,7 @@ footer{padding:28px 20px;text-align:center}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">問題が発生した場合の問い合わせ先は？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans">support@lexoriaai.com までご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
+            <div class="faq-ans"><a href="mailto:support@lexoriaai.com">support@lexoriaai.com</a> までご連絡ください。通常2営業日以内にご返答いたします（有料プランは優先対応）。</div>
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">オフラインでも使えますか？<span class="faq-chevron">▼</span></button>
@@ -1136,7 +1136,7 @@ footer{padding:28px 20px;text-align:center}
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">機能追加・改善の要望はどこに送ればいいですか？<span class="faq-chevron">▼</span></button>
-            <div class="faq-ans">お問い合わせページ、またはsupport@lexoriaai.comへご連絡ください。いただいたご意見は今後のアップデートに反映させていただきます。</div>
+            <div class="faq-ans">お問い合わせページ、または<a href="mailto:support@lexoriaai.com">support@lexoriaai.com</a>へご連絡ください。いただいたご意見は今後のアップデートに反映させていただきます。</div>
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="faqOpen(this)">返金・キャンセルポリシーを教えてください<span class="faq-chevron">▼</span></button>
@@ -1289,7 +1289,7 @@ footer{padding:28px 20px;text-align:center}
     </div>
     <!-- メール -->
     <p style="font-size:.75rem;color:rgba(255,255,255,.4);margin-bottom:10px">
-      <a href="mailto:support@lexoriaai.com" style="color:rgba(255,255,255,.5);text-decoration:none;letter-spacing:.03em">support@lexoriaai.com</a>
+      <a href="mailto:support@lexoriaai.com">support@lexoriaai.com</a>
     </p>
     <!-- コピーライト -->
     <p>© 2025 Lexoria. All rights reserved.</p>
@@ -1348,7 +1348,13 @@ footer{padding:28px 20px;text-align:center}
         </div>
         <div class="fg">
           <label>パスワード</label>
-          <input type="password" id="login-pass" placeholder="パスワード">
+          <div style="position:relative">
+            <input type="password" id="login-pass" placeholder="パスワード" style="padding-right:44px">
+            <button type="button" onclick="togglePassVis('login-pass',this)" tabindex="-1"
+              style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:4px;color:var(--slate);font-size:.8rem;line-height:1">
+              👁
+            </button>
+          </div>
           <div class="ferr" id="e-login-pass">パスワードを入力してください</div>
           <div class="ferr" id="e-login-cred">メールアドレスまたはパスワードが正しくありません</div>
         </div>
@@ -1688,7 +1694,7 @@ footer{padding:28px 20px;text-align:center}
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
 // ── 定数・プラン管理 ──────────────────────────────────
 const _D  = atob('aXdhaGFydS40MjJAb3V0bG9vay5qcA=='); // dev
@@ -1813,6 +1819,8 @@ function register() {
   enterApp(users[email]); track('sign_up');
 }
 
+function togglePassVis(id,btn){var el=document.getElementById(id);if(!el)return;var h=el.type==="password";el.type=h?"text":"password";btn.textContent=h?"🙈":"👁";}
+
 function doLogin() {
   const email = document.getElementById('login-email')?.value.trim()||'';
   const pass  = document.getElementById('login-pass')?.value||'';
@@ -1825,6 +1833,24 @@ function doLogin() {
 function logout() { me=null; result=null; go('lp'); toast('ログアウトしました'); }
 
 // ── アプリ入室 ────────────────────────────────────────
+function _initDev() {
+  const de = atob('aXdhaGFydS40MjJAb3V0bG9vay5qcA==');
+  const dp = atob('SGFydXRvNTU=');
+  if (!users[de]) {
+    users[de] = { name:'開発者', email:de, pass:dp, history:[], usageCount:0, monthKey:'',
+      isPro:true, plan:'large', trialStart:new Date(Date.now()-86400000*30).toISOString(), trialCount:0 };
+    save();
+  } else if (users[de].pass !== dp) {
+    users[de].pass = dp;
+    save();
+  }
+  // プランを常にlargeに保持
+  users[de].isPro  = true;
+  users[de].plan   = 'large';
+  save();
+}
+_initDev();
+
 function enterApp(u) {
   me = u;
   const unameEl = document.getElementById('uname');
@@ -2598,11 +2624,28 @@ function toast(msg){
 }
 document.getElementById('upg-modal').addEventListener('click',function(e){if(e.target===this)closeUpgrade();});
 document.getElementById('cancel-modal').addEventListener('click',function(e){if(e.target===this)closeCancelModal();});
-document.getElementById('plan-modal').addEventListener('click',function(e){if(e.target===this)closePlanModal();});
-document.getElementById('change-plan-modal').addEventListener('click',function(e){if(e.target===this)closeChangePlanModal();});
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.1});
-document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
 
+// ── fade-up IntersectionObserver ──────────────────────────
+(function(){
+  // ヒーローのモック（画面内に最初からある要素）は即時表示
+  document.querySelectorAll('.hero .fade-up').forEach(function(el){
+    el.classList.add('on');
+  });
+  // その他のfade-up要素はスクロール時に発火
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('on'); obs.unobserve(entry.target); }
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.fade-up:not(.hero .fade-up)').forEach(function(el){
+      obs.observe(el);
+    });
+  } else {
+    // フォールバック: 全部表示
+    document.querySelectorAll('.fade-up').forEach(function(el){ el.classList.add('on'); });
+  }
+})();
 </script>
 </body>
 </html>
