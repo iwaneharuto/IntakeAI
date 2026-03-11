@@ -143,7 +143,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .btn-gold:hover::after{transform:translateX(4px)}
 
 /* mock */
-.mock{background:#fff;border-radius:8px;box-shadow:0 24px 80px rgba(26,26,46,.14),0 4px 16px rgba(26,26,46,.06);overflow:hidden;animation:float 6s ease-in-out infinite}
+.mock{background:#fff;border-radius:8px;box-shadow:0 24px 80px rgba(26,26,46,.14),0 4px 16px rgba(26,26,46,.06);overflow:hidden;animation:float 6s ease-in-out infinite;opacity:1!important;visibility:visible!important}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .mock-hd{background:var(--ink);padding:14px 20px;display:flex;align-items:center;gap:8px}
 .dot{width:10px;height:10px;border-radius:50%}
@@ -679,7 +679,7 @@ footer{padding:28px 20px;text-align:center}
           <span class="trust-badge"><span class="ti">🔒</span>クレジットカード不要</span>
         </div>
       </div>
-      <div>
+      <div style="opacity:1!important;transform:none!important;visibility:visible!important">
         <div class="mock">
           <div class="mock-hd">
             <div class="dot" style="background:#e74c3c"></div>
@@ -923,7 +923,7 @@ footer{padding:28px 20px;text-align:center}
             <li class="dim"><span class="fi ng">✗</span> チーム利用・メンバー追加</li>
             <li class="dim"><span class="fi ng">✗</span> 事務員・スタッフの追加</li>
           </ul>
-          <a class="btn-plan btn-pro" href="https://buy.stripe.com/6oU7sKfwr5UF8dZ1Rt4sE02" target="_blank" rel="noopener">無料トライアルを開始 →</a>
+          <a class="btn-plan btn-pro" href="#" onclick="event.preventDefault();track('click_plan_select',{plan:'personal'});openCheckout('personal')">無料トライアルを開始 →</a>
           <div class="plan-note">🔒 Stripeの安全な決済ページへ</div>
         </div>
 
@@ -947,7 +947,7 @@ footer{padding:28px 20px;text-align:center}
             <li><span class="fi ok">✓</span> メンバー管理・招待機能</li>
             <li><span class="fi ok">✓</span> 弁護士・事務員・スタッフ同一扱い</li>
           </ul>
-          <a class="btn-plan btn-office" href="https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00" target="_blank" rel="noopener">無料トライアルを開始 →</a>
+          <a class="btn-plan btn-office" href="#" onclick="event.preventDefault();track('click_plan_select',{plan:'small'});openCheckout('small')">無料トライアルを開始 →</a>
           <div class="plan-note">🔒 Stripeの安全な決済ページへ</div>
         </div>
 
@@ -978,7 +978,7 @@ footer{padding:28px 20px;text-align:center}
             <li><span class="fi ok">✓</span> メンバー管理・招待機能</li>
             <li><span class="fi ok">✓</span> 弁護士・事務員・スタッフ同一扱い</li>
           </ul>
-          <a class="btn-plan btn-team" href="https://buy.stripe.com/fZueVc6ZV4QB9i3dAb4sE03" target="_blank" rel="noopener">無料トライアルを開始 →</a>
+          <a class="btn-plan btn-team" href="#" onclick="event.preventDefault();track('click_plan_select',{plan:'large'});openCheckout('large')">無料トライアルを開始 →</a>
           <div class="plan-note">🔒 Stripeの安全な決済ページへ</div>
         </div>
 
@@ -1514,8 +1514,7 @@ footer{padding:28px 20px;text-align:center}
     <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px">
 
       <!-- パーソナルプラン -->
-      <a href="https://buy.stripe.com/6oU7sKfwr5UF8dZ1Rt4sE02" target="_blank" rel="noopener"
-         onclick="track('click_plan_select',{plan:'personal'});closePlanModal()"
+      <a href="#" onclick="event.preventDefault();track('click_plan_select',{plan:'personal'});closePlanModal();openCheckout('personal')"
          style="display:block;padding:16px 20px;border:1px solid var(--border);border-radius:6px;text-decoration:none;color:var(--ink);transition:all .2s;background:#fff"
          onmouseover="this.style.borderColor='var(--gold)';this.style.boxShadow='0 4px 16px rgba(184,151,90,.15)'"
          onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
@@ -1533,8 +1532,7 @@ footer{padding:28px 20px;text-align:center}
       </a>
 
       <!-- スモールプラン -->
-      <a href="https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00" target="_blank" rel="noopener"
-         onclick="track('click_plan_select',{plan:'small'});closePlanModal()"
+      <a href="#" onclick="event.preventDefault();track('click_plan_select',{plan:'small'});closePlanModal();openCheckout('small')"
          style="display:block;padding:18px 20px;border:1px solid var(--border);border-radius:6px;text-decoration:none;color:var(--ink);transition:all .2s;background:#fff"
          onmouseover="this.style.borderColor='#4a7c6f';this.style.boxShadow='0 4px 16px rgba(74,124,111,.15)'"
          onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
@@ -1553,8 +1551,7 @@ footer{padding:28px 20px;text-align:center}
       </a>
 
       <!-- ラージプラン（おすすめ） -->
-      <a href="https://buy.stripe.com/fZueVc6ZV4QB9i3dAb4sE03" target="_blank" rel="noopener"
-         onclick="track('click_plan_select',{plan:'large'});closePlanModal()"
+      <a href="#" onclick="event.preventDefault();track('click_plan_select',{plan:'large'});closePlanModal();openCheckout('large')"
          style="display:block;padding:18px 20px;border:2px solid #5a4a8a;border-radius:6px;text-decoration:none;color:var(--ink);transition:all .2s;background:#f8f6ff;position:relative"
          onmouseover="this.style.boxShadow='0 4px 20px rgba(90,74,138,.2)'"
          onmouseout="this.style.boxShadow='none'">
@@ -1586,16 +1583,14 @@ footer{padding:28px 20px;text-align:center}
     <h3 style="margin-bottom:4px">プランを変更する</h3>
     <p style="font-size:.76rem;color:var(--slate);text-align:center;margin-bottom:20px">変更はStripeの管理画面から行います。現在の請求サイクルで即時反映されます。</p>
     <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px">
-      <a href="https://buy.stripe.com/6oU7sKfwr5UF8dZ1Rt4sE02" target="_blank" rel="noopener"
-         onclick="track('click_plan_change',{plan:'personal'});closeChangePlanModal()"
+      <a href="#" onclick="event.preventDefault();track('click_plan_change',{plan:'personal'});closeChangePlanModal();openCheckout('personal')"
          style="display:block;padding:16px 20px;border:1px solid var(--border);border-radius:6px;text-decoration:none;color:var(--ink);background:#fff"
          onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="font-size:.62rem;letter-spacing:.14em;font-weight:700;color:var(--gold);margin-bottom:3px">PERSONAL — 個人向け</div>
         <div style="font-size:.9rem;font-weight:600">パーソナルプラン</div>
         <div style="font-size:.72rem;color:var(--slate)">1名 / <strong style="color:var(--ink)">¥9,800/月（税込）</strong></div>
       </a>
-      <a href="https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00" target="_blank" rel="noopener"
-         onclick="track('click_plan_change',{plan:'small'});closeChangePlanModal()"
+      <a href="#" onclick="event.preventDefault();track('click_plan_change',{plan:'small'});closeChangePlanModal();openCheckout('small')"
          style="display:block;padding:16px 20px;border:2px solid var(--gold);border-radius:6px;text-decoration:none;color:var(--ink);background:#fffdf9"
          onmouseover="this.style.background='#fff8ed'" onmouseout="this.style.background='#fffdf9'">
         <div style="display:flex;justify-content:space-between;align-items:center">
@@ -1606,8 +1601,7 @@ footer{padding:28px 20px;text-align:center}
           </div>
         </div>
       </a>
-      <a href="https://buy.stripe.com/fZueVc6ZV4QB9i3dAb4sE03" target="_blank" rel="noopener"
-         onclick="track('click_plan_change',{plan:'large'});closeChangePlanModal()"
+      <a href="#" onclick="event.preventDefault();track('click_plan_change',{plan:'large'});closeChangePlanModal();openCheckout('large')"
          style="display:block;padding:16px 20px;border:1px solid var(--border);border-radius:6px;text-decoration:none;color:var(--ink);background:#fff"
          onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="font-size:.62rem;letter-spacing:.14em;font-weight:700;color:var(--gold);margin-bottom:3px">LARGE — 事務所全体向け</div>
@@ -1668,14 +1662,11 @@ footer{padding:28px 20px;text-align:center}
     <div class="upg-body">
       <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
         <a style="display:block;text-align:center;padding:13px;background:var(--gold);border-radius:4px;text-decoration:none;color:#fff;font-weight:600;font-size:.87rem"
-           href="https://buy.stripe.com/6oU7sKfwr5UF8dZ1Rt4sE02" target="_blank" rel="noopener"
-           onclick="closeTrialExpiredModal()">パーソナル ¥9,800/月 — 個人で使う →</a>
+           href="#" onclick="event.preventDefault();closeTrialExpiredModal();openCheckout('personal')">パーソナル ¥9,800/月 — 個人で使う →</a>
         <a style="display:block;text-align:center;padding:12px;border:1px solid #4a7c6f;border-radius:4px;text-decoration:none;color:#4a7c6f;font-weight:600;font-size:.85rem"
-           href="https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00" target="_blank" rel="noopener"
-           onclick="closeTrialExpiredModal()">スモール ¥39,800/月 — 事務所5名で使う →</a>
+           href="#" onclick="event.preventDefault();closeTrialExpiredModal();openCheckout('small')">スモール ¥39,800/月 — 事務所5名で使う →</a>
         <a style="display:block;text-align:center;padding:12px;border:1px solid #5a4a8a;border-radius:4px;text-decoration:none;color:#5a4a8a;font-weight:600;font-size:.85rem"
-           href="https://buy.stripe.com/fZueVc6ZV4QB9i3dAb4sE03" target="_blank" rel="noopener"
-           onclick="closeTrialExpiredModal()">ラージ ¥74,900/月 — 事務所10名で使う →</a>
+           href="#" onclick="event.preventDefault();closeTrialExpiredModal();openCheckout('large')">ラージ ¥74,900/月 — 事務所10名で使う →</a>
       </div>
       <p style="font-size:.71rem;color:var(--slate);text-align:center;margin-bottom:8px">🔒 Stripe の安全な決済ページへ</p>
       <span class="upg-cancel" onclick="closeTrialExpiredModal()">後で登録する</span>
@@ -1715,7 +1706,7 @@ footer{padding:28px 20px;text-align:center}
 
 <div class="toast" id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
 // ── 定数・プラン管理 ──────────────────────────────────
 const _D  = atob('aXdhaGFydS40MjJAb3V0bG9vay5qcA=='); // dev
@@ -1726,10 +1717,14 @@ const FIXED_PLANS = {
   [_D]:  'large',  // dev override
   [_U2]: 'large',  // 契約ユーザー（Largeプラン / 最大10名）
 };
-const STRIPE_PORTAL = 'https://billing.stripe.com/p/login/14AbJ0ckfbeZ79V8fR4sE00';
-const STRIPE_SMALL  = 'https://buy.stripe.com/14AbJ0ckfbeZ79V8fR4sE00'; // 5人プラン（要更新）
-const STRIPE_LARGE  = 'https://buy.stripe.com/fZueVc6ZV4QB9i3dAb4sE03'; // 10人プラン
-const STRIPE_UPGRADE = 'https://buy.stripe.com/fZueVc6ZV4QB9i3dAb4sE03';
+// Stripe Price ID 対応表
+const STRIPE_PRICE = {
+  personal: 'price_1T8v3PAPYDSR7srNMboKV12t', // ¥9,800/月  1名
+  small:    'price_1T9E61APYDSR7srNHlKLA9VT', // ¥39,800/月 最大5名
+  large:    'price_1T9K14APYDSR7srN7qvPVkFr', // ¥74,900/月 最大10名
+};
+const STRIPE_PORTAL  = 'https://billing.stripe.com/p/login/14AbJ0ckfbeZ79V8fR4sE00';
+const STRIPE_UPGRADE = 'https://buy.stripe.com/fZueVc6ZV4QB9i3dAb4sE03'; // ラージプラン（アップグレード用）
 const PLAN_LIMITS = { free:0, personal:1, small:5, large:10 }; // 0=無制限（free=AI整理のみ制限）
 
 function getEffectivePlan(email) {
@@ -1842,6 +1837,28 @@ function register() {
 
 function togglePassVis(id,btn){var el=document.getElementById(id);if(!el)return;var h=el.type==="password";el.type=h?"text":"password";btn.textContent=h?"🙈":"👁";}
 
+// Stripe Checkout: Price IDを直接指定して決済画面へ
+async function openCheckout(plan) {
+  const email = me ? me.email : '';
+  try {
+    const res = await fetch('/api/checkout/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan, email })
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.open(data.url, '_blank');
+    } else {
+      toast('決済ページの読み込みに失敗しました。しばらく後にお試しください。');
+      console.error('[Checkout] エラー:', data.error);
+    }
+  } catch(e) {
+    toast('通信エラーが発生しました。');
+    console.error('[Checkout]', e);
+  }
+}
+
 function doLogin() {
   const email = document.getElementById('login-email')?.value.trim()||'';
   const pass  = document.getElementById('login-pass')?.value||'';
@@ -1947,7 +1964,7 @@ function openChangePlanModal() { document.getElementById('change-plan-modal').cl
 function closeChangePlanModal() { document.getElementById('change-plan-modal').classList.remove('on'); }
 function openTrialExpiredModal()  { const m=document.getElementById('trial-expired-modal'); if(m){m.style.display='flex';} }
 function closeTrialExpiredModal() { const m=document.getElementById('trial-expired-modal'); if(m){m.style.display='none';} }
-function openUpgrade()  { window.open(STRIPE_UPGRADE,'_blank'); track('click_upgrade'); }
+function openUpgrade()  { openCheckout('large'); track('click_upgrade'); }
 function closeUpgrade() { document.getElementById('upg-modal').classList.remove('on'); }
 
 // ── AI整理 ────────────────────────────────────────────
