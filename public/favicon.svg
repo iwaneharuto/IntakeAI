@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <!-- Dark background -->
+  <!-- Deep navy background -->
   <rect width="32" height="32" rx="4" fill="#0d0d14"/>
   <!-- Gold border -->
   <rect x="1.5" y="1.5" width="29" height="29" rx="3" fill="none" stroke="#6e5830" stroke-width="0.75"/>
