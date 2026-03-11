@@ -2374,7 +2374,7 @@ function renderAcct() {
       <div class="info-row"><span class="info-lbl">氏名</span><span class="info-val">${u.name}</span></div>
       ${isPro&&!isDev?`<div class="info-row"><span class="info-lbl">次回更新日</span><span class="info-val">${cs?nextRenewal+'（解約予定）':nextRenewal}</span></div>`:''}
       <div class="ab-group">
-        \${!isDev?`<button class="ab ab-gold" onclick="openPlanModal()">\${isPro?'🔄 プランを変更する':'✨ 有料プランに登録する'}</button>`:''}
+        <button class="ab ab-gold" onclick="openPlanModal()">${isPro?'🔄 プランを変更する':'✨ 有料プランに登録する'}</button>
         ${isPro&&!isDev?`<button class="ab ab-outline" onclick="window.open(STRIPE_PORTAL,'_blank')">請求情報・領収書を確認する</button>`:''}
         ${isPro&&!isDev&&!cs?`<button class="ab ab-danger" onclick="cancelPlan()">プランを解約する</button>`:''}
       </div>
