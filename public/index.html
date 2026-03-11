@@ -1334,7 +1334,8 @@ footer{padding:24px;flex-direction:column;text-align:center}
         <div class="fg">
           <label>パスワード</label>
           <input type="password" id="login-pass" placeholder="パスワード">
-          <div class="ferr" id="e-login-cred">メールアドレスまたはパスワードが違います</div>
+          <div class="ferr" id="e-login-pass">パスワードを入力してください</div>
+          <div class="ferr" id="e-login-cred">メールアドレスまたはパスワードが正しくありません</div>
         </div>
         <button class="btn-submit" onclick="doLogin()">ログイン</button>
         <div style="text-align:center;margin-top:-4px">
@@ -1746,7 +1747,13 @@ function go(screen, sub) {
   ['lp','auth','app'].forEach(s => {
     const el = document.getElementById('screen-' + s);
     if (!el) return;
-    el.style.display = s === screen ? (displayMap[s] || 'block') : 'none';
+    if (s === screen) {
+      el.style.display = displayMap[s] || 'block';
+      el.classList.add('on');
+    } else {
+      el.style.display = 'none';
+      el.classList.remove('on');
+    }
   });
   if (screen === 'auth') authTab(sub || 'login');
   if (screen === 'lp') window.scrollTo(0, 0);
@@ -1777,7 +1784,7 @@ function register() {
   if (!email) return err('e-reg-email', 'メールアドレスを入力してください');
   if (pass.length < 8) return err('e-reg-pass', '8文字以上で入力してください');
   if (users[email]) return err('e-reg-email', 'このメールアドレスは既に登録されています');
-  users[email] = { name, email, pass, history:[], usageCount:0, monthKey:'', isPro:false, plan:'' };
+  users[email] = { name, email, pass, history:[], usageCount:0, monthKey:'', isPro:false, plan:'', trialStart: new Date().toISOString(), trialCount:0 };
   save();
   // 招待があれば自動承認
   for (const key of Object.keys(localStorage)) {
@@ -1797,7 +1804,7 @@ function doLogin() {
   clearErrs();
   if (!email) return err('e-login-email','メールアドレスを入力してください');
   if (!pass)  return err('e-login-pass', 'パスワードを入力してください');
-  if (!users[email] || users[email].pass !== pass) return err('e-login-pass','メールアドレスまたはパスワードが正しくありません');
+  if (!users[email] || users[email].pass !== pass) return err('e-login-cred','メールアドレスまたはパスワードが正しくありません');
   enterApp(users[email]); track('login');
 }
 function logout() { me=null; result=null; go('lp'); toast('ログアウトしました'); }
@@ -1805,7 +1812,8 @@ function logout() { me=null; result=null; go('lp'); toast('ログアウトしま
 // ── アプリ入室 ────────────────────────────────────────
 function enterApp(u) {
   me = u;
-  document.getElementById('uname').textContent = u.name + ' さん';
+  const unameEl = document.getElementById('uname');
+  if (unameEl) unameEl.textContent = u.name + ' さん';
   go('app');
   const tt = document.getElementById('atab-team');
   if (tt) tt.style.display = isTeamPlan(u.email) ? '' : 'none';
@@ -1890,20 +1898,30 @@ async function analyze() {
   const inTrial  = isInTrial(me.email);
   const trialExp = isTrialExpired(me.email);
 
-  // 有料プランでなく、トライアルも終了 → 有料案内
-  if (!isPro && trialExp) { openTrialExpiredModal(); return false; }
-  // 有料プランでなく、トライアル外 → 旧フリー5件制限
-  if (!isPro && !inTrial && !trialExp) {
-    if ((u.usageCount || 0) >= 5) { openUpgrade(); return false; }
+  // trialStart 未設定の既存ユーザーにトライアルを付与（マイグレーション）
+  if (!u.trialStart && !isPro) {
+    u.trialStart  = new Date().toISOString();
+    u.trialCount  = u.trialCount || 0;
+    save();
   }
 
-  // トライアル中で残り3回以下 → 警告
-  if (inTrial && trialUsesLeft(me.email) <= 3 && trialUsesLeft(me.email) > 0) {
+  // inTrial / trialExp を再評価（trialStart 付与後）
+  const inTrialFinal  = isInTrial(me.email);
+  const trialExpFinal = isTrialExpired(me.email);
+
+  // 有料プランでなく、トライアルも終了 → 有料案内
+  if (!isPro && trialExpFinal) { openTrialExpiredModal(); return false; }
+
+  // トライアル中で残り3回以下 → 警告（ブロックはしない）
+  if (inTrialFinal && trialUsesLeft(me.email) <= 3 && trialUsesLeft(me.email) > 0) {
     toast('無料利用は残り ' + trialUsesLeft(me.email) + ' 回です。継続利用する場合は有料プランをご検討ください。');
   }
 
-  // トライアル回数インクリメント
-  if (inTrial) { u.trialCount = (u.trialCount || 0) + 1; save(); }
+  // トライアル回数インクリメント（トライアル中のみ）
+  if (inTrialFinal) {
+    u.trialCount = (u.trialCount || 0) + 1;
+    save();
+  }
 
   track('click_analyze', { plan: isPro ? 'paid' : (inTrial ? 'trial' : 'free') });
   track('input_consultation', { char_count: memo.length, plan: isPro ? 'paid' : (inTrial ? 'trial' : 'free') });
