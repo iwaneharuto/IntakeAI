@@ -88,17 +88,13 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lexoria｜弁護士・法律事務所向け初回相談整理AI｜相談メモを10秒で整理</title>
-<!-- =====================================================
-     Google Analytics 4
-     測定ID: G-8F7LVCTWX0
-           例）G-XXXXXXXXXX
-     ===================================================== -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8F7LVCTWX0"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-16ZLXH2JBG"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-8F7LVCTWX0');
+  gtag('config', 'G-16ZLXH2JBG');
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -353,8 +349,28 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.3);margin:0}
 /* history */
 .hist-empty{text-align:center;padding:64px 0;color:var(--slate);font-size:.85rem}
 .hist-list{display:flex;flex-direction:column;gap:12px}
-.hist-item{background:#fff;border:1px solid var(--border);border-radius:6px;padding:20px 24px;cursor:pointer;transition:box-shadow .2s,border-color .2s}
+/* ── 履歴カード拡張 ─────────────────────────── */
+.hist-item{background:#fff;border:1px solid var(--border);border-radius:6px;padding:16px 20px;cursor:pointer;transition:box-shadow .2s,border-color .2s;position:relative}
 .hist-item:hover{box-shadow:0 4px 16px rgba(26,26,46,.08);border-color:var(--gold)}
+.hi-title{font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hi-meta2{display:flex;gap:16px;font-size:.74rem;color:var(--slate);margin-bottom:6px;flex-wrap:wrap}
+.hi-meta2 span{display:flex;align-items:center;gap:3px}
+.hi-memo{font-size:.78rem;color:#555;line-height:1.6;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.hi-del{position:absolute;top:12px;right:12px;background:none;border:1px solid #e0d0c0;border-radius:4px;padding:3px 10px;font-size:.7rem;color:var(--slate);cursor:pointer;transition:all .2s}
+.hi-del:hover{background:#fee2e2;border-color:#f87171;color:#dc2626}
+.hi-role-badge{display:inline-block;font-size:.65rem;padding:2px 7px;border-radius:10px;font-weight:600;margin-left:6px;vertical-align:middle}
+.hi-role-admin{background:#fef3c7;color:#92400e}
+.hi-role-member{background:#e0f2fe;color:#0369a1}
+/* ── 検索バー ────────────────────────────────── */
+.hist-search-wrap{margin-bottom:14px;position:relative}
+.hist-search-wrap input{width:100%;box-sizing:border-box;padding:10px 16px 10px 38px;border:1px solid var(--border);border-radius:6px;font-size:.84rem;font-family:inherit;background:#fff;color:var(--ink);outline:none;transition:border-color .2s}
+.hist-search-wrap input:focus{border-color:var(--gold)}
+.hist-search-wrap::before{content:"🔍";position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.82rem;pointer-events:none}
+.hist-filter-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.hist-filter-row select{padding:6px 10px;border:1px solid var(--border);border-radius:4px;font-size:.78rem;font-family:inherit;background:#fff;color:var(--ink);cursor:pointer}
+.hist-count{font-size:.74rem;color:var(--slate);margin-bottom:8px}
+/* ── メンバー権限表示 ────────────────────────── */
+.member-readonly-notice{background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:10px 14px;font-size:.78rem;color:#1e40af;margin-bottom:12px}
 .hist-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px}
 .hist-date{font-size:.72rem;color:var(--slate);flex-shrink:0}
 .hist-prev{font-size:.82rem;color:var(--ink);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -1421,6 +1437,8 @@ footer{padding:28px 20px;text-align:center}
         <a class="teb-btn" href="#" onclick="event.preventDefault();closeUpgrade();openPlanModal()">有料プランへ →</a>
       </div>
       <div class="card">
+        <label class="card-label" style="display:flex;align-items:center;gap:6px">📋 相談タイトル <span style="font-size:.7rem;color:var(--slate);font-weight:400">（任意）</span></label>
+        <input type="text" id="case-title" placeholder="例：交通事故の後遺障害相談　など" style="width:100%;box-sizing:border-box;margin-bottom:14px;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:.84rem;font-family:inherit;background:#fff;color:var(--ink);outline:none">
         <label class="card-label">相談メモ</label>
         <textarea id="memo" class="textarea" placeholder="初回相談で聞き取った内容を入力してください。&#10;&#10;（例：相談者の状況、経緯、相手方との関係、希望する解決内容など）"></textarea>
         <div class="inp-actions">
@@ -1496,7 +1514,22 @@ footer{padding:28px 20px;text-align:center}
 
     <!-- 履歴パネル -->
     <div class="apanel" id="panel-hist">
-      <div id="hist-body"></div>
+      <div class="hist-search-wrap">
+  <input type="text" id="hist-search" placeholder="タイトル・内容・担当者・タグで検索..." oninput="renderHist()">
+</div>
+<div class="hist-filter-row">
+  <select id="hist-filter-who" onchange="renderHist()">
+    <option value="">すべての担当者</option>
+  </select>
+  <select id="hist-filter-date" onchange="renderHist()">
+    <option value="">すべての期間</option>
+    <option value="7">直近7日</option>
+    <option value="30">直近30日</option>
+    <option value="90">直近90日</option>
+  </select>
+</div>
+<div id="hist-count" class="hist-count"></div>
+<div id="hist-body"></div>
     </div>
     <!-- アカウント設定 -->
     <div class="apanel" id="panel-acct"><div id="acct-body"></div></div>
@@ -1833,6 +1866,7 @@ function register() {
     } catch(e) {}
   }
   enterApp(users[email]); track('sign_up');
+  processInviteAfterRegister(email);
   // 料金プランから来た場合のトライアル開始案内
   try {
     const pp = sessionStorage.getItem('pendingPlan');
@@ -1842,6 +1876,98 @@ function register() {
       sessionStorage.removeItem('pendingPlan');
     }
   } catch(e) {}
+  // 料金プランから来た場合のトライアル開始案内
+  try {
+    const pp = sessionStorage.getItem('pendingPlan');
+    if (pp) {
+      const pNames = {personal:'パーソナル',small:'スモール',large:'ラージ'};
+      setTimeout(() => toast('7日間の無料トライアル開始！' + (pNames[pp]||pp) + 'プランをお試しいただけます。'), 500);
+      sessionStorage.removeItem('pendingPlan');
+    }
+  } catch(e) {}
+}
+
+// ── パスワード再設定（ローカル認証） ─────────────────────────────
+function showForgotPw() {
+  const box = document.getElementById('forgot-pw-box');
+  if (!box) return;
+  const isVisible = box.style.display !== 'none';
+  box.style.display = isVisible ? 'none' : 'block';
+  if (!isVisible) {
+    // 開くときリセット
+    const wrap = document.getElementById('forgot-new-pw-wrap');
+    if (wrap) wrap.style.display = 'none';
+    const fe = document.getElementById('forgot-email');
+    if (fe) { fe.value = ''; fe.focus(); }
+    clearErr('e-forgot-email');
+    clearErr('e-forgot-new-pw');
+  }
+}
+
+function doForgotPw() {
+  const emailEl = document.getElementById('forgot-email');
+  const btn     = document.querySelector('button[onclick="doForgotPw()"]');
+  const email   = emailEl ? emailEl.value.trim() : '';
+  clearErr('e-forgot-email');
+
+  if (!email) { err('e-forgot-email', 'メールアドレスを入力してください'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    err('e-forgot-email', '正しいメールアドレスを入力してください'); return;
+  }
+
+  // 多重送信防止
+  if (btn) { btn.disabled = true; btn.textContent = '確認中…'; }
+
+  setTimeout(() => {
+    if (btn) { btn.disabled = false; btn.textContent = '新しいパスワードを設定する'; }
+
+    if (users[email]) {
+      // 登録済み → 新パスワード入力欄を表示
+      const wrap = document.getElementById('forgot-new-pw-wrap');
+      if (wrap) wrap.style.display = 'block';
+      const npw = document.getElementById('forgot-new-pw');
+      if (npw) { npw.value = ''; npw.focus(); }
+      clearErr('e-forgot-email');
+    } else {
+      // 未登録でもセキュリティ上同じ文言
+      err('e-forgot-email', '入力されたメールアドレスに再設定の案内を送信しました（登録済みの場合）');
+    }
+  }, 600); // 意図的な遅延でタイミング攻撃を防ぐ
+}
+
+function doResetPw() {
+  const emailEl = document.getElementById('forgot-email');
+  const newPwEl = document.getElementById('forgot-new-pw');
+  const btn     = document.querySelector('button[onclick="doResetPw()"]');
+  const email   = emailEl ? emailEl.value.trim() : '';
+  const newPw   = newPwEl ? newPwEl.value : '';
+  clearErr('e-forgot-new-pw');
+
+  if (!newPw || newPw.length < 8) {
+    err('e-forgot-new-pw', 'パスワードは8文字以上で入力してください'); return;
+  }
+  if (!users[email]) {
+    err('e-forgot-new-pw', 'アカウントが見つかりません。メールアドレスを確認してください'); return;
+  }
+
+  // 多重送信防止
+  if (btn) { btn.disabled = true; btn.textContent = '変更中…'; }
+
+  setTimeout(() => {
+    users[email].pass = newPw;
+    save();
+    if (btn) { btn.disabled = false; btn.textContent = 'パスワードを変更する'; }
+
+    // UIリセット
+    const box  = document.getElementById('forgot-pw-box');
+    const wrap = document.getElementById('forgot-new-pw-wrap');
+    if (box)  box.style.display  = 'none';
+    if (wrap) wrap.style.display = 'none';
+    if (emailEl) emailEl.value = '';
+    if (newPwEl) newPwEl.value = '';
+
+    toast('✅ パスワードを変更しました。新しいパスワードでログインしてください。');
+  }, 400);
 }
 
 function togglePassVis(id,btn){var el=document.getElementById(id);if(!el)return;var h=el.type==="password";el.type=h?"text":"password";btn.textContent=h?"🙈":"👁";}
@@ -2190,7 +2316,7 @@ function showResult(p) {
   document.getElementById('res-card').style.display    = 'block';
 }
 
-function clearAll() { document.getElementById('memo').value=''; document.getElementById('res-wrap').style.display='none'; result=null; }
+function clearAll() { document.getElementById('memo').value=''; const ctEl=document.getElementById('case-title'); if(ctEl)ctEl.value=''; document.getElementById('res-wrap').style.display='none'; result=null; }
 
 // ── PDF出力 ───────────────────────────────────────────
 function exportPDF() {
@@ -2387,29 +2513,165 @@ function _exportPDFInner() {
 // ── history ────────────────────────────
 
 // ── 履歴 ──────────────────────────────────────────────
+
+// ── 権限管理 ────────────────────────────────────────────────────
+// チーム内のロールを返す: 'admin' | 'member' | null（チーム未所属）
+function getMyRole() {
+  if (!me) return null;
+  const team = findMyTeam();
+  if (!team) return null;
+  if (team.adminEmail === me.email) return 'admin';
+  const m = (team.members || []).find(m2 => m2.email === me.email);
+  return m?.role || 'member';
+}
+
+// 管理者かどうか（チームプランでない場合は自分自身が管理者扱い）
+function isTeamAdmin() {
+  if (!me) return false;
+  const plan = getEffectivePlan(me.email);
+  if (!isTeamPlan(me.email)) return true; // 個人プランは自分が管理者
+  return getMyRole() === 'admin';
+}
+
+// 全員の履歴を取得（管理者 → 同org全員, メンバー → 自分のみ）
+function getVisibleHistory() {
+  if (!me) return [];
+  const myPlan = getEffectivePlan(me.email);
+  const myHist = users[me.email]?.history || [];
+
+  // 個人プランまたは非チームは自分の履歴のみ
+  if (!isTeamPlan(me.email)) return myHist;
+
+  const role = getMyRole();
+  const team = findMyTeam();
+  if (!team) return myHist;
+  const orgId = team.adminEmail;
+
+  if (role === 'admin') {
+    // admin: organization内の全履歴を統合
+    const all = [];
+    (team.members || []).forEach(m2 => {
+      const u2 = users[m2.email];
+      if (!u2?.history) return;
+      u2.history.forEach(h => {
+        // organizationIdが一致するものだけ
+        if (!h.organizationId || h.organizationId === orgId) {
+          all.push({ ...h, _ownerEmail: m2.email, _ownerName: m2.name || m2.email });
+        }
+      });
+    });
+    // savedAt降順でソート
+    return all.sort((a,b) => new Date(b.savedAt||b.date) - new Date(a.savedAt||a.date));
+  } else {
+    // member: 自分の履歴のみ
+    return myHist.filter(h => !h.organizationId || h.organizationId === orgId);
+  }
+}
+
 function autoSave(r) {
   if (!me||!r) return;
   const u = users[me.email];
   if (!u.history) u.history=[];
-  u.history.unshift({...r,savedAt:new Date().toISOString()});
+  const team = findMyTeam();
+  const titleEl = document.getElementById('case-title');
+  const title = titleEl?.value.trim() || '';
+  const entry = {
+    ...r,
+    title: title,
+    savedAt: new Date().toISOString(),
+    createdBy: me.email,
+    createdByName: me.name || me.email,
+    organizationId: team ? team.adminEmail : me.email,
+  };
+  u.history.unshift(entry);
   if (!isProOrAbove(me.email)) u.history=u.history.slice(0,5);
   save();
 }
 function saveHist() { if(!result){toast('整理結果がありません');return;} autoSave(result); toast('履歴に保存しました'); renderHist(); }
 function renderHist() {
   if (!me) return;
-  const body=document.getElementById('hist-body'); if(!body)return;
-  const hist=users[me.email]?.history||[];
-  if(!hist.length){body.innerHTML='<p style="color:var(--slate);font-size:.84rem;padding:20px 0">まだ履歴がありません</p>';return;}
-  body.innerHTML=hist.map((h,i)=>`<div class="hist-item" onclick="loadHist(${i})"><div class="hi-meta">${new Date(h.savedAt||h.date).toLocaleString('ja-JP')}</div><div class="hi-memo">${(h.memo||'').slice(0,80)}${(h.memo||'').length>80?'…':''}</div><button class="hi-del" onclick="event.stopPropagation();delHist(${i})">削除</button></div>`).join('');
+  const body = document.getElementById('hist-body'); if (!body) return;
+  const countEl = document.getElementById('hist-count');
+  const searchQ = (document.getElementById('hist-search')?.value || '').toLowerCase();
+  const filterWho = document.getElementById('hist-filter-who')?.value || '';
+  const filterDays = parseInt(document.getElementById('hist-filter-date')?.value || '0');
+
+  const allHist = getVisibleHistory();
+
+  // 担当者フィルター選択肢を更新
+  const whoSel = document.getElementById('hist-filter-who');
+  if (whoSel) {
+    const names = [...new Set(allHist.map(h => h.createdByName || h.createdBy || '').filter(Boolean))];
+    const cur = whoSel.value;
+    whoSel.innerHTML = '<option value="">すべての担当者</option>' +
+      names.map(n => `<option value="${n}" ${cur===n?'selected':''}>${n}</option>`).join('');
+  }
+
+  const now = Date.now();
+  let filtered = allHist.filter(h => {
+    if (filterWho && (h.createdByName || h.createdBy) !== filterWho) return false;
+    if (filterDays) {
+      const saved = new Date(h.savedAt || h.date).getTime();
+      if (now - saved > filterDays * 86400000) return false;
+    }
+    if (searchQ) {
+      const haystack = [h.title||'', h.memo||'', h.createdByName||'', h.createdBy||'',
+        ...(h.tags||[]), h.summary||'', h.issues||'', h.nextSteps||''].join(' ').toLowerCase();
+      if (!haystack.includes(searchQ)) return false;
+    }
+    return true;
+  });
+
+  if (countEl) countEl.textContent = filtered.length ? `${filtered.length} 件` : '';
+
+  if (!filtered.length) {
+    body.innerHTML = searchQ
+      ? '<p style="color:var(--slate);font-size:.84rem;padding:20px 0">検索結果がありません</p>'
+      : '<p style="color:var(--slate);font-size:.84rem;padding:20px 0">まだ履歴がありません</p>';
+    return;
+  }
+
+  const adminFlag = isTeamAdmin();
+
+  body.innerHTML = filtered.map(h => {
+    const title = h.title || '無題の相談';
+    const date  = h.savedAt || h.date;
+    const dateStr = date ? new Date(date).toLocaleDateString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit'}) : '—';
+    const owner = h.createdByName || h.createdBy || me.name || '';
+    const ownerDisp = (adminFlag && owner !== me.email) ? owner : (me.name || me.email);
+    const memo  = (h.memo||'').slice(0,80) + ((h.memo||'').length>80?'…':'');
+    const canDel = adminFlag || !h.createdBy || h.createdBy === me.email;
+    const origIdx = allHist.indexOf(h);
+    return `<div class="hist-item" onclick="loadHist(${origIdx})">
+      <div class="hi-title">${title}</div>
+      <div class="hi-meta2"><span>👤 ${ownerDisp}</span><span>📅 ${dateStr}</span></div>
+      <div class="hi-memo">${memo||'<span style="color:var(--slate)">（メモなし）</span>'}</div>
+      ${canDel?`<button class="hi-del" onclick="event.stopPropagation();delHist(${origIdx})">削除</button>`:''}
+    </div>`;
+  }).join('');
 }
 function loadHist(i) {
-  const h=users[me.email]?.history?.[i]; if(!h)return;
-  result=h; document.getElementById('memo').value=h.memo||''; showResult(h); appTab('inp');
+  const allHist = getVisibleHistory();
+  const h = allHist[i]; if (!h) return;
+  document.getElementById('memo').value = h.memo||'';
+  const titleEl = document.getElementById('case-title');
+  if (titleEl) titleEl.value = h.title||'';
+  result = h;
+  renderResult(h);
+  appTab('inp');
 }
+
 function delHist(i) {
-  if(!confirm('この履歴を削除しますか？'))return;
-  users[me.email].history.splice(i,1); save(); renderHist(); toast('削除しました');
+  if (!confirm('この履歴を削除しますか？')) return;
+  const allHist = getVisibleHistory();
+  const h = allHist[i]; if (!h) return;
+  // createdBy が自分 or adminなら削除
+  const ownerEmail = h.createdBy || me.email;
+  const u2 = users[ownerEmail];
+  if (!u2?.history) return;
+  const origIdx = u2.history.findIndex(x => x.savedAt === h.savedAt && x.memo === h.memo);
+  if (origIdx >= 0) { u2.history.splice(origIdx, 1); save(); }
+  renderHist(); toast('削除しました');
 }
 
 // ══════════════════════════════════════════════════
@@ -2418,6 +2680,7 @@ function delHist(i) {
 function renderAcct() {
   if (!me) return;
   const u=users[me.email], plan=getEffectivePlan(me.email), isPro=isProOrAbove(me.email), isDev=me.email===_D;
+  const myRole=getMyRole(), isMemberOnly=(myRole==='member');
   const planNames={free:'無料プラン',personal:'パーソナルプラン（1名）',small:'スモールプラン（5名）',large:'ラージプラン（10名）'};
   const planBdg={free:'bdg-free',personal:'bdg-pro',small:'bdg-office',large:'bdg-team'};
   const body=document.getElementById('acct-body'); if(!body)return;
@@ -2440,9 +2703,9 @@ function renderAcct() {
       <div class="info-row"><span class="info-lbl">氏名</span><span class="info-val">${u.name}</span></div>
       ${isPro&&!isDev?`<div class="info-row"><span class="info-lbl">次回更新日</span><span class="info-val">${cs?nextRenewal+'（解約予定）':nextRenewal}</span></div>`:''}
       <div class="ab-group">
-        <button class="ab ab-gold" onclick="openPlanModal()">${isPro?'🔄 プランを変更する':'✨ 有料プランに登録する'}</button>
-        ${isPro&&!isDev?`<button class="ab ab-outline" onclick="window.open(STRIPE_PORTAL,'_blank')">請求情報・領収書を確認する</button>`:''}
-        ${isPro&&!cs?`<button class="ab ab-danger" onclick="cancelPlan()">プランを解約する</button>`:''}
+        ${!isMemberOnly?`<button class="ab ab-gold" onclick="openPlanOrChangePlanModal()">${isPro?'🔄 プランを変更する':'✨ 有料プランに登録する'}</button>`:''}
+        ${isPro&&!isDev&&!isMemberOnly?`<button class="ab ab-outline" onclick="window.open(STRIPE_PORTAL,'_blank')">請求情報・領収書を確認する</button>`:''}
+        ${isPro&&!cs&&!isMemberOnly?`<button class="ab ab-danger" onclick="cancelPlan()">プランを解約する</button>`:''}
       </div>
     </div>
     <div class="sec-box">
@@ -2550,7 +2813,20 @@ function renderTeam() {
         </tbody>
       </table>
     </div>
-    ${isAdmin?`<div class="sec-box"><h3>✉️ メンバーを招待する</h3>${activeCount+pendingCount>=maxM?`<p style="color:#d97706;font-size:.82rem">⚠️ 上限（${maxM}名）に達しています。</p>`:`<div class="inv-form"><div class="fg"><label>氏名</label><input type="text" id="inv-name" placeholder="山田 太郎"></div><div class="fg"><label>メールアドレス</label><input type="email" id="inv-email" placeholder="example@law.jp"></div><button onclick="sendInvite()">招待する</button></div><div class="terr" id="inv-err"></div><p style="font-size:.74rem;color:var(--slate);margin-top:6px">※ 招待先の方が登録すると自動的にチームに参加されます。</p>`}</div>`:''}
+    ${isAdmin?`<div class="sec-box"><h3>✉️ メンバーを招待する</h3>${activeCount+pendingCount>=maxM?`<p style="color:#d97706;font-size:.82rem">⚠️ 上限（${maxM}名）に達しています。</p>`:`<div class="inv-form">
+  <div class="fg"><label>氏名</label><input type="text" id="inv-name" placeholder="山田 太郎"></div>
+  <div class="fg"><label>メールアドレス</label><input type="email" id="inv-email" placeholder="example@law.jp"></div>
+  <button onclick="generateInviteLink()" style="background:var(--gold);color:#fff;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-size:.85rem;font-weight:600">招待リンクを生成</button>
+  <div class="terr" id="inv-err"></div>
+  <div id="inv-link-box" style="display:none;margin-top:12px;background:#f5f0eb;border:1px solid var(--border);border-radius:6px;padding:12px">
+    <p style="font-size:.74rem;color:var(--slate);margin:0 0 8px">以下のリンクをコピーして招待先へ送ってください（有効期限：7日間）</p>
+    <div style="display:flex;gap:8px;align-items:center">
+      <input id="inv-link-input" type="text" readonly style="flex:1;font-size:.72rem;padding:8px;border:1px solid var(--border);border-radius:4px;background:#fff;color:var(--ink)">
+      <button onclick="copyInviteLink()" id="inv-copy-btn" style="background:var(--ink);color:#fff;border:none;padding:8px 14px;border-radius:4px;cursor:pointer;font-size:.78rem;white-space:nowrap;flex-shrink:0">コピー</button>
+    </div>
+  </div>
+  <p style="font-size:.74rem;color:var(--slate);margin-top:8px">※ リンクを受け取った方が登録すると自動的にチームに参加されます。</p>
+</div>`}</div>`:''}
     <div class="sec-box">
       <h3>📊 チーム利用状況（今月）</h3>
       <div class="stat-grid">
@@ -2566,66 +2842,151 @@ function saveTeamName(){
   team.name=name; if(users[me.email])users[me.email].officeName=name;
   saveTeam(team); save(); toast('チーム名を保存しました：'+(name||'（未設定）'));
 }
-async function sendInvite(){
-  if(!me)return;
-  const team=findMyTeam(); if(!team||team.adminEmail!==me.email)return;
-  const nameEl=document.getElementById('inv-name'),emailEl=document.getElementById('inv-email'),errEl=document.getElementById('inv-err');
-  if(errEl)errEl.classList.remove('on');
-  const name=nameEl?.value.trim()||'',email=emailEl?.value.trim()||'';
-  if(!name)return err('inv-err','氏名を入力してください');
-  if(!email)return err('inv-err','メールアドレスを入力してください');
-  const maxM=PLAN_LIMITS[getEffectivePlan(me.email)]||3;
-  const total=(team.members||[]).filter(m2=>m2.status==='active').length+(team.invites||[]).length;
-  if(total>=maxM)return err('inv-err',`上限（${maxM}名）に達しています`);
-  if(team.members.some(m2=>m2.email===email))return err('inv-err','このメンバーはすでに参加しています');
-  if(team.invites.some(iv=>iv.email===email))return err('inv-err','招待済みです');
+
+// ── 招待リンクからの参加処理 ─────────────────────────────────
+function handleInviteToken() {
+  const params = new URLSearchParams(window.location.search);
+  const token  = params.get('invite');
+  if (!token) return;
+
+  try {
+    const data = JSON.parse(atob(decodeURIComponent(token)));
+    const { email: invEmail, teamAdmin, ts } = data;
+
+    // 有効期限チェック（7日間）
+    if (Date.now() - ts > 7 * 24 * 60 * 60 * 1000) {
+      toast('この招待リンクは有効期限切れです（7日間）');
+      return;
+    }
+
+    // チームを探して招待情報を確認
+    const team = teams.find(t => t.adminEmail === teamAdmin);
+    if (!team) { toast('招待チームが見つかりません'); return; }
+
+    const inv = team.invites?.find(iv => iv.email === invEmail);
+    if (!inv) { toast('この招待は無効またはキャンセルされています'); return; }
+
+    // ログイン済みかどうかで分岐
+    if (me && me.email === invEmail) {
+      // 既にログイン済み → 即参加
+      team.invites  = team.invites.filter(iv => iv.email !== invEmail);
+      team.members  = team.members  || [];
+      const exists  = team.members.some(m => m.email === invEmail);
+      if (!exists) team.members.push({ email: invEmail, name: me.name || invEmail, role: 'member', status: 'active', joinedAt: new Date().toISOString() });
+      saveTeam(team);
+      toast('✅ ' + (team.adminEmail) + ' のチームに参加しました');
+      renderTeam();
+    } else {
+      // 未ログイン → 登録画面へ誘導（メールをプリセット）
+      sessionStorage.setItem('inviteToken', token);
+      go('auth', 'reg');
+      const emailEl = document.getElementById('reg-email');
+      if (emailEl) emailEl.value = invEmail;
+      toast('招待されたメールアドレスでアカウントを作成してください');
+    }
+
+    // URLのinviteパラメータを除去
+    const url = new URL(window.location.href);
+    url.searchParams.delete('invite');
+    window.history.replaceState({}, '', url.toString());
+
+  } catch(e) {
+    console.error('[Lexoria] 招待トークンエラー:', e);
+    toast('招待リンクが正しくありません');
+  }
+}
+
+// 登録完了後に招待トークンがあればチーム参加処理
+function processInviteAfterRegister(email) {
+  const token = sessionStorage.getItem('inviteToken');
+  if (!token) return;
+  try {
+    const data = JSON.parse(atob(decodeURIComponent(token)));
+    const team  = teams.find(t => t.adminEmail === data.teamAdmin);
+    if (!team) return;
+    const inv = team.invites?.find(iv => iv.email === data.email);
+    if (!inv || email !== data.email) return;
+    team.invites = team.invites.filter(iv => iv.email !== data.email);
+    team.members = team.members || [];
+    if (!team.members.some(m => m.email === email)) {
+      team.members.push({ email, name: users[email]?.name || email, role: 'member', status: 'active', joinedAt: new Date().toISOString() });
+    }
+    saveTeam(team);
+    sessionStorage.removeItem('inviteToken');
+    toast('✅ チームに参加しました');
+  } catch(e) { console.error('[Lexoria] 招待参加エラー:', e); }
+}
+
+// 招待リンク生成（メール送信なし・リンクコピー方式）
+function generateInviteLink() {
+  if (!me) return;
+  const team = findMyTeam();
+  if (!team || team.adminEmail !== me.email) return;
+
+  const nameEl  = document.getElementById('inv-name');
+  const emailEl = document.getElementById('inv-email');
+  const errEl   = document.getElementById('inv-err');
+  if (errEl) errEl.classList.remove('on');
+
+  const name  = nameEl?.value.trim() || '';
+  const email = emailEl?.value.trim() || '';
+  if (!name)  return err('inv-err', '氏名を入力してください');
+  if (!email) return err('inv-err', 'メールアドレスを入力してください');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return err('inv-err', 'メールアドレスの形式が正しくありません');
+
+  const maxM  = PLAN_LIMITS[getEffectivePlan(me.email)] || 3;
+  const total = (team.members || []).filter(m2 => m2.status === 'active').length + (team.invites || []).length;
+  if (total >= maxM) return err('inv-err', `上限（${maxM}名）に達しています`);
+  if (team.members.some(m2 => m2.email === email)) return err('inv-err', 'このメンバーはすでに参加しています');
+  if (team.invites.some(iv => iv.email === email)) return err('inv-err', '招待済みです');
 
   // 既存ユーザーは即参加
-  if(users[email]){
-    team.members.push({email,name:users[email].name||name,role:'member',status:'active',joinedAt:new Date().toISOString()});
+  if (users[email]) {
+    team.members.push({ email, name: users[email].name || name, role: 'member', status: 'active', joinedAt: new Date().toISOString() });
     saveTeam(team);
-    if(nameEl)nameEl.value=''; if(emailEl)emailEl.value='';
+    if (nameEl) nameEl.value = '';
+    if (emailEl) emailEl.value = '';
     renderTeam();
-    toast(users[email].name+' さんをチームに追加しました');
+    toast('✅ ' + (users[email].name || name) + ' さんをチームに追加しました');
     return;
   }
 
-  // 未登録ユーザー → 招待リストに追加 + メール送信
-  team.invites.push({email,name,invitedAt:new Date().toISOString()});
-  saveTeam(team);
+  // 招待リストに追加してトークン生成
+  const token     = btoa(JSON.stringify({ email, teamAdmin: me.email, ts: Date.now() }));
+  const inviteUrl = window.location.origin + window.location.pathname + '?invite=' + encodeURIComponent(token);
 
-  // 招待ボタンをローディング状態に
-  const invBtn = document.querySelector('button[onclick="sendInvite()"]');
-  if(invBtn){ invBtn.disabled=true; invBtn.textContent='送信中…'; }
-
-  try {
-    const res = await fetch('/api/invite/send', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        toEmail: email,
-        toName: name,
-        fromName: users[me.email]?.name || me.email,
-        adminEmail: me.email,
-        appUrl: window.location.origin,
-      }),
-    });
-    const data = await res.json();
-    if(res.ok && data.ok){
-      toast('✅ ' + name + ' さんに招待メールを送信しました');
-    } else {
-      toast('招待を記録しましたが、メール送信に失敗しました：' + (data.error || ''));
-      console.warn('[Lexoria] 招待メール送信失敗:', data);
-    }
-  } catch(e) {
-    toast('招待を記録しましたが、メール送信でエラーが発生しました');
-    console.error('[Lexoria] 招待メール送信例外:', e);
-  } finally {
-    if(invBtn){ invBtn.disabled=false; invBtn.textContent='招待する'; }
+  if (!team.invites.some(iv => iv.email === email)) {
+    team.invites.push({ email, name, token, invitedAt: new Date().toISOString() });
+    saveTeam(team);
   }
 
-  if(nameEl)nameEl.value=''; if(emailEl)emailEl.value='';
+  // リンクボックスを表示
+  const box      = document.getElementById('inv-link-box');
+  const linkInput = document.getElementById('inv-link-input');
+  if (box)       box.style.display = 'block';
+  if (linkInput) linkInput.value   = inviteUrl;
+
   renderTeam();
+}
+
+// 招待リンクをクリップボードにコピー
+async function copyInviteLink() {
+  const linkInput = document.getElementById('inv-link-input');
+  const copyBtn   = document.getElementById('inv-copy-btn');
+  if (!linkInput) return;
+
+  try {
+    await navigator.clipboard.writeText(linkInput.value);
+    if (copyBtn) { copyBtn.textContent = '✅ コピー済み'; copyBtn.style.background = '#4a7c6f'; }
+    toast('招待リンクをコピーしました');
+    setTimeout(() => {
+      if (copyBtn) { copyBtn.textContent = 'コピー'; copyBtn.style.background = 'var(--ink)'; }
+    }, 2500);
+  } catch (e) {
+    // フォールバック: selectして手動コピーを促す
+    linkInput.select();
+    toast('リンクを選択しました。Ctrl+C（Mac: ⌘+C）でコピーしてください');
+  }
 }
 function removeMember(email){
   if(!me)return;
@@ -2720,9 +3081,10 @@ document.getElementById('cancel-modal').addEventListener('click',function(e){if(
     }
   }
   if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded', initFadeUp);
+    document.addEventListener('DOMContentLoaded', function(){ initFadeUp(); handleInviteToken(); });
   } else {
     initFadeUp();
+    handleInviteToken();
   }
 })();
 </script>
