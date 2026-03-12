@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-Allow: /blog/
-Allow: /templates/
-
-Disallow: /api/
-
-Sitemap: https://lexoria.jp/sitemap.xml
